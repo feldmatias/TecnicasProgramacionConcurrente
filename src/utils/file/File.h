@@ -12,7 +12,8 @@ private:
 
 public:
 
-    explicit File(const std::string& name, std::ios_base::openmode mode = std::fstream::in | std::fstream::out);
+    explicit File(const std::string& name,
+            std::ios_base::openmode mode = std::fstream::in | std::fstream::out | std::fstream::app);
 
     ~File();
 
