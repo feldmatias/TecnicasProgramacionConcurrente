@@ -1,8 +1,17 @@
 #include <iostream>
 #include "src/utils/file/File.h"
 #include "src/utils/csv/CsvLine.h"
+#include "src/flower/FlowerType.h"
+#include "src/flower/Flower.h"
 
 int main() {
+    std::cout << "Tulip  - " << FlowerType::Tulip() << std::endl;
+    std::cout << "Rose  - " << FlowerType::Rose() << std::endl << std::endl;
+
+    Flower flower("producer", FlowerType::Tulip());
+    std::cout << "Flower  - " << flower.getProducer() << "  " << flower.getType() << std::endl << std::endl;
+
+
     {
         CsvLine line;
         line.setNext(std::string("hola"));
@@ -27,7 +36,6 @@ int main() {
         std::cout << "Element 4  - " << output.getNext() << std::endl;
         std::cout << "Element 5  - " << output.getNextNumber() + 1 << std::endl;
         std::cout << "Element 6  - " << output.getNext() << std::endl;
-        std::cout << "Element 7  - " << output.getNext() << std::endl;
     }
 
     remove("test");
