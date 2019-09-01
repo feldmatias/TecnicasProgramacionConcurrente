@@ -18,9 +18,13 @@ public:
 
     ~CsvLine();
 
+    void setNext(const std::string& element);
+
     std::string getNext();
 
-    void setNext(const std::string& element);
+    void setNext(const int element);
+
+    int getNextNumber();
 
     std::string getCsv() const;
 };
