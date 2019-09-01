@@ -22,7 +22,7 @@ public:
 
     std::string getNext();
 
-    void setNext(const int element);
+    void setNext(int element);
 
     int getNextNumber();
 

@@ -11,7 +11,7 @@ protected:
     std::string name;
 
 public:
-    Actor(std::string&& name);
+    explicit Actor(std::string&& name);
 
     virtual ~Actor();
 };

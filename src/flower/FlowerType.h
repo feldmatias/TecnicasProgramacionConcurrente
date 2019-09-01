@@ -15,7 +15,7 @@ public:
 
     static FlowerType Rose();
 
-    FlowerType(std::string type);
+    explicit FlowerType(std::string type);
 
     ~FlowerType();
 
