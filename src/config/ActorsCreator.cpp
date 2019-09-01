@@ -20,9 +20,9 @@ std::vector<T> initializeActors(const std::string& configFile) {
 }
 
 ActorsCreator::ActorsCreator() {
-    producers = initializeActors<Producer>(ConfigFiles::PRODUCERS);
-    distributionCenters = initializeActors<DistributionCenter>(ConfigFiles::DISTRIBUTION_CENTERS);
-    pointsOfSale = initializeActors<PointOfSale>(ConfigFiles::POINTS_OF_SALE);
+    producers = initializeActors<Producer>(PRODUCERS_CONFIG);
+    distributionCenters = initializeActors<DistributionCenter>(DISTRIBUTION_CENTERS_CONFIG);
+    pointsOfSale = initializeActors<PointOfSale>(POINTS_OF_SALE_CONFIG);
 }
 
 ActorsCreator::~ActorsCreator() = default;
