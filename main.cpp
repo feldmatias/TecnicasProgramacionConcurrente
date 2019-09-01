@@ -1,6 +1,10 @@
 #include <iostream>
+#include "src/utils/file/File.h"
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    File file(".gitignore");
+    while (file.hasMoreData()) {
+        std::cout << "Line  - " << file.getLine() << std::endl;
+    }
     return 0;
 }
