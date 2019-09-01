@@ -3,6 +3,7 @@
 #include "src/utils/csv/CsvLine.h"
 #include "src/flower/FlowerType.h"
 #include "src/flower/Flower.h"
+#include "src/config/ActorsCreator.h"
 
 int main() {
     std::cout << "Tulip  - " << FlowerType::Tulip() << std::endl;
@@ -39,6 +40,11 @@ int main() {
     }
 
     remove("test");
+
+    ActorsCreator actorsCreator;
+    std::cout << "Producers  - " << actorsCreator.getProducers().size() << std::endl;
+    std::cout << "Distribution Centers  - " << actorsCreator.getDistributionCenters().size() << std::endl;
+    std::cout << "Points of sale  - " << actorsCreator.getPointsOfSale().size() << std::endl;
 
     return 0;
 }

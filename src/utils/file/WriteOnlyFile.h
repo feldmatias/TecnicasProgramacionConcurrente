@@ -10,9 +10,9 @@ class WriteOnlyFile : public File {
 public:
     explicit WriteOnlyFile(const std::string& name);
 
-    ~WriteOnlyFile();
+    ~WriteOnlyFile() override;
 
-    virtual std::string getLine() override;
+    std::string getLine() override;
 };
 
 

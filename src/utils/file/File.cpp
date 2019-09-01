@@ -1,4 +1,5 @@
 #include <bits/ios_base.h>
+#include <iostream>
 #include "File.h"
 
 const char LINE_SEPARATOR = '\n';
@@ -21,5 +22,5 @@ std::string File::getLine() {
 }
 
 bool File::hasMoreData() {
-    return !file.eof();
+    return !file.eof() && file.peek() != EOF;
 }

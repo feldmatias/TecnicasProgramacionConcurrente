@@ -11,7 +11,7 @@ public:
 
     explicit ReadOnlyFile(const std::string& name);
 
-    ~ReadOnlyFile();
+    ~ReadOnlyFile() override;
 
     void writeLine(const std::string &line) override;
 
