@@ -12,7 +12,7 @@ protected:
     std::string name;
 
 public:
-    explicit Actor(ActorInfo& info);
+    explicit Actor(const ActorInfo& info);
 
     virtual ~Actor();
 };

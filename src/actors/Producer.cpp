@@ -2,7 +2,7 @@
 
 #include "Producer.h"
 
-Producer::Producer(ActorInfo& info) :
+Producer::Producer(const ActorInfo& info) :
     Actor(info) {
 }
 

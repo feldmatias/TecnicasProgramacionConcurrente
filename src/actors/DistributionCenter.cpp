@@ -2,7 +2,7 @@
 
 #include "DistributionCenter.h"
 
-DistributionCenter::DistributionCenter(ActorInfo& info) :
+DistributionCenter::DistributionCenter(const ActorInfo& info) :
     Actor(info) {
 }
 

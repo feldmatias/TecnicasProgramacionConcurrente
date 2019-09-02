@@ -10,7 +10,7 @@
 class Producer : public Actor {
 
 public:
-    explicit Producer(ActorInfo& info);
+    explicit Producer(const ActorInfo& info);
 
     ~Producer() override;
 };

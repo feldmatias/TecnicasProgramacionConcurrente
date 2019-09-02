@@ -23,6 +23,8 @@ public:
     std::vector<ActorInfo> getDistributionCenters() const;
 
     std::vector<ActorInfo> getPointsOfSale() const;
+
+    bool createActors() const;
 };
 
 

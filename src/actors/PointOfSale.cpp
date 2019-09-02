@@ -2,7 +2,7 @@
 
 #include "PointOfSale.h"
 
-PointOfSale::PointOfSale(ActorInfo& info) :
+PointOfSale::PointOfSale(const ActorInfo& info) :
     Actor(info) {
 }
 

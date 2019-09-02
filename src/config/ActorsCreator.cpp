@@ -1,9 +1,12 @@
 
-
+#include <unistd.h>
 #include "ActorsCreator.h"
 #include "../utils/file/ReadOnlyFile.h"
 #include "../../config/ConfigFiles.h"
 #include "../utils/csv/CsvLine.h"
+#include "../actors/Producer.h"
+#include "../actors/DistributionCenter.h"
+#include "../actors/PointOfSale.h"
 
 std::vector<ActorInfo> initializeActors(const std::string& configFile) {
     std::vector<ActorInfo> actors;
@@ -16,6 +19,20 @@ std::vector<ActorInfo> initializeActors(const std::string& configFile) {
     }
 
     return actors;
+}
+
+template <class T>
+bool createActorsFromInfo(const std::vector<ActorInfo>& actors) {
+    for (const ActorInfo& actorInfo : actors) {
+        pid_t pid = fork();
+        if (pid == 0) {
+            // Child process
+            T actor(actorInfo);
+            sleep(1); // Todo: replace this with something
+            return true;
+        }
+    }
+    return false;
 }
 
 ActorsCreator::ActorsCreator() {
@@ -36,4 +53,20 @@ std::vector<ActorInfo> ActorsCreator::getDistributionCenters() const {
 
 std::vector<ActorInfo> ActorsCreator::getPointsOfSale() const {
     return pointsOfSale;
+}
+
+bool ActorsCreator::createActors() const {
+    if (createActorsFromInfo<Producer>(producers)) {
+        return true;
+    }
+
+    if (createActorsFromInfo<DistributionCenter>(distributionCenters)) {
+        return true;
+    }
+
+    if (createActorsFromInfo<PointOfSale>(pointsOfSale)) {
+        return true;
+    }
+
+    return false;
 }
