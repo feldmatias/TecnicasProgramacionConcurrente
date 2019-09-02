@@ -5,26 +5,24 @@
 
 
 #include <vector>
-#include "../actors/Producer.h"
-#include "../actors/DistributionCenter.h"
-#include "../actors/PointOfSale.h"
+#include "../actors/ActorInfo.h"
 
 class ActorsCreator {
 private:
-    std::vector<Producer> producers;
-    std::vector<DistributionCenter> distributionCenters;
-    std::vector<PointOfSale> pointsOfSale;
+    std::vector<ActorInfo> producers;
+    std::vector<ActorInfo> distributionCenters;
+    std::vector<ActorInfo> pointsOfSale;
 
 public:
     ActorsCreator();
 
     ~ActorsCreator();
 
-    std::vector<Producer> getProducers() const;
+    std::vector<ActorInfo> getProducers() const;
 
-    std::vector<DistributionCenter> getDistributionCenters() const;
+    std::vector<ActorInfo> getDistributionCenters() const;
 
-    std::vector<PointOfSale> getPointsOfSale() const;
+    std::vector<ActorInfo> getPointsOfSale() const;
 };
 
 

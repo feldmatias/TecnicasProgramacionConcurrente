@@ -5,13 +5,14 @@
 
 
 #include <string>
+#include "ActorInfo.h"
 
 class Actor {
 protected:
     std::string name;
 
 public:
-    explicit Actor(std::string&& name);
+    explicit Actor(ActorInfo& info);
 
     virtual ~Actor();
 };

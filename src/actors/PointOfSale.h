@@ -10,7 +10,7 @@
 class PointOfSale : Actor {
 
 public:
-    explicit PointOfSale(std::string&& name);
+    explicit PointOfSale(ActorInfo& info);
 
     ~PointOfSale() override;
 };

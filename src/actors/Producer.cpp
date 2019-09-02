@@ -2,8 +2,8 @@
 
 #include "Producer.h"
 
-Producer::Producer(std::string &&name) :
-    Actor(std::move(name)) {
+Producer::Producer(ActorInfo& info) :
+    Actor(info) {
 }
 
 Producer::~Producer() = default;

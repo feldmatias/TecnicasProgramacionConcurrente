@@ -5,14 +5,13 @@
 #include "../../config/ConfigFiles.h"
 #include "../utils/csv/CsvLine.h"
 
-template <class T>
-std::vector<T> initializeActors(const std::string& configFile) {
-    std::vector<T> actors;
+std::vector<ActorInfo> initializeActors(const std::string& configFile) {
+    std::vector<ActorInfo> actors;
     ReadOnlyFile file(configFile);
 
     while(file.hasMoreData()) {
         CsvLine data(file.getLine());
-        T actor(data.getNext());
+        ActorInfo actor(data.getNext());
         actors.push_back(actor);
     }
 
@@ -20,21 +19,21 @@ std::vector<T> initializeActors(const std::string& configFile) {
 }
 
 ActorsCreator::ActorsCreator() {
-    producers = initializeActors<Producer>(PRODUCERS_CONFIG);
-    distributionCenters = initializeActors<DistributionCenter>(DISTRIBUTION_CENTERS_CONFIG);
-    pointsOfSale = initializeActors<PointOfSale>(POINTS_OF_SALE_CONFIG);
+    producers = initializeActors(PRODUCERS_CONFIG);
+    distributionCenters = initializeActors(DISTRIBUTION_CENTERS_CONFIG);
+    pointsOfSale = initializeActors(POINTS_OF_SALE_CONFIG);
 }
 
 ActorsCreator::~ActorsCreator() = default;
 
-std::vector<Producer> ActorsCreator::getProducers() const {
+std::vector<ActorInfo> ActorsCreator::getProducers() const {
     return producers;
 }
 
-std::vector<DistributionCenter> ActorsCreator::getDistributionCenters() const {
+std::vector<ActorInfo> ActorsCreator::getDistributionCenters() const {
     return distributionCenters;
 }
 
-std::vector<PointOfSale> ActorsCreator::getPointsOfSale() const {
+std::vector<ActorInfo> ActorsCreator::getPointsOfSale() const {
     return pointsOfSale;
 }
