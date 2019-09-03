@@ -2,8 +2,8 @@
 
 #include "PointOfSale.h"
 
-PointOfSale::PointOfSale(std::string &&name) :
-    Actor(std::move(name)) {
+PointOfSale::PointOfSale(const ActorInfo& info) :
+    Actor(info) {
 }
 
 PointOfSale::~PointOfSale() = default;

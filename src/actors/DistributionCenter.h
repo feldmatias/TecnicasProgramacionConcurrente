@@ -10,7 +10,7 @@
 class DistributionCenter : public Actor {
 
 public:
-    explicit DistributionCenter(std::string&& name);
+    explicit DistributionCenter(const ActorInfo& info);
 
     ~DistributionCenter() override;
 };
