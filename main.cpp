@@ -3,8 +3,6 @@
 #include <iostream>
 #include "src/config/ActorsCreator.h"
 #include "src/comunication/ExitComunicator.h"
-#include "src/concurrency/Fifo.h"
-#include "src/utils/file/WriteOnlyFile.h"
 
 #define EXIT_OK 0
 
