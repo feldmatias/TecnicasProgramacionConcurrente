@@ -7,12 +7,16 @@
 #include <string>
 #include "Actor.h"
 
-class PointOfSale : Actor {
+class PointOfSale : public Actor {
 
 public:
     explicit PointOfSale(const ActorInfo& info);
 
     ~PointOfSale() override;
+
+    void doWork() override;
+
+    void finish() override;
 };
 
 

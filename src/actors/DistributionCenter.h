@@ -13,6 +13,10 @@ public:
     explicit DistributionCenter(const ActorInfo& info);
 
     ~DistributionCenter() override;
+
+    void doWork() override;
+
+    void finish() override;
 };
 
 

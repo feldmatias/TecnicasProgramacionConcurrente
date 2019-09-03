@@ -12,15 +12,6 @@ int main() {
         return EXIT_OK;
     }
 
-    if (fork() == 0) {
-        //child
-        ExitComunicator exitComunicator;
-        while(!exitComunicator.isExit()) {
-            sleep(1);
-        }
-        return 0;
-    }
-
     ExitComunicator exitComunicator;
     exitComunicator.start();
 

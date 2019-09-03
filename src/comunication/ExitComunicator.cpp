@@ -12,7 +12,7 @@ ExitComunicator::ExitComunicator() :
 ExitComunicator::~ExitComunicator() = default;
 
 void ExitComunicator::start() {
-    std::cout << "Ingrese " << EXIT_CHAR << " para terminar." << std::endl;
+    std::cout << "Ingrese '" << EXIT_CHAR << "' para terminar." << std::endl;
     while (std::cin.get() != EXIT_CHAR) {
         // do nothing
     }

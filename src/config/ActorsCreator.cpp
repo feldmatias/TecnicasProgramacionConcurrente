@@ -7,6 +7,7 @@
 #include "../actors/Producer.h"
 #include "../actors/DistributionCenter.h"
 #include "../actors/PointOfSale.h"
+#include "../concurrency/Process.h"
 
 std::vector<ActorInfo> initializeActors(const std::string& configFile) {
     std::vector<ActorInfo> actors;
@@ -28,7 +29,8 @@ bool createActorsFromInfo(const std::vector<ActorInfo>& actors) {
         if (pid == 0) {
             // Child process
             T actor(actorInfo);
-            sleep(1); // Todo: replace this with something
+            Process process(actor);
+            process.run();
             return true;
         }
     }
