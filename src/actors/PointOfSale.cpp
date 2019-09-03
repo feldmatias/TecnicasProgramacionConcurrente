@@ -1,5 +1,6 @@
 
 
+#include <iostream>
 #include "PointOfSale.h"
 
 PointOfSale::PointOfSale(const ActorInfo& info) :
