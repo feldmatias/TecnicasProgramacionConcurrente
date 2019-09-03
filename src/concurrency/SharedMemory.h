@@ -13,10 +13,11 @@ private:
     T* data;
 
 public:
-    explicit SharedMemory(const std::string& name) {
+    explicit SharedMemory(const std::string& name, const T& defaultValue) {
         key_t key = ftok(name.c_str(), 1);
         id = shmget(key, sizeof(T), 0644|IPC_CREAT);
-        data = shmat(id, NULL, 0);
+        data = static_cast<T*>(shmat(id, NULL, 0));
+        write(defaultValue);
     }
 
     ~SharedMemory() {
