@@ -1,5 +1,4 @@
 #include <bits/ios_base.h>
-#include <iostream>
 #include "File.h"
 
 const char LINE_SEPARATOR = '\n';
