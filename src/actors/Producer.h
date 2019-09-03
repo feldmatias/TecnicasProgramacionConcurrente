@@ -13,6 +13,10 @@ public:
     explicit Producer(const ActorInfo& info);
 
     ~Producer() override;
+
+    void doWork() override;
+
+    void finish() override;
 };
 
 

@@ -6,15 +6,16 @@
 
 #include <string>
 #include "ActorInfo.h"
+#include "../concurrency/Runnable.h"
 
-class Actor {
+class Actor : public Runnable {
 protected:
     std::string name;
 
 public:
     explicit Actor(const ActorInfo& info);
 
-    virtual ~Actor();
+    ~Actor() override;
 };
 
 
