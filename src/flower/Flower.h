@@ -3,7 +3,7 @@
 #ifndef PRIMAVERA_CONCURRENTE_FLOWER_H
 #define PRIMAVERA_CONCURRENTE_FLOWER_H
 
-
+#include <list>
 #include <string>
 #include "FlowerType.h"
 
@@ -33,5 +33,7 @@ namespace std {
         }
     };
 }
+
+typedef std::list<Flower> FlowerList;
 
 #endif //PRIMAVERA_CONCURRENTE_FLOWER_H

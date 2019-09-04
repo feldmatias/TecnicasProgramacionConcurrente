@@ -9,8 +9,6 @@
 #include "FlowerType.h"
 #include "Flower.h"
 
-typedef std::list<Flower> FlowerList;
-
 class FlowerStock {
 private:
     std::unordered_map<FlowerType, FlowerList> flowers;

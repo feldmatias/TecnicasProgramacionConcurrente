@@ -14,7 +14,7 @@ int main() {
     ExitComunicator exitComunicator;
     exitComunicator.start();
 
-    while (pid_t pid = wait(NULL) > 0) {
+    while (wait(NULL) > 0) {
         // Child process finished
     }
 
