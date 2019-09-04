@@ -10,7 +10,9 @@
 #include "../flower/FlowersBox.h"
 
 class DistributionCenter : public Actor {
-    //Fifo storage;
+private:
+    Fifo storage;
+
 public:
     explicit DistributionCenter(const ActorInfo& info);
 

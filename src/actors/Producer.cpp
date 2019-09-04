@@ -29,7 +29,7 @@ void Producer::send_to_distribution_center(FlowersBox box) {
     ActorsCreator actorsCreator;
     std::vector<ActorInfo> distribution_centers =  actorsCreator.getDistributionCenters();
     int number_of_center = rand() % distribution_centers.size();
-    WriteOnlyFile file(CONFIG_PATH + distribution_centers[number_of_center].getName()+ std::string(FIFO_EXTENSION));
+    WriteOnlyFile file(distribution_centers[number_of_center].getName() + FIFO_EXTENSION);
     file.writeLine(box.getProducer() + "," + std::to_string(box.getRoses()) + "," + std::to_string(box.getTulips()));
 }
 
