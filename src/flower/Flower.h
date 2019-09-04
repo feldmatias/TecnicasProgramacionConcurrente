@@ -21,7 +21,17 @@ public:
 
     FlowerType getType() const;
 
+    bool operator==(const Flower &other) const;
+
 };
 
+namespace std {
+    template <>
+    struct hash<Flower> {
+        std::size_t operator()(const Flower& key) const {
+            return hash<string>()(key.getType().getType() + key.getProducer());
+        }
+    };
+}
 
 #endif //PRIMAVERA_CONCURRENTE_FLOWER_H

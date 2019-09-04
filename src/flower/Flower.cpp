@@ -17,3 +17,7 @@ std::string Flower::getProducer() const {
 FlowerType Flower::getType() const {
     return type;
 }
+
+bool Flower::operator==(const Flower &other) const {
+    return producer == other.producer && type == other.type;
+}
