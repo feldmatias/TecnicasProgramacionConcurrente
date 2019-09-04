@@ -6,9 +6,11 @@
 
 #include <string>
 #include "Actor.h"
+#include "../concurrency/Fifo.h"
+#include "../flower/FlowersBox.h"
 
 class DistributionCenter : public Actor {
-
+    //Fifo storage;
 public:
     explicit DistributionCenter(const ActorInfo& info);
 
@@ -17,6 +19,8 @@ public:
     void doWork() override;
 
     void finish() override;
+
+    FlowersBox getFlowersBox();
 };
 
 
