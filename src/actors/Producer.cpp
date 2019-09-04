@@ -1,5 +1,4 @@
 
-
 #include "Producer.h"
 
 const int BOX_SIZE = 10;
@@ -9,28 +8,31 @@ Producer::Producer(const ActorInfo& info) :
 }
 
 void Producer::doWork() {
-    FlowersBox box = create_box();
-    send_to_distribution_center(box);
+    collect_flower();
+    if (stock.countFlowers() == BOX_SIZE) {
+        sendFlowers();
+    }
 }
 
 void Producer::finish() {
     // TODO: implement this
 }
 
-FlowersBox Producer::create_box() {
-    // to review random generator
-    srand(getpid() + time(NULL));
-    int roses = rand() % BOX_SIZE + 1;
-    int tulips = BOX_SIZE - roses;
-    return FlowersBox(name, roses, tulips);
+void Producer::collect_flower() {
+    srand(time(NULL));
+    std::vector<FlowerType> flowerTypes = FlowerType::all();
+
+    FlowerType type = flowerTypes[rand() % flowerTypes.size()];
+    stock.addFlower(Flower(name, type));
 }
 
-void Producer::send_to_distribution_center(FlowersBox box) {
+void Producer::sendFlowers() {
+    srand(time(NULL));
     ActorsCreator actorsCreator;
     std::vector<ActorInfo> distribution_centers =  actorsCreator.getDistributionCenters();
     int number_of_center = rand() % distribution_centers.size();
-    WriteOnlyFile file(distribution_centers[number_of_center].getName() + FIFO_EXTENSION);
-    file.writeLine(box.getProducer() + "," + std::to_string(box.getRoses()) + "," + std::to_string(box.getTulips()));
+    std::string center = distribution_centers[number_of_center].getName();
+    flowerSender.sendFlowers(center, stock.getAllFlowers());
 }
 
 Producer::~Producer() = default;

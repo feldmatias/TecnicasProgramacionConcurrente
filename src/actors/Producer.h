@@ -9,13 +9,20 @@
 #include "../config/ActorsCreator.h"
 #include "../concurrency/Fifo.h"
 #include "../utils/file/WriteOnlyFile.h"
-#include "../flower/FlowersBox.h"
-#include "../flower/FlowersBox.h"
 #include "../../config/ConfigFiles.h"
+#include "../flower/FlowerStock.h"
+#include "../comunication/FlowerSender.h"
 #include <unistd.h>
 #include <vector>
 
 class Producer : public Actor {
+private:
+    FlowerStock stock;
+    FlowerSender flowerSender;
+
+    void collect_flower();
+
+    void sendFlowers();
 
 public:
     explicit Producer(const ActorInfo& info);
@@ -25,10 +32,6 @@ public:
     void doWork() override;
 
     void finish() override;
-
-    FlowersBox create_box();
-
-    void send_to_distribution_center(FlowersBox box);
 };
 
 
