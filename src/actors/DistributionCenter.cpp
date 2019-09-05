@@ -1,33 +1,22 @@
-
-
 #include "DistributionCenter.h"
-#include "../flower/FlowersBox.h"
-#include "../concurrency/Fifo.h"
-#include "../../config/ConfigFiles.h"
-#include "../utils/file/WriteOnlyFile.h"
-#include "../utils/file/ReadOnlyFile.h"
 
 DistributionCenter::DistributionCenter(const ActorInfo& info) :
-    Actor(info), storage(info.getName()) {
+    Actor(info), flowerReceiver(info.getName()) {
 }
 
 void DistributionCenter::doWork() {
-    FlowersBox box = getFlowersBox();
-    //updateStock(box);
-    //sendToPointOfSale();
+    receiveFlowers();
+
+    // TODO: implement this
 }
 
 void DistributionCenter::finish() {
     // TODO: implement this
 }
 
-FlowersBox DistributionCenter::getFlowersBox(){
-    if(storage.hasData()){
-        std::string line = storage.getLine();
-        WriteOnlyFile out("out.test");
-        out.writeLine(line);
-    }
-    return FlowersBox("hola", 2,6);
+void DistributionCenter::receiveFlowers() {
+    FlowerList list = flowerReceiver.receiveFlowers();
+    stock.addFlowers(list);
 }
 
 DistributionCenter::~DistributionCenter() = default;

@@ -1,4 +1,3 @@
-
 #include "Producer.h"
 
 const int BOX_SIZE = 10;

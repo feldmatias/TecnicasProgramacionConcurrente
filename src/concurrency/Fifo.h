@@ -6,7 +6,7 @@
 #include <memory>
 #include "../utils/file/File.h"
 
-#define FIFO_EXTENSION ".fifo"
+#define FIFO_EXTENSION std::string(".fifo")
 
 
 class Fifo {
@@ -20,8 +20,6 @@ public:
     ~Fifo();
 
     std::string getLine();
-
-    bool hasData();
 };
 
 

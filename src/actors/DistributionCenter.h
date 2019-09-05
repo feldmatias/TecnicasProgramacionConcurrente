@@ -7,11 +7,15 @@
 #include <string>
 #include "Actor.h"
 #include "../concurrency/Fifo.h"
-#include "../flower/FlowersBox.h"
+#include "../flower/FlowerStock.h"
+#include "../comunication/FlowerReceiver.h"
 
 class DistributionCenter : public Actor {
 private:
-    Fifo storage;
+    FlowerStock stock;
+    FlowerReceiver flowerReceiver;
+
+    void receiveFlowers();
 
 public:
     explicit DistributionCenter(const ActorInfo& info);
@@ -21,8 +25,6 @@ public:
     void doWork() override;
 
     void finish() override;
-
-    FlowersBox getFlowersBox();
 };
 
 

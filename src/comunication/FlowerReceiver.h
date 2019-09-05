@@ -12,6 +12,7 @@ class FlowerReceiver {
 private:
     Fifo fifo;
     FlowerProtocol protocol;
+    std::string receiver;
 
 public:
     explicit FlowerReceiver(const std::string& receiver);

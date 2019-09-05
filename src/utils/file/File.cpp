@@ -1,10 +1,10 @@
 #include <bits/ios_base.h>
 #include "File.h"
 
-const char LINE_SEPARATOR = '\n';
+#define LINE_SEPARATOR '\n'
 
 File::File(const std::string& name, std::ios_base::openmode mode) :
-    file(name, mode) {
+    file(name, mode){
 }
 
 File::~File() = default;
@@ -21,5 +21,6 @@ std::string File::getLine() {
 }
 
 bool File::hasMoreData() {
+    // This method does not work with fifo
     return !file.eof() && file.peek() != EOF;
 }

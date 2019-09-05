@@ -14,7 +14,12 @@ std::vector<ActorInfo> initializeActors(const std::string& configFile) {
     ReadOnlyFile file(configFile);
 
     while(file.hasMoreData()) {
-        CsvLine data(file.getLine());
+        std::string line = file.getLine();
+        if (line.empty()) {
+            continue;
+        }
+
+        CsvLine data(line);
         ActorInfo actor(data.getNext());
         actors.push_back(actor);
     }
