@@ -1,6 +1,7 @@
 #include "DistributionCenter.h"
 #include "../utils/common/Random.h"
 #include "PointOfSale.h"
+#include "../logger/Logger.h"
 
 #define CENTER_NAME std::string("DistributionCenter")
 
@@ -24,6 +25,7 @@ void DistributionCenter::finish() {
 
 void DistributionCenter::receiveFlowers() {
     FlowerList list = flowerReceiver.receiveFlowers();
+    Logger::sendTransaction(FlowerTransaction(name, list));
     stock.addFlowers(list);
 }
 
@@ -38,7 +40,10 @@ void DistributionCenter::processFlowers() {
 void DistributionCenter::sendFlowers(const FlowerType& type) {
     int salePointNumber = Random::generate(config.numberOfPointsOfSale());
     std::string salePoint = PointOfSale::getName(salePointNumber);
-    flowerSender.sendFlowers(salePoint, stock.getFlowers(type, boxSize));
+
+    FlowerList flowers = stock.getFlowers(type, boxSize);
+    flowerSender.sendFlowers(salePoint, flowers);
+    Logger::sendTransaction(FlowerTransaction(name, salePoint, flowers));
 }
 
 DistributionCenter::~DistributionCenter() = default;

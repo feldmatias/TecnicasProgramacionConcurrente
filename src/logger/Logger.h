@@ -17,6 +17,8 @@ private:
     void log(const FlowerList& flowers);
 
 public:
+    static void sendTransaction(const FlowerTransaction& transaction);
+
     Logger();
 
     ~Logger() override;

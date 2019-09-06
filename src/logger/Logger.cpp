@@ -1,6 +1,7 @@
 #include <sstream>
 #include "Logger.h"
 #include "../flower/FlowerStock.h"
+#include "../comunication/flowers/FlowerSender.h"
 
 Logger::Logger() :
     receiver(LOG_FILE), logFile(LOG_FILE) {
@@ -40,6 +41,11 @@ void Logger::log(const FlowerList &flowers) {
     }
 
     logFile.writeLine("");
+}
+
+void Logger::sendTransaction(const FlowerTransaction& transaction) {
+    FlowerSender sender;
+    sender.sendFlowerTransaction(LOG_FILE, transaction);
 }
 
 Logger::~Logger() = default;
