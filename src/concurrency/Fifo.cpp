@@ -7,7 +7,7 @@
 #define FIFO_EXTENSION ".fifo"
 
 std::string Fifo::filename(const std::string& name) {
-    return name + FIFO_EXTENSION;
+    return FIFO_EXTENSION + name + FIFO_EXTENSION;
 }
 
 Fifo::Fifo(const std::string &fileName) :

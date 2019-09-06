@@ -19,6 +19,10 @@ void Logger::finish() {
 }
 
 void Logger::log(const FlowerTransaction& transaction) {
+    if (transaction.getFlowers().empty()) {
+        return;
+    }
+
     std::stringstream line;
     if (transaction.hasSender()) {
         line << transaction.getSender() << " sent flowers to " << transaction.getReceiver();
@@ -31,12 +35,16 @@ void Logger::log(const FlowerTransaction& transaction) {
 }
 
 void Logger::log(const FlowerList &flowers) {
+    if (flowers.empty()) {
+        return;
+    }
+
     FlowerStock stock;
     stock.addFlowers(flowers);
 
     for (const FlowerType& type : FlowerType::all()) {
         std::stringstream line;
-        line << "\t\t\t " << stock.countFlowers(type) << " " << type.getName();
+        line << "\t\t " << stock.countFlowers(type) << " " << type.getName();
         logFile.writeLine(line.str());
     }
 

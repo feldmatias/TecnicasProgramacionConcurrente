@@ -1,5 +1,3 @@
-
-
 #include "FlowerSender.h"
 #include "../../utils/file/WriteOnlyFile.h"
 #include "../../concurrency/Fifo.h"

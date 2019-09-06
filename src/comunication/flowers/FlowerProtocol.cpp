@@ -70,9 +70,11 @@ FlowerTransaction FlowerProtocol::receiveFlowersTransaction(const std::string &d
     std::getline(stream, line, TRANSACTION_SEPARATOR);
 
     CsvLine info(line);
+    std::string sender = info.getNext();
+    std::string receiver = info.getNext();
     std::getline(stream, line, TRANSACTION_SEPARATOR);
 
-    FlowerTransaction transaction(info.getNext(), info.getNext(), receiveFlowers(line));
+    FlowerTransaction transaction(sender, receiver, receiveFlowers(line));
     return transaction;
 }
 
