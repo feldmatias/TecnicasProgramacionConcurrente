@@ -30,6 +30,6 @@ bool FlowerType::operator==(const FlowerType &other) const {
     return type == other.type;
 }
 
-std::string FlowerType::getType() const {
+std::string FlowerType::getName() const {
     return type;
 }

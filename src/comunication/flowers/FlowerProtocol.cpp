@@ -24,7 +24,7 @@ std::string FlowerProtocol::sendFlowers(const FlowerList& flowers) const {
     for (auto& it: groupedFlowers) {
         CsvLine csv;
         csv.setNext(it.first.getProducer());
-        csv.setNext(it.first.getType().getType());
+        csv.setNext(it.first.getType().getName());
         csv.setNext(it.second);
         data += csv.getCsv() + FLOWERS_SEPARATOR;
     }

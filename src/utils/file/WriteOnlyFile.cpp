@@ -4,7 +4,7 @@
 #include "WriteOnlyFile.h"
 
 WriteOnlyFile::WriteOnlyFile(const std::string &name) :
-    File(name, std::fstream::out | std::fstream::app){
+    File(name, std::fstream::out){
 }
 
 std::string WriteOnlyFile::getLine() {

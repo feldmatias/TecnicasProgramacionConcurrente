@@ -29,7 +29,7 @@ namespace std {
     template <>
     struct hash<Flower> {
         std::size_t operator()(const Flower& key) const {
-            return hash<string>()(key.getType().getType() + key.getProducer());
+            return hash<string>()(key.getType().getName() + key.getProducer());
         }
     };
 }
