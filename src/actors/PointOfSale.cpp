@@ -1,23 +1,27 @@
 #include "PointOfSale.h"
 
-#include <utility>
-
 #define SALE_POINT_NAME std::string("PointOfSale")
 
 std::string PointOfSale::getName(int name) {
     return SALE_POINT_NAME + std::to_string(name);
 }
 
-PointOfSale::PointOfSale(std::string name) :
-    Actor(std::move(name)) {
+PointOfSale::PointOfSale(const std::string& name) :
+    Actor(name), flowerReceiver(name) {
 }
 
 void PointOfSale::doWork() {
+    receiveFlowers();
     // TODO: implement this
 }
 
 void PointOfSale::finish() {
     // TODO: implement this
+}
+
+void PointOfSale::receiveFlowers() {
+    FlowerList list = flowerReceiver.receiveFlowers();
+    stock.addFlowers(list);
 }
 
 PointOfSale::~PointOfSale() = default;
