@@ -5,7 +5,7 @@
 
 
 #include <vector>
-#include "ActorsConfig.h"
+#include "../config/ActorsConfig.h"
 
 class ActorsCreator {
 private:
