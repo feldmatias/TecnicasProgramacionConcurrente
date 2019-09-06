@@ -20,12 +20,14 @@ private:
     FlowerStock stock;
     FlowerSender flowerSender;
 
-    void collect_flower();
+    void collectFlower();
 
     void sendFlowers();
 
 public:
-    explicit Producer(const ActorInfo& info);
+    static std::string getName(int name);
+
+    explicit Producer(int name);
 
     ~Producer() override;
 

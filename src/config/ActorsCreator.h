@@ -5,24 +5,16 @@
 
 
 #include <vector>
-#include "../actors/ActorInfo.h"
+#include "ActorsConfig.h"
 
 class ActorsCreator {
 private:
-    std::vector<ActorInfo> producers;
-    std::vector<ActorInfo> distributionCenters;
-    std::vector<ActorInfo> pointsOfSale;
+    ActorsConfig config;
 
 public:
     ActorsCreator();
 
     ~ActorsCreator();
-
-    std::vector<ActorInfo> getProducers() const;
-
-    std::vector<ActorInfo> getDistributionCenters() const;
-
-    std::vector<ActorInfo> getPointsOfSale() const;
 
     bool createActors() const;
 };

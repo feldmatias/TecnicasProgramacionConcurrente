@@ -1,8 +1,10 @@
 
 #include "Actor.h"
 
-Actor::Actor(const ActorInfo& info) :
-    name(info.getName()) {
+#include <utility>
+
+Actor::Actor(std::string name) :
+    name(std::move(name)) {
 }
 
 Actor::~Actor() = default;

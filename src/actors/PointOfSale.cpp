@@ -1,10 +1,13 @@
-
-
-#include <iostream>
 #include "PointOfSale.h"
 
-PointOfSale::PointOfSale(const ActorInfo& info) :
-    Actor(info) {
+#define SALE_POINT_NAME std::string("PointOfSale")
+
+std::string PointOfSale::getName(int name) {
+    return SALE_POINT_NAME + std::to_string(name);
+}
+
+PointOfSale::PointOfSale(int name) :
+    Actor(getName(name)) {
 }
 
 void PointOfSale::doWork() {

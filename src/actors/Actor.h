@@ -5,15 +5,16 @@
 
 
 #include <string>
-#include "ActorInfo.h"
 #include "../concurrency/Runnable.h"
+#include "../config/ActorsConfig.h"
 
 class Actor : public Runnable {
 protected:
     std::string name;
+    ActorsConfig config;
 
 public:
-    explicit Actor(const ActorInfo& info);
+    explicit Actor(std::string name);
 
     ~Actor() override;
 };

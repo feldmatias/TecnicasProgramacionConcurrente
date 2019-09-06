@@ -1,13 +1,21 @@
 #include "Producer.h"
+#include "Actor.h"
+#include "DistributionCenter.h"
+
+#define PRODUCER_NAME std::string("Producer")
 
 const int BOX_SIZE = 10;
 
-Producer::Producer(const ActorInfo& info) :
-    Actor(info) {
+std::string Producer::getName(int name) {
+    return PRODUCER_NAME + std::to_string(name);
+}
+
+Producer::Producer(int name) :
+    Actor(getName(name)) {
 }
 
 void Producer::doWork() {
-    collect_flower();
+    collectFlower();
     if (stock.countFlowers() == BOX_SIZE) {
         sendFlowers();
     }
@@ -17,7 +25,7 @@ void Producer::finish() {
     // TODO: implement this
 }
 
-void Producer::collect_flower() {
+void Producer::collectFlower() {
     srand(time(NULL));
     std::vector<FlowerType> flowerTypes = FlowerType::all();
 
@@ -27,10 +35,8 @@ void Producer::collect_flower() {
 
 void Producer::sendFlowers() {
     srand(time(NULL));
-    ActorsCreator actorsCreator;
-    std::vector<ActorInfo> distribution_centers =  actorsCreator.getDistributionCenters();
-    int number_of_center = rand() % distribution_centers.size();
-    std::string center = distribution_centers[number_of_center].getName();
+    int number = rand() % config.numberOfDistributionCenters();
+    std::string center = DistributionCenter::getName(number);
     flowerSender.sendFlowers(center, stock.getAllFlowers());
 }
 
