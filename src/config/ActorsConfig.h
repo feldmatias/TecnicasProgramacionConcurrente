@@ -22,6 +22,8 @@ public:
 
     int numberOfDistributionCenters() const;
 
+    int centersBoxSize() const;
+
     int numberOfPointsOfSale() const;
 };
 
