@@ -6,8 +6,8 @@ std::string DistributionCenter::getName(int name) {
     return CENTER_NAME + std::to_string(name);
 }
 
-DistributionCenter::DistributionCenter(int name) :
-    Actor(getName(name)), flowerReceiver(getName(name)) {
+DistributionCenter::DistributionCenter(const std::string& name) :
+    Actor(name), flowerReceiver(name) {
 }
 
 void DistributionCenter::doWork() {

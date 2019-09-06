@@ -20,6 +20,8 @@ private:
     FlowerStock stock;
     FlowerSender flowerSender;
 
+    int boxSize;
+
     void collectFlower();
 
     void sendFlowers();
@@ -27,7 +29,7 @@ private:
 public:
     static std::string getName(int name);
 
-    explicit Producer(int name);
+    explicit Producer(std::string name);
 
     ~Producer() override;
 

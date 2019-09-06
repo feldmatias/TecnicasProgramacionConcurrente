@@ -1,4 +1,5 @@
 number_of_producers, 3
+producers_box_size, 10
 
 number_of_centers, 3
 

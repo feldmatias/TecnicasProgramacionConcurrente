@@ -20,7 +20,7 @@ private:
 public:
     static std::string getName(int name);
 
-    explicit DistributionCenter(int name);
+    explicit DistributionCenter(const std::string& name);
 
     ~DistributionCenter() override;
 

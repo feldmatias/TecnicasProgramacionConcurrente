@@ -31,4 +31,8 @@ int ActorsConfig::numberOfPointsOfSale() const {
     return config.at("number_of_sale_points");
 }
 
+int ActorsConfig::producersBoxSize() const {
+    return config.at("producers_box_size");
+}
+
 ActorsConfig::~ActorsConfig() = default;

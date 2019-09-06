@@ -18,6 +18,8 @@ public:
 
     int numberOfProducers() const;
 
+    int producersBoxSize() const;
+
     int numberOfDistributionCenters() const;
 
     int numberOfPointsOfSale() const;

@@ -15,7 +15,7 @@ bool createActorsFromConfig(int count) {
         pid_t pid = fork();
         if (pid == 0) {
             // Child process
-            T actor(i);
+            T actor(T::getName(i));
             Process process(actor);
             process.run();
             return true;
