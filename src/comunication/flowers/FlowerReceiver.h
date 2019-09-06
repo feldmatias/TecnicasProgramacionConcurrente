@@ -14,12 +14,16 @@ private:
     FlowerProtocol protocol;
     std::string receiver;
 
+    void initializeReceiver();
+
 public:
     explicit FlowerReceiver(const std::string& receiver);
 
     ~FlowerReceiver();
 
     FlowerList receiveFlowers();
+
+    FlowerTransactionList receiveFlowerTransactions();
 
 };
 

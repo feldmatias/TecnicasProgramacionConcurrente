@@ -8,12 +8,7 @@ FlowerReceiver::FlowerReceiver(const std::string& receiver) :
 }
 
 FlowerList FlowerReceiver::receiveFlowers() {
-    {
-        // This allows to know if Fifo has new data or not.
-        // Without this, there is no way to know if fifo has data, and getline() blocks
-        WriteOnlyFile file(Fifo::filename(receiver));
-        file.writeLine(END_OF_BLOCK);
-    }
+    initializeReceiver();
 
     FlowerList list;
     while (true) {
@@ -25,6 +20,28 @@ FlowerList FlowerReceiver::receiveFlowers() {
     }
 
     return list;
+}
+
+FlowerTransactionList FlowerReceiver::receiveFlowerTransactions() {
+    initializeReceiver();
+
+    FlowerTransactionList list;
+    while (true) {
+        std::string line = fifo.getLine();
+        if (line == END_OF_BLOCK) {
+            break;
+        }
+        list.push_back(protocol.receiveFlowersTransaction(line));
+    }
+
+    return list;
+}
+
+void FlowerReceiver::initializeReceiver() {
+    // This allows to know if Fifo has new data or not.
+    // Without this, there is no way to know if fifo has data, and getline() blocks
+    WriteOnlyFile file(Fifo::filename(receiver));
+    file.writeLine(END_OF_BLOCK);
 }
 
 FlowerReceiver::~FlowerReceiver() = default;
