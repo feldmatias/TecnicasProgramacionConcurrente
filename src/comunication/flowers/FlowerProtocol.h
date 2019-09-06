@@ -4,7 +4,8 @@
 #define PRIMAVERA_CONCURRENTE_FLOWERPROTOCOL_H
 
 
-#include "../flower/Flower.h"
+#include "../../flower/Flower.h"
+#include "../../flower/FlowerTransaction.h"
 
 class FlowerProtocol {
 public:
@@ -15,6 +16,10 @@ public:
     std::string sendFlowers(const FlowerList& flowers) const;
 
     FlowerList receiveFlowers(const std::string& data) const;
+
+    std::string sendFlowerTransaction(const FlowerTransaction& transaction) const;
+
+    FlowerTransaction receiveFlowersTransaction(const std::string &data) const;
 };
 
 

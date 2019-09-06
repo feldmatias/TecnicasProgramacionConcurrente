@@ -1,8 +1,9 @@
 #include <unordered_map>
 #include "FlowerProtocol.h"
-#include "../utils/csv/CsvLine.h"
+#include "../../utils/csv/CsvLine.h"
 
 #define FLOWERS_SEPARATOR '|'
+#define TRANSACTION_SEPARATOR '#'
 
 /**
  * Protocol:
@@ -53,3 +54,26 @@ FlowerList FlowerProtocol::receiveFlowers(const std::string& data) const {
 
     return list;
 }
+
+std::string FlowerProtocol::sendFlowerTransaction(const FlowerTransaction &transaction) const {
+    CsvLine line;
+    line.setNext(transaction.getSender());
+    line.setNext(transaction.getReceiver());
+
+    return line.getCsv() + TRANSACTION_SEPARATOR + sendFlowers(transaction.getFlowers()) + TRANSACTION_SEPARATOR;
+}
+
+FlowerTransaction FlowerProtocol::receiveFlowersTransaction(const std::string &data) const {
+    std::stringstream stream(data);
+
+    std::string line;
+    std::getline(stream, line, TRANSACTION_SEPARATOR);
+
+    CsvLine info(line);
+    std::getline(stream, line, TRANSACTION_SEPARATOR);
+
+    FlowerTransaction transaction(info.getNext(), info.getNext(), receiveFlowers(line));
+    return transaction;
+}
+
+
