@@ -10,6 +10,6 @@ FlowerSender::~FlowerSender() = default;
 
 void FlowerSender::sendFlowers(const std::string &receiver, const FlowerList& flowers) const {
     std::string info = protocol.sendFlowers(flowers);
-    WriteOnlyFile file(receiver + FIFO_EXTENSION);
+    WriteOnlyFile file(Fifo::filename(receiver));
     file.writeLine(info);
 }
