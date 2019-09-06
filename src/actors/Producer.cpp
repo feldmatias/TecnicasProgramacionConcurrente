@@ -3,6 +3,7 @@
 #include <utility>
 #include "Actor.h"
 #include "DistributionCenter.h"
+#include "../utils/common/Random.h"
 
 #define PRODUCER_NAME std::string("Producer")
 
@@ -27,17 +28,15 @@ void Producer::finish() {
 }
 
 void Producer::collectFlower() {
-    srand(time(NULL));
     std::vector<FlowerType> flowerTypes = FlowerType::all();
 
-    FlowerType type = flowerTypes[rand() % flowerTypes.size()];
+    FlowerType type = flowerTypes[Random::generate(flowerTypes.size())];
     stock.addFlower(Flower(name, type));
 }
 
 void Producer::sendFlowers() {
-    srand(time(NULL));
-    int number = rand() % config.numberOfDistributionCenters();
-    std::string center = DistributionCenter::getName(number);
+    int centerNumber = Random::generate(config.numberOfDistributionCenters());
+    std::string center = DistributionCenter::getName(centerNumber);
     flowerSender.sendFlowers(center, stock.getAllFlowers());
 }
 
