@@ -5,13 +5,11 @@
 #include <string>
 #include "Actor.h"
 #include "../concurrency/Fifo.h"
-#include "../flower/FlowerStock.h"
 #include "../comunication/FlowerReceiver.h"
 #include "../comunication/FlowerSender.h"
 
 class DistributionCenter : public Actor {
 private:
-    FlowerStock stock;
     FlowerReceiver flowerReceiver;
     FlowerSender flowerSender;
 

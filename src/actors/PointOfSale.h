@@ -7,11 +7,9 @@
 #include <string>
 #include "Actor.h"
 #include "../comunication/FlowerReceiver.h"
-#include "../flower/FlowerStock.h"
 
 class PointOfSale : public Actor {
 private:
-    FlowerStock stock;
     FlowerReceiver flowerReceiver;
 
     void receiveFlowers();
