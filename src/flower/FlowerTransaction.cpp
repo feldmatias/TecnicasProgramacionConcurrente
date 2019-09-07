@@ -1,4 +1,5 @@
 #include "FlowerTransaction.h"
+#include "../orders/ClientGenerator.h"
 
 #include <utility>
 
@@ -8,6 +9,10 @@ FlowerTransaction::FlowerTransaction(std::string sender, std::string receiver, F
 
 FlowerTransaction::FlowerTransaction(std::string receiver, FlowerList flowers) :
     receiver(std::move(receiver)), flowers(std::move(flowers)) {
+}
+
+FlowerTransaction::FlowerTransaction(std::string seller, const Order& client, FlowerList flowers) :
+    sender(std::move(seller)), receiver(client.getClient()), flowers(std::move(flowers)) {
 }
 
 std::string FlowerTransaction::getSender() const {
@@ -24,6 +29,10 @@ FlowerList FlowerTransaction::getFlowers() const {
 
 bool FlowerTransaction::hasSender() const {
     return !sender.empty();
+}
+
+bool FlowerTransaction::isSell() const {
+    return receiver.find(CLIENT_NAME) != std::string::npos;
 }
 
 FlowerTransaction::~FlowerTransaction() = default;

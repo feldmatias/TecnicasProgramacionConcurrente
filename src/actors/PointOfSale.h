@@ -17,6 +17,8 @@ private:
 
     void receiveFlowers();
     void receiveClients();
+    void attendNextClient();
+    void sellFlowersToClient(const Order& client);
 
 public:
     static std::string getName(int name);

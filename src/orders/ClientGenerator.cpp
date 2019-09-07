@@ -1,10 +1,7 @@
 
 #include "ClientGenerator.h"
 #include "../utils/common/Random.h"
-#include "Order.h"
 #include "../actors/PointOfSale.h"
-
-#define CLIENT_NAME std::string("Client")
 
 ClientGenerator::ClientGenerator() {
     lastClient = 0;

@@ -8,6 +8,8 @@
 #include "../config/ActorsConfig.h"
 #include "../comunication/orders/OrderSender.h"
 
+#define CLIENT_NAME std::string("Client")
+
 class ClientGenerator : public Runnable {
 private:
     ActorsConfig actorsConfig;
