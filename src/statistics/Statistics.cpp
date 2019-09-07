@@ -2,7 +2,7 @@
 #include "Statistics.h"
 #include "../comunication/flowers/FlowerSender.h"
 
-#define STATISTICS "statistics"
+#define STATISTICS "Statistics"
 
 typedef std::pair<const std::string, size_t> StatisticData;
 
@@ -59,8 +59,9 @@ void Statistics::showStatistics() {
     StatisticData maxSeller = getMaxFromHash(salesBySeller);
     StatisticData maxType = getMaxFromHash(salesByType);
 
-    std::cout << "El punto de venta con mas ventas es " << maxSeller.first << " con " << maxSeller.second << " flores vendidas." << std::endl;
-    std::cout << "La flor mas comprada es " << maxType.first << " con " << maxType.second << " compras." << std::endl;
+    std::cout << "El punto de venta con más ventas es " << maxSeller.first << " con " << maxSeller.second << " flores vendidas." << std::endl;
+    std::cout << "La flor más comprada es " << maxType.first << " con " << maxType.second << " compras." << std::endl;
+    std::cout << std::endl;
 }
 
 Statistics::~Statistics() = default;
