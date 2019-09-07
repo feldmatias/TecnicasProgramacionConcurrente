@@ -1,7 +1,7 @@
 #ifndef PRIMAVERA_CONCURRENTE_ORDER_H
 #define PRIMAVERA_CONCURRENTE_ORDER_H
 
-
+#include <list>
 #include <string>
 #include <unordered_map>
 #include "../flower/FlowerType.h"
@@ -22,6 +22,8 @@ public:
 
     size_t getFlowersCount(const FlowerType& type) const;
 };
+
+typedef std::list<Order> OrderList;
 
 
 #endif //PRIMAVERA_CONCURRENTE_ORDER_H
