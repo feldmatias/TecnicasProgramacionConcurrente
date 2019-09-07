@@ -17,7 +17,6 @@ public:
     ~OrderReceiver() override;
 
     OrderList receiveOrders();
-
 };
 
 
