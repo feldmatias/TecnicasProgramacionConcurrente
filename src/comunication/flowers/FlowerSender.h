@@ -5,8 +5,9 @@
 
 
 #include "FlowerProtocol.h"
+#include "../DataSender.h"
 
-class FlowerSender {
+class FlowerSender : public DataSender {
 private:
     FlowerProtocol protocol;
 

@@ -5,8 +5,9 @@
 
 
 #include "OrderProtocol.h"
+#include "../DataSender.h"
 
-class OrderSender {
+class OrderSender : public DataSender {
 private:
     OrderProtocol protocol;
 
