@@ -13,6 +13,9 @@ private:
     T* data;
 
 public:
+    /**
+     * Create a block of shared memory.
+     */
     explicit SharedMemory(const std::string& name, const T& defaultValue) {
         key_t key = std::hash<std::string>()(name);
         id = shmget(key, sizeof(T), 0644|IPC_CREAT);
@@ -20,15 +23,24 @@ public:
         write(defaultValue);
     }
 
+    /**
+     * Destroy the block of shared memory.
+     */
     ~SharedMemory() {
         shmdt(data);
         shmctl(id, IPC_RMID, NULL);
     }
 
+    /**
+     * Write to shared memory.
+     */
     void write(const T& info) {
         *data = info;
     }
 
+    /**
+     * Read shared memory.
+     */
     T read() const {
         return *data;
     }

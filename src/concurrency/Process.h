@@ -11,10 +11,19 @@ private:
     Runnable& runnable;
 
 public:
+    /**
+     * Create a process with a runnable.
+     */
     explicit Process(Runnable& runnable);
 
+    /**
+     * Destructor.
+     */
     ~Process();
 
+    /**
+     * Start the runnable.
+     */
     void run();
 };
 
