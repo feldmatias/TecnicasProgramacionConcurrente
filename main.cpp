@@ -3,6 +3,7 @@
 #include "src/process_creators/ActorsCreator.h"
 #include "src/comunication/ExitComunicator.h"
 #include "src/process_creators/LoggerCreator.h"
+#include "src/process_creators/GeneratorsCreator.h"
 
 #define EXIT_OK 0
 
@@ -15,6 +16,11 @@ int main() {
 
     ActorsCreator actorsCreator;
     if (actorsCreator.createActors()) {
+        return EXIT_OK;
+    }
+
+    GeneratorsCreator generatorsCreator;
+    if (generatorsCreator.createGenerators()) {
         return EXIT_OK;
     }
 
