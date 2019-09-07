@@ -15,22 +15,49 @@ private:
     FlowerList flowers;
 
 public:
+    /**
+     * Create a transaction with a sender, a receiver and flowers.
+     */
     FlowerTransaction(std::string sender, std::string receiver, FlowerList flowers);
 
+    /**
+     * Create a transaction with a receiver and flowers.
+     */
     FlowerTransaction(std::string receiver, FlowerList flowers);
 
+    /**
+     * Create a transaction with a seller, a client and flowers.
+     */
     FlowerTransaction(std::string seller, const Order& client, FlowerList flowers);
 
+    /**
+     * Destructor.
+     */
     ~FlowerTransaction();
 
+    /**
+     * Get sender name.
+     */
     std::string getSender() const;
 
+    /**
+     * Get receiver name.
+     */
     std::string getReceiver() const;
 
+    /**
+     * Get flowers.
+     */
     FlowerList getFlowers() const;
 
+    /**
+     * If the transaction has a sender.
+     */
     bool hasSender() const;
 
+    /**
+     * If the transaction is a sell.
+     */
     bool isSell() const;
 };
 
