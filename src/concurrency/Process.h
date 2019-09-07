@@ -2,7 +2,7 @@
 #define PRIMAVERA_CONCURRENTE_PROCESS_H
 
 
-#include "../comunication/ExitComunicator.h"
+#include "../comunication/comunicators/ExitComunicator.h"
 #include "Runnable.h"
 
 class Process {

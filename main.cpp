@@ -2,10 +2,11 @@
 #include <unistd.h>
 #include <sys/stat.h>
 #include "src/process_creators/ActorsCreator.h"
-#include "src/comunication/ExitComunicator.h"
+#include "src/comunication/comunicators/ExitComunicator.h"
 #include "src/process_creators/LoggerCreator.h"
 #include "src/process_creators/GeneratorsCreator.h"
 #include "src/concurrency/Fifo.h"
+#include "src/comunication/comunicators/ParentComunicator.h"
 
 #define EXIT_OK 0
 
@@ -13,7 +14,7 @@ int main() {
 
     mkdir(FIFO_FOLDER, 0777);
 
-    LoggerCreator loggerCreator;
+    /*LoggerCreator loggerCreator;
     if (loggerCreator.createLogger()) {
         return EXIT_OK;
     }
@@ -26,10 +27,10 @@ int main() {
     GeneratorsCreator generatorsCreator;
     if (generatorsCreator.createGenerators()) {
         return EXIT_OK;
-    }
+    }*/
 
-    ExitComunicator exitComunicator;
-    exitComunicator.start();
+    ParentComunicator parentComunicator;
+    parentComunicator.start();
 
     while (wait(NULL) > 0) {
         // Child process finished

@@ -3,8 +3,9 @@
 #ifndef PRIMAVERA_CONCURRENTE_EXITCOMUNICATOR_H
 #define PRIMAVERA_CONCURRENTE_EXITCOMUNICATOR_H
 
+#define EXIT_CHAR 'q'
 
-#include "../concurrency/SharedMemory.h"
+#include "../../concurrency/SharedMemory.h"
 
 class ExitComunicator {
 private:
@@ -15,7 +16,7 @@ public:
 
     ~ExitComunicator();
 
-    void start();
+    void setExit();
 
     bool isExit() const;
 };
