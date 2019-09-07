@@ -20,19 +20,40 @@ private:
 
     int boxSize;
 
+    /**
+     * Collect a new flower.
+     */
     void collectFlower();
 
+    /**
+     * Send flowers to a distribution center.
+     */
     void sendFlowers();
 
 public:
+    /**
+     * Convert an index to a producer name.
+     */
     static std::string getName(int name);
 
+    /**
+     * Create a producer with a name.
+     */
     explicit Producer(std::string name);
 
+    /**
+     * Destructor.
+     */
     ~Producer() override;
 
+    /**
+     * Do producer's work.
+     */
     void doWork() override;
 
+    /**
+     * Finish doing work.
+     */
     void finish() override;
 };
 

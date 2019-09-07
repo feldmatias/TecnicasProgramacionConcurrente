@@ -16,8 +16,14 @@ protected:
     ActorsConfig config;
 
 public:
+    /**
+     * Create an actor with a name.
+     */
     explicit Actor(std::string name);
 
+    /**
+     * Destructor.
+     */
     ~Actor() override;
 };
 
