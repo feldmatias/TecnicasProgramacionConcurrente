@@ -20,7 +20,7 @@ public:
 
     std::string getClient() const;
 
-    size_t getFlowersCount(const FlowerType& type);
+    size_t getFlowersCount(const FlowerType& type) const;
 };
 
 

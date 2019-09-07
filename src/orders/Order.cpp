@@ -16,8 +16,11 @@ std::string Order::getClient() const {
     return client;
 }
 
-size_t Order::getFlowersCount(const FlowerType& type) {
-    return orders[type];
+size_t Order::getFlowersCount(const FlowerType& type) const {
+    if (orders.find(type) != orders.end()) {
+        return orders.at(type);
+    }
+    return 0;
 }
 
 Order::~Order() = default;
