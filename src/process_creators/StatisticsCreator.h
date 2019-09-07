@@ -6,10 +6,20 @@
 
 class StatisticsCreator {
 public:
+    /**
+     * Constructor.
+     */
     StatisticsCreator();
 
+    /**
+     * Destructor.
+     */
     ~StatisticsCreator();
 
+    /**
+     * Create statistics.
+     * Returns true if was created (child process), false otherwise.
+     */
     bool createStatistics() const;
 };
 
