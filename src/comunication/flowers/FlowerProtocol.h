@@ -9,16 +9,34 @@
 
 class FlowerProtocol {
 public:
+    /**
+     * Constructor.
+     */
     FlowerProtocol();
 
+    /**
+     * Destructor.
+     */
     ~FlowerProtocol();
 
+    /**
+     * Convert flowers to a string.
+     */
     std::string sendFlowers(const FlowerList& flowers) const;
 
+    /**
+     * Convert string to flowers.
+     */
     FlowerList receiveFlowers(const std::string& data) const;
 
+    /**
+     * Convert a transaction to a string.
+     */
     std::string sendFlowerTransaction(const FlowerTransaction& transaction) const;
 
+    /**
+     * Convert string to transaction.
+     */
     FlowerTransaction receiveFlowersTransaction(const std::string &data) const;
 };
 

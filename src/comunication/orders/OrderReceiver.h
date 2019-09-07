@@ -12,10 +12,19 @@ private:
     OrderProtocol protocol;
 
 public:
+    /**
+     * Create a receiver.
+     */
     explicit OrderReceiver(const std::string& receiver);
 
+    /**
+     * Destructor.
+     */
     ~OrderReceiver() override;
 
+    /**
+     * Receive all orders.
+     */
     OrderList receiveOrders();
 };
 

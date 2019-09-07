@@ -13,6 +13,6 @@ void ExitComunicator::setExit() {
     sharedMemory.write(true);
 }
 
-bool ExitComunicator::isExit() const {
+bool ExitComunicator::shouldExit() const {
     return sharedMemory.read();
 }
