@@ -7,19 +7,16 @@
 #include "../../concurrency/Fifo.h"
 #include "../../flower/Flower.h"
 #include "FlowerProtocol.h"
+#include "../DataReceiver.h"
 
-class FlowerReceiver {
+class FlowerReceiver : public DataReceiver {
 private:
-    Fifo fifo;
     FlowerProtocol protocol;
-    std::string receiver;
-
-    void initializeReceiver();
 
 public:
     explicit FlowerReceiver(const std::string& receiver);
 
-    ~FlowerReceiver();
+    ~FlowerReceiver() override;
 
     FlowerList receiveFlowers();
 
