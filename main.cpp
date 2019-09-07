@@ -7,6 +7,7 @@
 #include "src/process_creators/GeneratorsCreator.h"
 #include "src/concurrency/Fifo.h"
 #include "src/comunication/comunicators/ParentComunicator.h"
+#include "src/process_creators/StatisticsCreator.h"
 
 #define EXIT_OK 0
 
@@ -16,6 +17,11 @@ int main() {
 
     LoggerCreator loggerCreator;
     if (loggerCreator.createLogger()) {
+        return EXIT_OK;
+    }
+
+    StatisticsCreator statisticsCreator;
+    if (statisticsCreator.createStatistics()) {
         return EXIT_OK;
     }
 
