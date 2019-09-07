@@ -14,7 +14,7 @@ int main() {
 
     mkdir(FIFO_FOLDER, 0777);
 
-    /*LoggerCreator loggerCreator;
+    LoggerCreator loggerCreator;
     if (loggerCreator.createLogger()) {
         return EXIT_OK;
     }
@@ -27,7 +27,7 @@ int main() {
     GeneratorsCreator generatorsCreator;
     if (generatorsCreator.createGenerators()) {
         return EXIT_OK;
-    }*/
+    }
 
     ParentComunicator parentComunicator;
     parentComunicator.start();

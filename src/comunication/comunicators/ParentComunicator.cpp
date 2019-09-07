@@ -19,8 +19,7 @@ void ParentComunicator::start() {
         }
 
         if (c == STATISTICS_CHAR) {
-            //statisticsComunicator.showStatistics();
-            std::cout << "estadisticas...." << std::endl;
+            statisticsComunicator.showStatistics();
         }
     }
 }
