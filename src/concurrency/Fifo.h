@@ -6,6 +6,8 @@
 #include <memory>
 #include "../utils/file/File.h"
 
+#define FIFO_FOLDER "fifo"
+
 class Fifo {
 private:
     std::string name;

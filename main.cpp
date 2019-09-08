@@ -1,13 +1,17 @@
 #include <sys/wait.h>
 #include <unistd.h>
+#include <sys/stat.h>
 #include "src/process_creators/ActorsCreator.h"
 #include "src/comunication/ExitComunicator.h"
 #include "src/process_creators/LoggerCreator.h"
 #include "src/process_creators/GeneratorsCreator.h"
+#include "src/concurrency/Fifo.h"
 
 #define EXIT_OK 0
 
 int main() {
+
+    mkdir(FIFO_FOLDER, 0777);
 
     LoggerCreator loggerCreator;
     if (loggerCreator.createLogger()) {
@@ -31,5 +35,6 @@ int main() {
         // Child process finished
     }
 
+    remove(FIFO_FOLDER);
     return EXIT_OK;
 }

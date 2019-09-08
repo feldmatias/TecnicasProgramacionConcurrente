@@ -14,7 +14,7 @@ private:
     WriteOnlyFile logFile;
 
     void log(const FlowerTransaction& transaction);
-    void log(const FlowerList& flowers);
+    std::string log(const FlowerList& flowers);
 
 public:
     static void sendTransaction(const FlowerTransaction& transaction);
