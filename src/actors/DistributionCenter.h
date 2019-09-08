@@ -6,8 +6,16 @@
 
 #include <string>
 #include "Actor.h"
+#include "../concurrency/Fifo.h"
+#include "../flower/FlowerStock.h"
+#include "../comunication/FlowerReceiver.h"
 
 class DistributionCenter : public Actor {
+private:
+    FlowerStock stock;
+    FlowerReceiver flowerReceiver;
+
+    void receiveFlowers();
 
 public:
     explicit DistributionCenter(const ActorInfo& info);

@@ -16,10 +16,6 @@ std::string Fifo::getLine() {
     return file->getLine();
 }
 
-bool Fifo::hasData() {
-    return file->hasMoreData();
-}
-
 Fifo::~Fifo() {
     unlink(name.c_str());
 }
