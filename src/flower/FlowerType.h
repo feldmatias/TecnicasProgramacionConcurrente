@@ -24,14 +24,14 @@ public:
 
     bool operator==(const FlowerType &other) const;
 
-    std::string getType() const;
+    std::string getName() const;
 };
 
 namespace std {
     template <>
     struct hash<FlowerType> {
         std::size_t operator()(const FlowerType& key) const {
-            return hash<string>()(key.getType());
+            return hash<string>()(key.getName());
         }
     };
 }

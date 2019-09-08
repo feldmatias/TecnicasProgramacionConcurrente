@@ -5,8 +5,8 @@
 #include <string>
 #include "Actor.h"
 #include "../concurrency/Fifo.h"
-#include "../comunication/FlowerReceiver.h"
-#include "../comunication/FlowerSender.h"
+#include "../comunication/flowers/FlowerReceiver.h"
+#include "../comunication/flowers/FlowerSender.h"
 
 class DistributionCenter : public Actor {
 private:

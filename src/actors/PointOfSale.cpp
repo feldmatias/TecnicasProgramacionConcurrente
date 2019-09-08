@@ -1,4 +1,5 @@
 #include "PointOfSale.h"
+#include "../logger/Logger.h"
 
 #define SALE_POINT_NAME std::string("PointOfSale")
 
@@ -21,6 +22,7 @@ void PointOfSale::finish() {
 
 void PointOfSale::receiveFlowers() {
     FlowerList list = flowerReceiver.receiveFlowers();
+    Logger::sendTransaction(FlowerTransaction(name, list));
     stock.addFlowers(list);
 }
 

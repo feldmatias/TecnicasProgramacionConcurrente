@@ -4,6 +4,7 @@
 #include "Actor.h"
 #include "DistributionCenter.h"
 #include "../utils/common/Random.h"
+#include "../logger/Logger.h"
 
 #define PRODUCER_NAME std::string("Producer")
 
@@ -37,7 +38,10 @@ void Producer::collectFlower() {
 void Producer::sendFlowers() {
     int centerNumber = Random::generate(config.numberOfDistributionCenters());
     std::string center = DistributionCenter::getName(centerNumber);
-    flowerSender.sendFlowers(center, stock.getAllFlowers());
+
+    FlowerList flowers = stock.getAllFlowers();
+    flowerSender.sendFlowers(center, flowers);
+    Logger::sendTransaction(FlowerTransaction(name, center, flowers));
 }
 
 Producer::~Producer() = default;

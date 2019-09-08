@@ -16,6 +16,8 @@ public:
     ~FlowerSender();
 
     void sendFlowers(const std::string& receiver, const FlowerList& flowers) const;
+
+    void sendFlowerTransaction(const std::string& receiver, const FlowerTransaction& transaction) const;
 };
 
 

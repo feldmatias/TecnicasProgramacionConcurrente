@@ -6,7 +6,7 @@
 
 #include <string>
 #include "Actor.h"
-#include "../comunication/FlowerReceiver.h"
+#include "../comunication/flowers/FlowerReceiver.h"
 
 class PointOfSale : public Actor {
 private:
