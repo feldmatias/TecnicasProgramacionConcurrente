@@ -2,7 +2,7 @@
 #define PRIMAVERA_CONCURRENTE_PROCESS_H
 
 
-#include "../comunication/ExitComunicator.h"
+#include "../comunication/comunicators/ExitComunicator.h"
 #include "Runnable.h"
 
 class Process {
@@ -11,10 +11,19 @@ private:
     Runnable& runnable;
 
 public:
+    /**
+     * Create a process with a runnable.
+     */
     explicit Process(Runnable& runnable);
 
+    /**
+     * Destructor.
+     */
     ~Process();
 
+    /**
+     * Start the runnable.
+     */
     void run();
 };
 

@@ -18,16 +18,35 @@ private:
 
     int lastClient;
 
+    /**
+     * Create a new client.
+     */
     Order createClient();
+
+    /**
+     * Send client to a point of sale.
+     */
     void sendClient(const Order& client);
 
 public:
+    /**
+     * Constructor.
+     */
     ClientGenerator();
 
+    /**
+     * Destructor.
+     */
     ~ClientGenerator() override;
 
+    /**
+     * Generate clients.
+     */
     void doWork() override;
 
+    /**
+     * Stop working.
+     */
     void finish() override;
 };
 

@@ -1,5 +1,6 @@
 #include "PointOfSale.h"
 #include "../logger/Logger.h"
+#include "../statistics/Statistics.h"
 
 #define CLIENT_NAME std::string("Clients-")
 #define SALE_POINT_NAME std::string("PointOfSale")
@@ -61,7 +62,9 @@ void PointOfSale::sellFlowersToClient(const Order& client) {
         flowers.splice(flowers.end(), stock.getFlowers(type, client.getFlowersCount(type)));
     }
 
-    Logger::sendTransaction(FlowerTransaction(name, client, flowers));
+    FlowerTransaction transaction(name, client, flowers);
+    Logger::sendTransaction(transaction);
+    Statistics::sendTransaction(transaction);
     clients.pop_front();
 }
 

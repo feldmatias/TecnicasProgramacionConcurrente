@@ -12,12 +12,24 @@ private:
     FlowerProtocol protocol;
 
 public:
+    /**
+     * Constructor.
+     */
     FlowerSender();
 
-    ~FlowerSender();
+    /**
+     * Destructor.
+     */
+    ~FlowerSender() override;
 
+    /**
+     * Send flowers to a receiver.
+     */
     void sendFlowers(const std::string& receiver, const FlowerList& flowers) const;
 
+    /**
+     * Send a transaction to a receiver.
+     */
     void sendFlowerTransaction(const std::string& receiver, const FlowerTransaction& transaction) const;
 };
 

@@ -4,13 +4,27 @@
 
 class GeneratorsCreator {
 private:
+    /**
+     * Create client generator.
+     * Returns true if was created (child process), false otherwise.
+     */
     bool createClientGenerator() const;
 
 public:
+    /**
+     * Constructor.
+     */
     GeneratorsCreator();
 
+    /**
+     * Destructor.
+     */
     ~GeneratorsCreator();
 
+    /**
+     * Create client and internet generators.
+     * Returns true if a generator was created (child process), false otherwise.
+     */
     bool createGenerators() const;
 };
 

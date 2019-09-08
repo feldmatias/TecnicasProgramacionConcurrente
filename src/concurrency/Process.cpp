@@ -13,7 +13,7 @@ Process::Process(Runnable &runnable) :
 Process::~Process() = default;
 
 void Process::run() {
-    while (!exitComunicator.isExit()) {
+    while (!exitComunicator.shouldExit()) {
         runnable.doWork();
 
         // Sleep to avoid cpu work at 100%

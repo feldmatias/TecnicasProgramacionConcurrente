@@ -72,3 +72,4 @@ fabric.properties
 .idea/*
 primavera_concurrente
 log.txt
+fifo/*

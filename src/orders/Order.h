@@ -12,14 +12,29 @@ private:
     std::unordered_map<FlowerType, size_t> orders;
 
 public:
+    /**
+     * Create an order.
+     */
     explicit Order(std::string client);
 
+    /**
+     * Destructor.
+     */
     ~Order();
 
+    /**
+     * Add flowers to the order.
+     */
     void addFlowers(const FlowerType& type, size_t count);
 
+    /**
+     * Get client name.
+     */
     std::string getClient() const;
 
+    /**
+     * Get flowers ordered for a type.
+     */
     size_t getFlowersCount(const FlowerType& type) const;
 };
 

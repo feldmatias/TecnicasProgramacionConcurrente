@@ -13,18 +13,36 @@ private:
     FlowerType type;
 
 public:
+    /**
+     * Create a flower with a producer and a type.
+     */
     Flower(std::string producer, FlowerType type);
 
+    /**
+     * Destructor.
+     */
     ~Flower();
 
+    /**
+     * Get producer's name.
+     */
     std::string getProducer() const;
 
+    /**
+     * Get flower type.
+     */
     FlowerType getType() const;
 
+    /**
+     * Compare to other flower.
+     */
     bool operator==(const Flower &other) const;
 
 };
 
+/**
+ * Hash a flower.
+ */
 namespace std {
     template <>
     struct hash<Flower> {

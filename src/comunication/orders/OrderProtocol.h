@@ -8,12 +8,24 @@
 
 class OrderProtocol {
 public:
+    /**
+     * Constructor.
+     */
     OrderProtocol();
 
+    /**
+     * Destructor.
+     */
     ~OrderProtocol();
 
+    /**
+     * Convert an order to a string.
+     */
     std::string sendOrder(const Order& order) const;
 
+    /**
+     * Convert string to an order.
+     */
     Order receiveOrder(const std::string& data) const;
 };
 

@@ -2,8 +2,8 @@
 
 #include <utility>
 
-const char* TULIP = "Tulip";
-const char* ROSE = "Rose";
+#define TULIP "Tulipan"
+#define ROSE "Rosa"
 
 FlowerType FlowerType::Tulip() {
     return FlowerType(TULIP);

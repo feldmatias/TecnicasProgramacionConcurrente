@@ -25,11 +25,11 @@ void Logger::log(const FlowerTransaction& transaction) {
 
     std::stringstream line;
     if (transaction.isSell()) {
-        line << transaction.getSender() << " sold flowers to " << transaction.getReceiver();
+        line << transaction.getSender() << " vendió flores a " << transaction.getReceiver();
     } else if (transaction.hasSender()) {
-        line << transaction.getSender() << " sent flowers to " << transaction.getReceiver();
+        line << transaction.getSender() << " envió flores a " << transaction.getReceiver();
     } else {
-        line << transaction.getReceiver() << " received flowers";
+        line << transaction.getReceiver() << " recibió flores";
     }
 
     line << log(transaction.getFlowers());

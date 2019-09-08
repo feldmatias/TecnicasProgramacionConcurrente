@@ -13,13 +13,25 @@ private:
 protected:
     std::string receiver;
 
+    /**
+     * Initialize the receiver to start receiving.
+     */
     void initializeReceiver();
 
 public:
+    /**
+     * Create a receiver.
+     */
     explicit DataReceiver(const std::string& receiver);
 
+    /**
+     * Destructor.
+     */
     virtual ~DataReceiver();
 
+    /**
+     * Receive next data sent.
+     */
     std::string receiveNext();
 };
 

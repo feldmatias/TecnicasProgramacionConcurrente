@@ -1,11 +1,13 @@
 #include <sys/wait.h>
 #include <unistd.h>
 #include <sys/stat.h>
-#include "src/process_creators/ActorsCreator.h"
-#include "src/comunication/ExitComunicator.h"
-#include "src/process_creators/LoggerCreator.h"
-#include "src/process_creators/GeneratorsCreator.h"
-#include "src/concurrency/Fifo.h"
+#include "process_creators/ActorsCreator.h"
+#include "comunication/comunicators/ExitComunicator.h"
+#include "process_creators/LoggerCreator.h"
+#include "process_creators/GeneratorsCreator.h"
+#include "concurrency/Fifo.h"
+#include "comunication/comunicators/ParentComunicator.h"
+#include "process_creators/StatisticsCreator.h"
 
 #define EXIT_OK 0
 
@@ -15,6 +17,11 @@ int main() {
 
     LoggerCreator loggerCreator;
     if (loggerCreator.createLogger()) {
+        return EXIT_OK;
+    }
+
+    StatisticsCreator statisticsCreator;
+    if (statisticsCreator.createStatistics()) {
         return EXIT_OK;
     }
 
@@ -28,8 +35,8 @@ int main() {
         return EXIT_OK;
     }
 
-    ExitComunicator exitComunicator;
-    exitComunicator.start();
+    ParentComunicator parentComunicator;
+    parentComunicator.start();
 
     while (wait(NULL) > 0) {
         // Child process finished
