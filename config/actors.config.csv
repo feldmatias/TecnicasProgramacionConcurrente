@@ -2,5 +2,6 @@ number_of_producers, 3
 producers_box_size, 10
 
 number_of_centers, 3
+centers_box_size, 100
 
 number_of_sale_points, 3

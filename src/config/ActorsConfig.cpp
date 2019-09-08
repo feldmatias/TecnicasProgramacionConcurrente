@@ -35,4 +35,8 @@ int ActorsConfig::producersBoxSize() const {
     return config.at("producers_box_size");
 }
 
+int ActorsConfig::centersBoxSize() const {
+    return config.at("centers_box_size");
+}
+
 ActorsConfig::~ActorsConfig() = default;

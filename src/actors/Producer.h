@@ -10,14 +10,12 @@
 #include "../concurrency/Fifo.h"
 #include "../utils/file/WriteOnlyFile.h"
 #include "../../config/ConfigFiles.h"
-#include "../flower/FlowerStock.h"
 #include "../comunication/FlowerSender.h"
 #include <unistd.h>
 #include <vector>
 
 class Producer : public Actor {
 private:
-    FlowerStock stock;
     FlowerSender flowerSender;
 
     int boxSize;

@@ -7,10 +7,12 @@
 #include <string>
 #include "../concurrency/Runnable.h"
 #include "../config/ActorsConfig.h"
+#include "../flower/FlowerStock.h"
 
 class Actor : public Runnable {
 protected:
     std::string name;
+    FlowerStock stock;
     ActorsConfig config;
 
 public:

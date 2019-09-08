@@ -6,13 +6,18 @@
 
 #include <string>
 #include "Actor.h"
+#include "../comunication/FlowerReceiver.h"
 
 class PointOfSale : public Actor {
+private:
+    FlowerReceiver flowerReceiver;
+
+    void receiveFlowers();
 
 public:
     static std::string getName(int name);
 
-    explicit PointOfSale(std::string name);
+    explicit PointOfSale(const std::string& name);
 
     ~PointOfSale() override;
 
