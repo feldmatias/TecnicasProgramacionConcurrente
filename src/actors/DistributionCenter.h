@@ -15,21 +15,45 @@ private:
 
     int boxSize;
 
+    /**
+     * Receive flowers from producers.
+     */
     void receiveFlowers();
 
+    /**
+     * Classify flowers by type.
+     */
     void processFlowers();
 
+    /**
+     * Send flowers to a point of sale.
+     */
     void sendFlowers(const FlowerType& type);
 
 public:
+    /**
+     * Convert index to a distribution center name.
+     */
     static std::string getName(int name);
 
+    /**
+     * Create a distribution center with a name.
+     */
     explicit DistributionCenter(const std::string& name);
 
+    /**
+     * Destructor.
+     */
     ~DistributionCenter() override;
 
+    /**
+     * Do distribution center's work.
+     */
     void doWork() override;
 
+    /**
+     * Finish doing work.
+     */
     void finish() override;
 };
 

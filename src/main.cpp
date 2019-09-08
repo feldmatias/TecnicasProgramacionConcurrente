@@ -1,13 +1,13 @@
 #include <sys/wait.h>
 #include <unistd.h>
 #include <sys/stat.h>
-#include "src/process_creators/ActorsCreator.h"
-#include "src/comunication/comunicators/ExitComunicator.h"
-#include "src/process_creators/LoggerCreator.h"
-#include "src/process_creators/GeneratorsCreator.h"
-#include "src/concurrency/Fifo.h"
-#include "src/comunication/comunicators/ParentComunicator.h"
-#include "src/process_creators/StatisticsCreator.h"
+#include "process_creators/ActorsCreator.h"
+#include "comunication/comunicators/ExitComunicator.h"
+#include "process_creators/LoggerCreator.h"
+#include "process_creators/GeneratorsCreator.h"
+#include "concurrency/Fifo.h"
+#include "comunication/comunicators/ParentComunicator.h"
+#include "process_creators/StatisticsCreator.h"
 
 #define EXIT_OK 0
 

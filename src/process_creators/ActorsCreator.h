@@ -12,10 +12,20 @@ private:
     ActorsConfig config;
 
 public:
+    /**
+     * Constructor.
+     */
     ActorsCreator();
 
+    /**
+     * Destructor.
+     */
     ~ActorsCreator();
 
+    /**
+     * Create producers, distribution centers and points of sale.
+     * Returns true if an actor was created (child process), false otherwise.
+     */
     bool createActors() const;
 };
 

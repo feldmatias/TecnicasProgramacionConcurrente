@@ -13,12 +13,24 @@ private:
     int lastReceived;
 
 public:
+    /**
+     * Constructor.
+     */
     StatisticsComunicator();
 
+    /**
+     * Destructor.
+     */
     ~StatisticsComunicator();
 
+    /**
+     * Comunicate that statistics need to be shown.
+     */
     void showStatistics();
 
+    /**
+     * If statistics need to be shown.
+     */
     bool shouldShowStatistics();
 };
 

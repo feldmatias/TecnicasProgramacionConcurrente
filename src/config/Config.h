@@ -10,8 +10,14 @@ protected:
     std::unordered_map<std::string, int> config;
 
 public:
+    /**
+     * Read a config file.
+     */
     explicit Config(const std::string& configFile);
 
+    /**
+     * Destructor.
+     */
     virtual ~Config();
 };
 

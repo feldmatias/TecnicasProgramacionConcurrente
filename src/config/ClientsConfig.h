@@ -8,14 +8,29 @@
 
 class ClientsConfig : public Config {
 public:
+    /**
+     * Constructor.
+     */
     ClientsConfig();
 
+    /**
+     * Destructor.
+     */
     ~ClientsConfig() override;
 
+    /**
+     * Get min amount flowers that a client can buy.
+     */
     int minFlowerAmount() const;
 
+    /**
+     * Get max amount flowers that a client can buy.
+     */
     int maxFlowerAmount() const;
 
+    /**
+     * Get the rate in which the clients are generated.
+     */
     int clientGeneratorRate() const;
 
 };

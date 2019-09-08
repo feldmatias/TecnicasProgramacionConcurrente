@@ -13,10 +13,19 @@ private:
     StatisticsComunicator statisticsComunicator;
 
 public:
+    /**
+     * Constructor.
+     */
     ParentComunicator();
 
+    /**
+     * Destructor.
+     */
     ~ParentComunicator();
 
+    /**
+     * Start receiving user input.
+     */
     void start();
 };
 

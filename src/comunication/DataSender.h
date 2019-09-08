@@ -6,12 +6,21 @@
 
 class DataSender {
 protected:
+    /**
+     * Send data to a receiver.
+     */
     void sendData(const std::string& receiver, const std::string& data) const;
 
 public:
+    /**
+     * Constructor.
+     */
     DataSender();
 
-    ~DataSender();
+    /**
+     * Destructor.
+     */
+    virtual ~DataSender();
 };
 
 

@@ -12,13 +12,25 @@ private:
     SharedMemory<bool> sharedMemory;
 
 public:
+    /**
+     * Constructor.
+     */
     ExitComunicator();
 
+    /**
+     * Destructor.
+     */
     ~ExitComunicator();
 
+    /**
+     * Comunicate to childs that they need to exit.
+     */
     void setExit();
 
-    bool isExit() const;
+    /**
+     * If child should exit or not.
+     */
+    bool shouldExit() const;
 };
 
 

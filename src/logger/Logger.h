@@ -13,18 +13,40 @@ private:
     FlowerReceiver receiver;
     WriteOnlyFile logFile;
 
+    /**
+     * Log the transaction.
+     */
     void log(const FlowerTransaction& transaction);
+
+    /**
+     * Create a log of the flowers.
+     */
     std::string log(const FlowerList& flowers);
 
 public:
+    /**
+     * Send a transaction to be logged.
+     */
     static void sendTransaction(const FlowerTransaction& transaction);
 
+    /**
+     * Constructor.
+     */
     Logger();
 
+    /**
+     * Destructor.
+     */
     ~Logger() override;
 
+    /**
+     * Log pending transactions.
+     */
     void doWork() override;
 
+    /**
+     * Stop working.
+     */
     void finish() override;
 };
 

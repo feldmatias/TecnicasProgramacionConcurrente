@@ -12,10 +12,19 @@ private:
     OrderProtocol protocol;
 
 public:
+    /**
+     * Constructor.
+     */
     OrderSender();
 
-    ~OrderSender();
+    /**
+     * Destructor.
+     */
+    ~OrderSender() override;
 
+    /**
+     * Send an order to a receiver.
+     */
     void sendOrder(const std::string& receiver, const Order& order) const;
 };
 

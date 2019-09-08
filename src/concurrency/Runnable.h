@@ -5,10 +5,24 @@
 
 class Runnable {
 public:
+    /**
+     * Constructor.
+     */
+    Runnable() = default;
+
+    /**
+     * Destructor.
+     */
     virtual ~Runnable() = default;
 
+    /**
+     * Do something.
+     */
     virtual void doWork() = 0;
 
+    /**
+     * Stop work.
+     */
     virtual void finish() = 0;
 };
 

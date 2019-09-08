@@ -6,10 +6,20 @@
 
 class LoggerCreator {
 public:
+    /**
+     * Constructor.
+     */
     LoggerCreator();
 
+    /**
+     * Destructor.
+     */
     ~LoggerCreator();
 
+    /**
+     * Create logger.
+     * Returns true if was created (child process), false otherwise.
+     */
     bool createLogger() const;
 };
 
