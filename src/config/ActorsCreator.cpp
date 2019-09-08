@@ -9,31 +9,13 @@
 #include "../actors/PointOfSale.h"
 #include "../concurrency/Process.h"
 
-std::vector<ActorInfo> initializeActors(const std::string& configFile) {
-    std::vector<ActorInfo> actors;
-    ReadOnlyFile file(configFile);
-
-    while(file.hasMoreData()) {
-        std::string line = file.getLine();
-        if (line.empty()) {
-            continue;
-        }
-
-        CsvLine data(line);
-        ActorInfo actor(data.getNext());
-        actors.push_back(actor);
-    }
-
-    return actors;
-}
-
 template <class T>
-bool createActorsFromInfo(const std::vector<ActorInfo>& actors) {
-    for (const ActorInfo& actorInfo : actors) {
+bool createActorsFromConfig(int count) {
+    for (int i = 0; i < count; i++) {
         pid_t pid = fork();
         if (pid == 0) {
             // Child process
-            T actor(actorInfo);
+            T actor(T::getName(i));
             Process process(actor);
             process.run();
             return true;
@@ -42,36 +24,20 @@ bool createActorsFromInfo(const std::vector<ActorInfo>& actors) {
     return false;
 }
 
-ActorsCreator::ActorsCreator() {
-    producers = initializeActors(PRODUCERS_CONFIG);
-    distributionCenters = initializeActors(DISTRIBUTION_CENTERS_CONFIG);
-    pointsOfSale = initializeActors(POINTS_OF_SALE_CONFIG);
-}
+ActorsCreator::ActorsCreator() = default;
 
 ActorsCreator::~ActorsCreator() = default;
 
-std::vector<ActorInfo> ActorsCreator::getProducers() const {
-    return producers;
-}
-
-std::vector<ActorInfo> ActorsCreator::getDistributionCenters() const {
-    return distributionCenters;
-}
-
-std::vector<ActorInfo> ActorsCreator::getPointsOfSale() const {
-    return pointsOfSale;
-}
-
 bool ActorsCreator::createActors() const {
-    if (createActorsFromInfo<Producer>(producers)) {
+    if (createActorsFromConfig<Producer>(config.numberOfProducers())) {
         return true;
     }
 
-    if (createActorsFromInfo<DistributionCenter>(distributionCenters)) {
+    if (createActorsFromConfig<DistributionCenter>(config.numberOfDistributionCenters())) {
         return true;
     }
 
-    if (createActorsFromInfo<PointOfSale>(pointsOfSale)) {
+    if (createActorsFromConfig<PointOfSale>(config.numberOfPointsOfSale())) {
         return true;
     }
 

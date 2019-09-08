@@ -1,14 +1,24 @@
 #include "Producer.h"
 
-const int BOX_SIZE = 10;
+#include <utility>
+#include "Actor.h"
+#include "DistributionCenter.h"
+#include "../utils/common/Random.h"
 
-Producer::Producer(const ActorInfo& info) :
-    Actor(info) {
+#define PRODUCER_NAME std::string("Producer")
+
+std::string Producer::getName(int name) {
+    return PRODUCER_NAME + std::to_string(name);
+}
+
+Producer::Producer(std::string name) :
+    Actor(std::move(name)) {
+    boxSize = config.producersBoxSize();
 }
 
 void Producer::doWork() {
-    collect_flower();
-    if (stock.countFlowers() == BOX_SIZE) {
+    collectFlower();
+    if (stock.countFlowers() == boxSize) {
         sendFlowers();
     }
 }
@@ -17,20 +27,16 @@ void Producer::finish() {
     // TODO: implement this
 }
 
-void Producer::collect_flower() {
-    srand(time(NULL));
+void Producer::collectFlower() {
     std::vector<FlowerType> flowerTypes = FlowerType::all();
 
-    FlowerType type = flowerTypes[rand() % flowerTypes.size()];
+    FlowerType type = flowerTypes[Random::generate(flowerTypes.size())];
     stock.addFlower(Flower(name, type));
 }
 
 void Producer::sendFlowers() {
-    srand(time(NULL));
-    ActorsCreator actorsCreator;
-    std::vector<ActorInfo> distribution_centers =  actorsCreator.getDistributionCenters();
-    int number_of_center = rand() % distribution_centers.size();
-    std::string center = distribution_centers[number_of_center].getName();
+    int centerNumber = Random::generate(config.numberOfDistributionCenters());
+    std::string center = DistributionCenter::getName(centerNumber);
     flowerSender.sendFlowers(center, stock.getAllFlowers());
 }
 

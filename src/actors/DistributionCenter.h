@@ -18,7 +18,9 @@ private:
     void receiveFlowers();
 
 public:
-    explicit DistributionCenter(const ActorInfo& info);
+    static std::string getName(int name);
+
+    explicit DistributionCenter(const std::string& name);
 
     ~DistributionCenter() override;
 

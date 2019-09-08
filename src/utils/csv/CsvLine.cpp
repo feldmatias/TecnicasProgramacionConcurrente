@@ -1,5 +1,6 @@
 
 
+#include <algorithm>
 #include "CsvLine.h"
 
 const char CSV_SEPARATOR = ',';

@@ -1,13 +1,17 @@
-
-
 #include <sys/stat.h>
 
 #include <memory>
 #include <unistd.h>
 #include "Fifo.h"
 
+#define FIFO_EXTENSION ".fifo"
+
+std::string Fifo::filename(const std::string& name) {
+    return name + FIFO_EXTENSION;
+}
+
 Fifo::Fifo(const std::string &fileName) :
-    name(fileName + FIFO_EXTENSION) {
+    name(filename(fileName)) {
     mknod(name.c_str(), S_IFIFO|0666, 0);
     file = std::make_unique<File>(name);
 }
