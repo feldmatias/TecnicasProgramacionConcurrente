@@ -7,15 +7,22 @@
 #include <string>
 #include "Actor.h"
 #include "../comunication/flowers/FlowerReceiver.h"
+#include "../comunication/orders/OrderReceiver.h"
 
 class PointOfSale : public Actor {
 private:
     FlowerReceiver flowerReceiver;
+    OrderReceiver clientReceiver;
+    OrderList clients;
 
     void receiveFlowers();
+    void receiveClients();
+    void attendNextClient();
+    void sellFlowersToClient(const Order& client);
 
 public:
     static std::string getName(int name);
+    static std::string getClientName(int name);
 
     explicit PointOfSale(const std::string& name);
 

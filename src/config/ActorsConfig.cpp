@@ -3,20 +3,7 @@
 #include "../../config/ConfigFiles.h"
 #include "../utils/csv/CsvLine.h"
 
-ActorsConfig::ActorsConfig() {
-    ReadOnlyFile file(ACTORS_CONFIG);
-
-    while (file.hasMoreData()) {
-        std::string line = file.getLine();
-        if (line.empty()) {
-            continue;
-        }
-
-        CsvLine csv(line);
-        std::string key = csv.getNext();
-        config[key] = csv.getNextNumber();
-    }
-
+ActorsConfig::ActorsConfig() : Config(ACTORS_CONFIG) {
 }
 
 int ActorsConfig::numberOfProducers() const {

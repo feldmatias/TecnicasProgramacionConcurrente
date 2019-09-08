@@ -9,4 +9,6 @@
 
 #define ACTORS_CONFIG (CONFIG_PATH + "actors.config.csv")
 
+#define CLIENTS_CONFIG (CONFIG_PATH + "clients.config.csv")
+
 #endif //PRIMAVERA_CONCURRENTE_CONFIGFILES_H
