@@ -12,8 +12,8 @@
 class PointOfSale : public Actor {
 private:
     FlowerReceiver flowerReceiver;
-    OrderReceiver clientReceiver;
-    OrderList clients;
+    OrderReceiver clientReceiver, internetReceiver;
+    OrderList clients, internetOrders;
 
     /**
      * Receive flowers from distribution centers.
@@ -65,6 +65,10 @@ public:
      * Finish doing work.
      */
     void finish() override;
+
+    void attendInternetOrder();
+
+    void sendOrderToCourier(const Order &order);
 };
 
 

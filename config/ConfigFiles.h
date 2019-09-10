@@ -11,4 +11,6 @@
 
 #define CLIENTS_CONFIG (CONFIG_PATH + "clients.config.csv")
 
+#define INTERNET_CONFIG (CONFIG_PATH + "internet.config.csv")
+
 #endif //PRIMAVERA_CONCURRENTE_CONFIGFILES_H

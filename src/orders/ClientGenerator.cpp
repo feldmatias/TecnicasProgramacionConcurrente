@@ -5,17 +5,21 @@
 
 ClientGenerator::ClientGenerator() {
     lastClient = 0;
+    lastInternetOrder = 0;
 }
 
 ClientGenerator::~ClientGenerator() = default;
 
 void ClientGenerator::doWork() {
-    if (!Random::probability(config.clientGeneratorRate())) {
+    if (Random::probability(config.clientGeneratorRate())) {
+        Order client = createClient();
+        sendClient(client);
         return;
     }
-
-    Order client = createClient();
-    sendClient(client);
+    if (Random::probability(config.clientGeneratorRate())) {
+        Order order = createInternetOrder();
+        sendClient(order);
+    }
 }
 
 void ClientGenerator::finish() {
@@ -25,6 +29,18 @@ void ClientGenerator::finish() {
 Order ClientGenerator::createClient() {
     Order client(CLIENT_NAME + std::to_string(lastClient));
     lastClient++;
+
+    for (const FlowerType& type : FlowerType::all()) {
+        int count = Random::generate(config.minFlowerAmount(), config.maxFlowerAmount());
+        client.addFlowers(type, count);
+    }
+
+    return client;
+}
+
+Order ClientGenerator::createInternetOrder() {
+    Order client(INTERNET_NAME + std::to_string(lastClient));
+    lastInternetOrder++;
 
     for (const FlowerType& type : FlowerType::all()) {
         int count = Random::generate(config.minFlowerAmount(), config.maxFlowerAmount());
