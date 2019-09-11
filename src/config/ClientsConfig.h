@@ -11,7 +11,7 @@ public:
     /**
      * Constructor.
      */
-    ClientsConfig();
+    ClientsConfig(std::string clientConfigFile);
 
     /**
      * Destructor.

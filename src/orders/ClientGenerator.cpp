@@ -2,10 +2,12 @@
 #include "ClientGenerator.h"
 #include "../utils/common/Random.h"
 #include "../actors/PointOfSale.h"
+#include "../../config/ConfigFiles.h"
 
-ClientGenerator::ClientGenerator() {
+ClientGenerator::ClientGenerator(std::string clientConfigFile) :
+    config(clientConfigFile),
+    clientName(clientConfigFile == CLIENTS_CONFIG ? CLIENT_NAME : INTERNET_NAME){
     lastClient = 0;
-    lastInternetOrder = 0;
 }
 
 ClientGenerator::~ClientGenerator() = default;
@@ -16,10 +18,6 @@ void ClientGenerator::doWork() {
         sendClient(client);
         return;
     }
-    if (Random::probability(config.clientGeneratorRate())) {
-        Order order = createInternetOrder();
-        sendClient(order);
-    }
 }
 
 void ClientGenerator::finish() {
@@ -27,20 +25,8 @@ void ClientGenerator::finish() {
 }
 
 Order ClientGenerator::createClient() {
-    Order client(CLIENT_NAME + std::to_string(lastClient));
+    Order client(clientName + std::to_string(lastClient));
     lastClient++;
-
-    for (const FlowerType& type : FlowerType::all()) {
-        int count = Random::generate(config.minFlowerAmount(), config.maxFlowerAmount());
-        client.addFlowers(type, count);
-    }
-
-    return client;
-}
-
-Order ClientGenerator::createInternetOrder() {
-    Order client(INTERNET_NAME + std::to_string(lastClient));
-    lastInternetOrder++;
 
     for (const FlowerType& type : FlowerType::all()) {
         int count = Random::generate(config.minFlowerAmount(), config.maxFlowerAmount());

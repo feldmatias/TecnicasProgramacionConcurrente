@@ -17,7 +17,8 @@ private:
     ClientsConfig config;
     OrderSender clientSender;
 
-    int lastClient, lastInternetOrder;
+    int lastClient;
+    std::string clientName;
 
     /**
      * Create a new client.
@@ -33,7 +34,7 @@ public:
     /**
      * Constructor.
      */
-    ClientGenerator();
+    ClientGenerator(std::string clientConfigFile);
 
     /**
      * Destructor.

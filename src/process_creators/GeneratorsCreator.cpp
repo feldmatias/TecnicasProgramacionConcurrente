@@ -3,6 +3,7 @@
 #include "GeneratorsCreator.h"
 #include "../orders/ClientGenerator.h"
 #include "../concurrency/Process.h"
+#include "../../config/ConfigFiles.h"
 
 GeneratorsCreator::GeneratorsCreator() = default;
 
@@ -19,8 +20,16 @@ bool GeneratorsCreator::createGenerators() const {
 bool GeneratorsCreator::createClientGenerator() const {
     pid_t pid = fork();
     if (pid == 0) {
-        // Child process
-        ClientGenerator generator;
+        // Child process, clients
+        ClientGenerator generator(CLIENTS_CONFIG);
+        Process process(generator);
+        process.run();
+        return true;
+    }
+    pid = fork();
+    if(pid == 0){
+        //internet orders generator
+        ClientGenerator generator(INTERNET_CONFIG);
         Process process(generator);
         process.run();
         return true;

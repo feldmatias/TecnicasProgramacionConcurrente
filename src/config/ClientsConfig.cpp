@@ -3,7 +3,7 @@
 #include "ClientsConfig.h"
 #include "../../config/ConfigFiles.h"
 
-ClientsConfig::ClientsConfig() : Config(CLIENTS_CONFIG) {
+ClientsConfig::ClientsConfig(std::string clientConfigFile) : Config(clientConfigFile) {
 }
 
 int ClientsConfig::minFlowerAmount() const {
