@@ -11,7 +11,7 @@ std::string DistributionCenter::getName(int name) {
 }
 
 DistributionCenter::DistributionCenter(const std::string& name) :
-    Actor(name), flowerReceiver(name) {
+    Actor(name) {
     boxSize = config.centersBoxSize();
     restoreStock();
 }
@@ -33,9 +33,9 @@ void DistributionCenter::saveStock(){
 }
 
 void DistributionCenter::receiveFlowers() {
-    FlowerList list = flowerReceiver.receiveFlowers();
+    /*FlowerList list = flowerReceiver.receiveFlowers();
     Logger::sendTransaction(FlowerTransaction(actorName, list));
-    stock.addFlowers(list);
+    stock.addFlowers(list);*/
 }
 
 void DistributionCenter::processFlowers() {

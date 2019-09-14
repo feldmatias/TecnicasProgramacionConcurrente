@@ -1,37 +1,13 @@
 #include "FlowerReceiver.h"
 
-FlowerReceiver::FlowerReceiver(const std::string& receiver) :
-    DataReceiver(receiver) {
+FlowerReceiver::FlowerReceiver()= default;
+
+FlowerList FlowerReceiver::receiveFlowers(const std::string& flowers) {
+    return protocol.receiveFlowers(flowers);
 }
 
-FlowerList FlowerReceiver::receiveFlowers() {
-    initializeReceiver();
-
-    FlowerList list;
-    while (true) {
-        std::string line = receiveNext();
-        if (line.empty()) {
-            break;
-        }
-        list.splice(list.end(), protocol.receiveFlowers(line));
-    }
-
-    return list;
-}
-
-FlowerTransactionList FlowerReceiver::receiveFlowerTransactions() {
-    initializeReceiver();
-
-    FlowerTransactionList list;
-    while (true) {
-        std::string line = receiveNext();
-        if (line.empty()) {
-            break;
-        }
-        list.push_back(protocol.receiveFlowersTransaction(line));
-    }
-
-    return list;
+FlowerTransaction FlowerReceiver::receiveFlowerTransaction(const std::string& transaction) {
+    return protocol.receiveFlowersTransaction(transaction);
 }
 
 FlowerReceiver::~FlowerReceiver() = default;

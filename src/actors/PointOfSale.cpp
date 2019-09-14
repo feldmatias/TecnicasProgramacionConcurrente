@@ -16,8 +16,8 @@ std::string PointOfSale::getClientName(int name) {
 }
 
 PointOfSale::PointOfSale(const std::string& name) :
-    Actor(name), flowerReceiver(name), clientReceiver(CLIENT_NAME + name),
-    internetReceiver(INTERNET_ORDERS_CONFIG, name){
+    Actor(name),
+    internetReceiver(INTERNET_ORDERS_CONFIG, name) {
     internetOrders = internetReceiver.receiveOrders();
 }
 
@@ -27,18 +27,17 @@ void PointOfSale::receiveData() {
 
     attendNextClient();
     attendInternetOrder();
-    // TODO: implement this
 }
 
 void PointOfSale::receiveFlowers() {
-    FlowerList list = flowerReceiver.receiveFlowers();
+    /*FlowerList list = flowerReceiver.receiveFlowers();
     Logger::sendTransaction(FlowerTransaction(actorName, list));
-    stock.addFlowers(list);
+    stock.addFlowers(list);*/
 }
 
 void PointOfSale::receiveClients() {
-    OrderList list = clientReceiver.receiveOrders();
-    clients.splice(clients.end(), list);
+   /* OrderList list = clientReceiver.receiveOrders();
+    clients.splice(clients.end(), list);*/
 }
 
 void PointOfSale::attendNextClient() {

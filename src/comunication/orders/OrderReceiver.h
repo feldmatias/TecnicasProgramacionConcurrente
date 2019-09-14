@@ -7,7 +7,7 @@
 #include "../DataReceiver.h"
 #include "OrderProtocol.h"
 
-class OrderReceiver : public DataReceiver {
+class OrderReceiver {
 private:
     OrderProtocol protocol;
 
@@ -15,17 +15,17 @@ public:
     /**
      * Create a receiver.
      */
-    explicit OrderReceiver(const std::string& receiver);
+    explicit OrderReceiver();
 
     /**
      * Destructor.
      */
-    ~OrderReceiver() override;
+    ~OrderReceiver();
 
     /**
      * Receive all orders.
      */
-    OrderList receiveOrders();
+    Order receiveOrders(const std::string& order);
 };
 
 

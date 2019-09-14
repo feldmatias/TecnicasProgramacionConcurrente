@@ -4,14 +4,14 @@
 #include "../comunication/flowers/FlowerSender.h"
 
 Logger::Logger() :
-    receiver(LOG_FILE), logFile(LOG_FILE) {
+    logFile(LOG_FILE) {
 }
 
 void Logger::receiveData() {
-    FlowerTransactionList transactions = receiver.receiveFlowerTransactions();
+    /*FlowerTransaction transactions = receiver.receiveFlowerTransaction();
     for (const FlowerTransaction& transaction : transactions) {
         log(transaction);
-    }
+    }*/
 }
 
 void Logger::log(const FlowerTransaction& transaction) {

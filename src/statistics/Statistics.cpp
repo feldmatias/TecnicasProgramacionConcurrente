@@ -23,9 +23,7 @@ void Statistics::sendTransaction(const FlowerTransaction &transaction) {
     sender.sendFlowerTransaction(STATISTICS, transaction);
 }
 
-Statistics::Statistics() :
-    transactionReceiver(STATISTICS) {
-}
+Statistics::Statistics() = default;
 
 void Statistics::receiveData() {
     receiveTransactions();
@@ -35,13 +33,13 @@ void Statistics::receiveData() {
 }
 
 void Statistics::receiveTransactions() {
-    FlowerTransactionList transactions = transactionReceiver.receiveFlowerTransactions();
+    /*FlowerTransaction transactions = transactionReceiver.receiveFlowerTransaction();
     for (const FlowerTransaction& transaction : transactions) {
         for (const Flower& flower : transaction.getFlowers()) {
             salesBySeller[transaction.getSender()]++;
             salesByType[flower.getType().getName()]++;
         }
-    }
+    }*/
 }
 
 void Statistics::showStatistics() {
