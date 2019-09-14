@@ -12,16 +12,12 @@ ClientGenerator::ClientGenerator(std::string clientConfigFile) :
 
 ClientGenerator::~ClientGenerator() = default;
 
-void ClientGenerator::doWork() {
+void ClientGenerator::receiveData() {
     if (Random::probability(config.clientGeneratorRate())) {
         Order client = createClient();
         sendClient(client);
         return;
     }
-}
-
-void ClientGenerator::finish() {
- // Do nothing
 }
 
 Order ClientGenerator::createClient() {
@@ -41,4 +37,8 @@ void ClientGenerator::sendClient(const Order& client) {
     std::string salePoint = PointOfSale::getClientName(salePointNumber);
 
     clientSender.sendOrder(salePoint, client);
+}
+
+std::string ClientGenerator::name() {
+    return "ClientsGenerator";
 }

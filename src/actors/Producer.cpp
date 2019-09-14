@@ -17,22 +17,18 @@ Producer::Producer(std::string name) :
     boxSize = config.producersBoxSize();
 }
 
-void Producer::doWork() {
+void Producer::receiveData() {
     collectFlower();
     if (stock.countFlowers() == boxSize) {
         sendFlowers();
     }
 }
 
-void Producer::finish() {
-    // TODO: implement this
-}
-
 void Producer::collectFlower() {
     std::vector<FlowerType> flowerTypes = FlowerType::all();
 
     FlowerType type = flowerTypes[Random::generate(flowerTypes.size())];
-    stock.addFlower(Flower(name, type));
+    stock.addFlower(Flower(actorName, type));
 }
 
 void Producer::sendFlowers() {
@@ -41,7 +37,7 @@ void Producer::sendFlowers() {
 
     FlowerList flowers = stock.getAllFlowers();
     flowerSender.sendFlowers(center, flowers);
-    Logger::sendTransaction(FlowerTransaction(name, center, flowers));
+    Logger::sendTransaction(FlowerTransaction(actorName, center, flowers));
 }
 
 Producer::~Producer() = default;

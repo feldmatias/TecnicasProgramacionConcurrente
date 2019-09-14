@@ -29,15 +29,11 @@ Statistics::Statistics() :
     transactionReceiver(STATISTICS) {
 }
 
-void Statistics::doWork() {
+void Statistics::receiveData() {
     receiveTransactions();
     if (comunicator.shouldShowStatistics()) {
         showStatistics();
     }
-}
-
-void Statistics::finish() {
- // Do nothing
 }
 
 void Statistics::receiveTransactions() {
@@ -62,6 +58,10 @@ void Statistics::showStatistics() {
     std::cout << "El punto de venta con más ventas es " << maxSeller.first << " con " << maxSeller.second << " flores vendidas." << std::endl;
     std::cout << "La flor más comprada es " << maxType.first << " con " << maxType.second << " compras." << std::endl;
     std::cout << std::endl;
+}
+
+std::string Statistics::name() {
+    return STATISTICS;
 }
 
 Statistics::~Statistics() = default;

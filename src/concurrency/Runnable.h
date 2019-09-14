@@ -3,6 +3,8 @@
 #ifndef PRIMAVERA_CONCURRENTE_RUNNABLE_H
 #define PRIMAVERA_CONCURRENTE_RUNNABLE_H
 
+#include <string>
+
 class Runnable {
 public:
     /**
@@ -16,14 +18,15 @@ public:
     virtual ~Runnable() = default;
 
     /**
-     * Do something.
+     * Receive data.
      */
-    virtual void doWork() = 0;
+    virtual void receiveData() = 0;
 
     /**
-     * Stop work.
+     * Get name.
      */
-    virtual void finish() = 0;
+     virtual std::string name() = 0;
+
 };
 
 #endif //PRIMAVERA_CONCURRENTE_RUNNABLE_H

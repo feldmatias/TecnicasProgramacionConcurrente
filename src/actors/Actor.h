@@ -11,7 +11,7 @@
 
 class Actor : public Runnable {
 protected:
-    std::string name;
+    std::string actorName;
     FlowerStock stock;
     ActorsConfig config;
 
@@ -25,6 +25,11 @@ public:
      * Destructor.
      */
     ~Actor() override;
+
+    /**
+     * Get name.
+     */
+    std::string name() override;
 };
 
 

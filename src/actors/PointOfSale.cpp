@@ -21,7 +21,7 @@ PointOfSale::PointOfSale(const std::string& name) :
     internetOrders = internetReceiver.receiveOrders();
 }
 
-void PointOfSale::doWork() {
+void PointOfSale::receiveData() {
     receiveFlowers();
     receiveClients();
 
@@ -30,13 +30,9 @@ void PointOfSale::doWork() {
     // TODO: implement this
 }
 
-void PointOfSale::finish() {
-    // TODO: implement this
-}
-
 void PointOfSale::receiveFlowers() {
     FlowerList list = flowerReceiver.receiveFlowers();
-    Logger::sendTransaction(FlowerTransaction(name, list));
+    Logger::sendTransaction(FlowerTransaction(actorName, list));
     stock.addFlowers(list);
 }
 
@@ -82,7 +78,7 @@ void PointOfSale::sellFlowersToClient(const Order& order, OrderList& orderList) 
         flowers.splice(flowers.end(), stock.getFlowers(type, order.getFlowersCount(type)));
     }
 
-    FlowerTransaction transaction(name, order, flowers);
+    FlowerTransaction transaction(actorName, order, flowers);
     Logger::sendTransaction(transaction);
     Statistics::sendTransaction(transaction);
     orderList.pop_front();

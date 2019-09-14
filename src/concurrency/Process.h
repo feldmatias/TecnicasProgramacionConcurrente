@@ -22,7 +22,7 @@ public:
     ~Process();
 
     /**
-     * Start the runnable.
+     * Start the process.
      */
     void run();
 };

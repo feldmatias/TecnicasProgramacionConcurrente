@@ -34,7 +34,7 @@ public:
     /**
      * Constructor.
      */
-    ClientGenerator(std::string clientConfigFile);
+    explicit ClientGenerator(std::string clientConfigFile);
 
     /**
      * Destructor.
@@ -44,14 +44,12 @@ public:
     /**
      * Generate clients.
      */
-    void doWork() override;
+    void receiveData() override;
 
     /**
-     * Stop working.
+     * Get name.
      */
-    void finish() override;
-
-    Order createInternetOrder();
+    std::string name() override;
 };
 
 

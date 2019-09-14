@@ -49,12 +49,8 @@ public:
     /**
      * Do producer's work.
      */
-    void doWork() override;
+    void receiveData() override;
 
-    /**
-     * Finish doing work.
-     */
-    void finish() override;
 };
 
 

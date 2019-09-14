@@ -16,24 +16,13 @@ DistributionCenter::DistributionCenter(const std::string& name) :
     restoreStock();
 }
 
-void DistributionCenter::doWork() {
+void DistributionCenter::receiveData() {
     receiveFlowers();
     processFlowers();
 }
 
-void DistributionCenter::finish() {
-    size_t oldStock = stock.countFlowers();
-    size_t newStock;
-    while(true){
-        receiveFlowers();
-        newStock = stock.countFlowers();
-        if(newStock == oldStock) break;
-    }
-    saveStock();
-}
-
 void DistributionCenter::saveStock(){
-    WriteOnlyFile saveFile(PERSISTENCE_PATH + name + ".csv");
+    WriteOnlyFile saveFile(PERSISTENCE_PATH + actorName + ".csv");
     FlowerList flowers = stock.getAllFlowers();
     for(const Flower& flower : flowers){
         CsvLine line;
@@ -45,7 +34,7 @@ void DistributionCenter::saveStock(){
 
 void DistributionCenter::receiveFlowers() {
     FlowerList list = flowerReceiver.receiveFlowers();
-    Logger::sendTransaction(FlowerTransaction(name, list));
+    Logger::sendTransaction(FlowerTransaction(actorName, list));
     stock.addFlowers(list);
 }
 
@@ -63,11 +52,11 @@ void DistributionCenter::sendFlowers(const FlowerType& type) {
 
     FlowerList flowers = stock.getFlowers(type, boxSize);
     flowerSender.sendFlowers(salePoint, flowers);
-    Logger::sendTransaction(FlowerTransaction(name, salePoint, flowers));
+    Logger::sendTransaction(FlowerTransaction(actorName, salePoint, flowers));
 }
 
 void DistributionCenter::restoreStock() {
-    ReadOnlyFile readFile(PERSISTENCE_PATH + name + ".csv");
+    ReadOnlyFile readFile(PERSISTENCE_PATH + actorName + ".csv");
     FlowerList flowerList;
     while(true){
         std::string line(readFile.getLine());

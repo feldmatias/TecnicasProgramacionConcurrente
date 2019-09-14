@@ -30,6 +30,10 @@ private:
      */
     void sendFlowers(const FlowerType& type);
 
+    void saveStock();
+
+    void restoreStock();
+
 public:
     /**
      * Convert index to a distribution center name.
@@ -49,16 +53,7 @@ public:
     /**
      * Do distribution center's work.
      */
-    void doWork() override;
-
-    /**
-     * Finish doing work.
-     */
-    void finish() override;
-
-    void saveStock();
-
-    void restoreStock();
+    void receiveData() override;
 };
 
 

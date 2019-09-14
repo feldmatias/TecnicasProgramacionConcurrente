@@ -48,12 +48,13 @@ public:
     /**
      * Show statistics if were asked.
      */
-    void doWork() override;
+    void receiveData() override;
 
     /**
-     * Stop working.
+     * Get name.
      */
-    void finish() override;
+    std::string name() override;
+
 };
 
 

@@ -14,11 +14,9 @@ Process::~Process() = default;
 
 void Process::run() {
     while (!exitComunicator.shouldExit()) {
-        runnable.doWork();
+        runnable.receiveData();
 
         // Sleep to avoid cpu work at 100%
         std::this_thread::sleep_for(std::chrono::milliseconds(CPU_SAVE_SLEEP));
     }
-
-    runnable.finish();
 }

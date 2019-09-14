@@ -42,12 +42,13 @@ public:
     /**
      * Log pending transactions.
      */
-    void doWork() override;
+    void receiveData() override;
 
     /**
-     * Stop working.
+     * Get name.
      */
-    void finish() override;
+    std::string name() override;
+
 };
 
 
