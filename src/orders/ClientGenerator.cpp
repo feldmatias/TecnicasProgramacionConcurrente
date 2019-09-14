@@ -2,20 +2,22 @@
 #include "ClientGenerator.h"
 #include "../utils/common/Random.h"
 #include "../actors/PointOfSale.h"
+#include "../../config/ConfigFiles.h"
 
-ClientGenerator::ClientGenerator() {
+ClientGenerator::ClientGenerator(std::string clientConfigFile) :
+    config(clientConfigFile),
+    clientName(clientConfigFile == CLIENTS_CONFIG ? CLIENT_NAME : INTERNET_NAME){
     lastClient = 0;
 }
 
 ClientGenerator::~ClientGenerator() = default;
 
 void ClientGenerator::doWork() {
-    if (!Random::probability(config.clientGeneratorRate())) {
+    if (Random::probability(config.clientGeneratorRate())) {
+        Order client = createClient();
+        sendClient(client);
         return;
     }
-
-    Order client = createClient();
-    sendClient(client);
 }
 
 void ClientGenerator::finish() {
@@ -23,7 +25,7 @@ void ClientGenerator::finish() {
 }
 
 Order ClientGenerator::createClient() {
-    Order client(CLIENT_NAME + std::to_string(lastClient));
+    Order client(clientName + std::to_string(lastClient));
     lastClient++;
 
     for (const FlowerType& type : FlowerType::all()) {

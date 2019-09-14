@@ -8,12 +8,14 @@
 #include "Actor.h"
 #include "../comunication/flowers/FlowerReceiver.h"
 #include "../comunication/orders/OrderReceiver.h"
+#include "../comunication/orders/InternetOrderReceiver.h"
 
 class PointOfSale : public Actor {
 private:
     FlowerReceiver flowerReceiver;
     OrderReceiver clientReceiver;
-    OrderList clients;
+    InternetOrderReceiver internetReceiver;
+    OrderList clients, internetOrders;
 
     /**
      * Receive flowers from distribution centers.
@@ -31,9 +33,14 @@ private:
     void attendNextClient();
 
     /**
-     * Sell flowers to a client.
+     * Attend next internet order in queue.
      */
-    void sellFlowersToClient(const Order& client);
+    void attendInternetOrder();
+
+    /**
+     * Sell flowers to client.
+     */
+    void sellFlowersToClient(const Order &order, OrderList& orderList);
 
 public:
     /**

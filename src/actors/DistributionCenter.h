@@ -55,6 +55,10 @@ public:
      * Finish doing work.
      */
     void finish() override;
+
+    void saveStock();
+
+    void restoreStock();
 };
 
 

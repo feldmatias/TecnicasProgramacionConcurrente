@@ -9,6 +9,7 @@
 #include "../comunication/orders/OrderSender.h"
 
 #define CLIENT_NAME std::string("Client")
+#define INTERNET_NAME std::string("Internet-order")
 
 class ClientGenerator : public Runnable {
 private:
@@ -17,6 +18,7 @@ private:
     OrderSender clientSender;
 
     int lastClient;
+    std::string clientName;
 
     /**
      * Create a new client.
@@ -32,7 +34,7 @@ public:
     /**
      * Constructor.
      */
-    ClientGenerator();
+    ClientGenerator(std::string clientConfigFile);
 
     /**
      * Destructor.
@@ -48,6 +50,8 @@ public:
      * Stop working.
      */
     void finish() override;
+
+    Order createInternetOrder();
 };
 
 
