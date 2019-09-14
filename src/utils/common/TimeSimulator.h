@@ -6,20 +6,11 @@
 
 class TimeSimulator {
 public:
-    /**
-     * Constructor.
-     */
-    TimeSimulator();
-
-    /**
-     * Destructor;
-     */
-     ~TimeSimulator();
 
      /**
       * Simulate time passed.
       */
-      void simulate();
+      static void simulate();
 };
 
 

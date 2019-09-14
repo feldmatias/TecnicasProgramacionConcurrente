@@ -5,6 +5,7 @@
 #include "../utils/file/ReadOnlyFile.h"
 #include "../utils/csv/CsvLine.h"
 #include "../actors/PointOfSale.h"
+#include "../utils/common/TimeSimulator.h"
 
 InternetGenerator::InternetGenerator() {
     lastOrder = 0;
@@ -15,7 +16,7 @@ void InternetGenerator::receiveData(Data data) {
     if (Random::probability(config.clientGeneratorRate())) {
         sendOrder();
     }
-    timeSimulator.simulate();
+    TimeSimulator::simulate();
 }
 
 std::string InternetGenerator::name() {
