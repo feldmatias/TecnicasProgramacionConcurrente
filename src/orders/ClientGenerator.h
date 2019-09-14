@@ -9,7 +9,7 @@
 #include "../comunication/orders/OrderSender.h"
 
 #define CLIENT_NAME std::string("Client")
-#define INTERNET_NAME std::string("Internet")
+#define INTERNET_NAME std::string("Internet-order")
 
 class ClientGenerator : public Runnable {
 private:

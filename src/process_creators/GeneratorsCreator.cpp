@@ -26,13 +26,5 @@ bool GeneratorsCreator::createClientGenerator() const {
         process.run();
         return true;
     }
-    pid = fork();
-    if(pid == 0){
-        //internet orders generator
-        ClientGenerator generator(INTERNET_CONFIG);
-        Process process(generator);
-        process.run();
-        return true;
-    }
     return false;
 }
