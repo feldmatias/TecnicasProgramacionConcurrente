@@ -4,11 +4,9 @@
 #include "../utils/file/WriteOnlyFile.h"
 #include "../concurrency/Fifo.h"
 
-DataSender::DataSender() = default;
-
-DataSender::~DataSender() = default;
-
-void DataSender::sendData(const std::string &receiver, const std::string &data) const {
+void DataSender::sendData(const std::string &receiver, const std::string &header, const std::string &data) {
     WriteOnlyFile file(Fifo::filename(receiver));
-    file.writeLine(data);
+
+    std::string line = header + DATA_HEADER_SEPARATOR + data;
+    file.writeLine(line);
 }

@@ -7,7 +7,10 @@
 #include "FlowerProtocol.h"
 #include "../DataSender.h"
 
-class FlowerSender : public DataSender {
+#define FLOWERS_DATA "flowers"
+#define TRANSACTION_DATA "transaction"
+
+class FlowerSender {
 private:
     FlowerProtocol protocol;
 
@@ -20,7 +23,7 @@ public:
     /**
      * Destructor.
      */
-    ~FlowerSender() override;
+    ~FlowerSender();
 
     /**
      * Send flowers to a receiver.

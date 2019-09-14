@@ -7,6 +7,8 @@
 #include "OrderProtocol.h"
 #include "../DataSender.h"
 
+#define ORDER_DATA "order"
+
 class OrderSender : public DataSender {
 private:
     OrderProtocol protocol;
@@ -20,7 +22,7 @@ public:
     /**
      * Destructor.
      */
-    ~OrderSender() override;
+    ~OrderSender();
 
     /**
      * Send an order to a receiver.
