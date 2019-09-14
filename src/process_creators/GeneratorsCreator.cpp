@@ -3,7 +3,6 @@
 #include "GeneratorsCreator.h"
 #include "../orders/ClientGenerator.h"
 #include "../concurrency/Process.h"
-#include "../../config/ConfigFiles.h"
 #include "../orders/InternetGenerator.h"
 
 GeneratorsCreator::GeneratorsCreator() = default;

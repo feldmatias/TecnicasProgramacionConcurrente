@@ -1,5 +1,4 @@
 
-
 #include "InternetGenerator.h"
 #include "../utils/common/Random.h"
 #include "../../config/ConfigFiles.h"
@@ -39,7 +38,8 @@ void InternetGenerator::initializeOrders() {
             }
 
             FlowerType type(typeName);
-            order.addFlowers(type, line.getNextNumber());
+            int count = line.getNextNumber();
+            order.addFlowers(type, count);
         }
         orders.push_back(order);
     }

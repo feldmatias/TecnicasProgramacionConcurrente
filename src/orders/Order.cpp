@@ -24,7 +24,7 @@ size_t Order::getFlowersCount(const FlowerType& type) const {
 }
 
 void Order::setClient(std::string clientName) {
-    client = clientName;
+    client = std::move(clientName);
 }
 
 Order::Order() = default;

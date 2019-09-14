@@ -13,8 +13,8 @@ class PointOfSale : public Actor {
 private:
     FlowerReceiver flowerReceiver;
     OrderReceiver orderReceiver;
+    OrderList internet;
     OrderList clients;
-    OrderList internetOrders;
 
     /**
      * Receive flowers from distribution centers.

@@ -1,5 +1,4 @@
 
-
 #include <algorithm>
 #include "CsvLine.h"
 
@@ -17,6 +16,7 @@ std::string CsvLine::getCsv() const {
 std::string CsvLine::getNext() {
     std::string next;
     std::getline(line, next, CSV_SEPARATOR);
+    next.erase(std::remove(next.begin(), next.end(), ' '), next.end());
     return std::move(next);
 }
 

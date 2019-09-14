@@ -1,3 +1,4 @@
+
 #include "PointOfSale.h"
 #include "../logger/Logger.h"
 #include "../statistics/Statistics.h"
@@ -40,7 +41,7 @@ void PointOfSale::receiveClient(const std::string& clientData) {
 
 void PointOfSale::receiveInternetOrder(const std::string &orderData) {
     Order order = orderReceiver.receiveOrder(orderData);
-    internetOrders.push_back(order);
+    internet.push_back(order);
 }
 
 void PointOfSale::attendClients() {
@@ -60,27 +61,27 @@ void PointOfSale::attendClients() {
 }
 
 void PointOfSale::attendInternetOrders(){
-    if (internetOrders.empty()) {
+    if (internet.empty()) {
         return;
     }
 
-    OrderList currentOrders = internetOrders;
-    internetOrders.clear();
+    OrderList currentOrders;
+    currentOrders.splice(currentOrders.end(), internet);
 
-    while (!currentOrders.empty()) {
-        Order order = currentOrders.front();
+    for (const Order& order : currentOrders) {
+        bool hasStock = true;
         for (const FlowerType& type : FlowerType::all()) {
             if (order.getFlowersCount(type) > stock.countFlowers(type)) {
                 // Not enough stock
-                // Move to next order
-                currentOrders.pop_front();
-                internetOrders.push_back(order);
-                continue;
+                hasStock = false;
             }
         }
 
-        sellFlowersToInternet(order);
-        currentOrders.pop_front();
+        if (hasStock){
+            sellFlowersToInternet(order);
+        } else {
+            internet.push_back(order);
+        }
     }
 }
 
