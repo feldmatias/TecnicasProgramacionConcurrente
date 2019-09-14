@@ -8,7 +8,7 @@
 #include "../config/ActorsConfig.h"
 #include "../comunication/orders/OrderSender.h"
 
-#define CLIENT_NAME std::string("Client")
+#define CLIENT_NAME std::string("Cliente")
 
 #define CLIENTS_GENERATOR "ClientsGenerator"
 

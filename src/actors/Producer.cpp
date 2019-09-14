@@ -6,7 +6,7 @@
 #include "../utils/common/Random.h"
 #include "../logger/Logger.h"
 
-#define PRODUCER_NAME std::string("Producer")
+#define PRODUCER_NAME std::string("Productor")
 
 std::string Producer::getName(int name) {
     return PRODUCER_NAME + std::to_string(name);
