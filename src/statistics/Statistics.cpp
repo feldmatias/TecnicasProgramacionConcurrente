@@ -4,7 +4,7 @@
 
 typedef std::pair<const std::string, size_t> StatisticData;
 
-StatisticData getMaxFromHash(const StatisticsMap& hash) {
+StatisticData getMaxStatisticFromHash(const StatisticsMap& hash) {
     std::string maxKey;
     size_t maxValue = 0;
 
@@ -25,21 +25,20 @@ void Statistics::sendTransaction(const FlowerTransaction &transaction) {
 
 Statistics::Statistics() = default;
 
-void Statistics::receiveData() {
-    receiveTransactions();
-    if (comunicator.shouldShowStatistics()) {
+void Statistics::receiveData(Data data) {
+    if (data.getHeader() == SHOW_STATISTICS) {
         showStatistics();
+    } else {
+        receiveTransaction(data.getData());
     }
 }
 
-void Statistics::receiveTransactions() {
-    /*FlowerTransaction transactions = transactionReceiver.receiveFlowerTransaction();
-    for (const FlowerTransaction& transaction : transactions) {
-        for (const Flower& flower : transaction.getFlowers()) {
-            salesBySeller[transaction.getSender()]++;
-            salesByType[flower.getType().getName()]++;
-        }
-    }*/
+void Statistics::receiveTransaction(const std::string& transactionData) {
+    FlowerTransaction transaction = transactionReceiver.receiveFlowerTransaction(transactionData);
+    for (const Flower& flower : transaction.getFlowers()) {
+        salesBySeller[transaction.getSender()]++;
+        salesByType[flower.getType().getName()]++;
+    }
 }
 
 void Statistics::showStatistics() {
@@ -48,8 +47,8 @@ void Statistics::showStatistics() {
         return;
     }
 
-    StatisticData maxSeller = getMaxFromHash(salesBySeller);
-    StatisticData maxType = getMaxFromHash(salesByType);
+    StatisticData maxSeller = getMaxStatisticFromHash(salesBySeller);
+    StatisticData maxType = getMaxStatisticFromHash(salesByType);
 
     std::cout << "El punto de venta con más ventas es " << maxSeller.first << " con " << maxSeller.second << " flores vendidas." << std::endl;
     std::cout << "La flor más comprada es " << maxType.first << " con " << maxType.second << " compras." << std::endl;

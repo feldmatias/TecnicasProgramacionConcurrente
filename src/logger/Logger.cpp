@@ -7,11 +7,9 @@ Logger::Logger() :
     logFile(LOG_FILE) {
 }
 
-void Logger::receiveData() {
-    /*FlowerTransaction transactions = receiver.receiveFlowerTransaction();
-    for (const FlowerTransaction& transaction : transactions) {
-        log(transaction);
-    }*/
+void Logger::receiveData(Data data) {
+    FlowerTransaction transaction = receiver.receiveFlowerTransaction(data.getData());
+    log(transaction);
 }
 
 void Logger::log(const FlowerTransaction& transaction) {

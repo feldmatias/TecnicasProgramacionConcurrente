@@ -10,6 +10,7 @@
 #include "../concurrency/Runnable.h"
 
 #define STATISTICS "Statistics"
+#define SHOW_STATISTICS "SHOW_STATISTICS"
 
 typedef std::unordered_map<std::string, size_t> StatisticsMap;
 
@@ -24,7 +25,7 @@ private:
     /**
      * Receive all transactions made.
      */
-    void receiveTransactions();
+    void receiveTransaction(const std::string& transactionData);
 
     /**
      * Show statistics to the user.
@@ -50,7 +51,7 @@ public:
     /**
      * Show statistics if were asked.
      */
-    void receiveData() override;
+    void receiveData(Data data) override;
 
     /**
      * Get name.

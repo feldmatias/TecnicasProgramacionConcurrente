@@ -18,7 +18,7 @@ private:
     /**
      * Receive flowers from producers.
      */
-    void receiveFlowers();
+    void receiveFlowers(const std::string& flowers);
 
     /**
      * Classify flowers by type.
@@ -53,7 +53,7 @@ public:
     /**
      * Do distribution center's work.
      */
-    void receiveData() override;
+    void receiveData(Data data) override;
 };
 
 

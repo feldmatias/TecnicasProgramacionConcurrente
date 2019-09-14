@@ -42,7 +42,7 @@ public:
     /**
      * Log pending transactions.
      */
-    void receiveData() override;
+    void receiveData(Data data) override;
 
     /**
      * Get name.

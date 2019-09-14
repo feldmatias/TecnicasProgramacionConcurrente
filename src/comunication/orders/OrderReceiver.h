@@ -25,7 +25,7 @@ public:
     /**
      * Receive all orders.
      */
-    Order receiveOrders(const std::string& order);
+    Order receiveOrder(const std::string& order);
 };
 
 

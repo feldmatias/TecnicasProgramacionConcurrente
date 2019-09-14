@@ -46,7 +46,7 @@ public:
     /**
      * Generate clients.
      */
-    void receiveData() override;
+    void receiveData(Data data) override;
 
     /**
      * Get name.

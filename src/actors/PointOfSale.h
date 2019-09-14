@@ -20,12 +20,12 @@ private:
     /**
      * Receive flowers from distribution centers.
      */
-    void receiveFlowers();
+    void receiveFlowers(const std::string& flowers);
 
     /**
      * Receive new clients.
      */
-    void receiveClients();
+    void receiveClient(const std::string& client);
 
     /**
      * Attend the next client in queue.
@@ -66,7 +66,7 @@ public:
     /**
      * Do point of sale's work.
      */
-    void receiveData() override;
+    void receiveData(Data data) override;
 
 };
 

@@ -16,8 +16,8 @@ DistributionCenter::DistributionCenter(const std::string& name) :
     restoreStock();
 }
 
-void DistributionCenter::receiveData() {
-    receiveFlowers();
+void DistributionCenter::receiveData(Data data) {
+    receiveFlowers(data.getData());
     processFlowers();
 }
 
@@ -32,10 +32,10 @@ void DistributionCenter::saveStock(){
     }
 }
 
-void DistributionCenter::receiveFlowers() {
-    /*FlowerList list = flowerReceiver.receiveFlowers();
+void DistributionCenter::receiveFlowers(const std::string& flowers) {
+    FlowerList list = flowerReceiver.receiveFlowers(flowers);
     Logger::sendTransaction(FlowerTransaction(actorName, list));
-    stock.addFlowers(list);*/
+    stock.addFlowers(list);
 }
 
 void DistributionCenter::processFlowers() {

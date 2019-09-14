@@ -1,6 +1,8 @@
 #include "PointOfSale.h"
 #include "../logger/Logger.h"
 #include "../statistics/Statistics.h"
+#include "../comunication/flowers/FlowerSender.h"
+#include "../comunication/orders/OrderSender.h"
 
 #define CLIENT_NAME std::string("Clients-")
 #define SALE_POINT_NAME std::string("PointOfSale")
@@ -21,23 +23,26 @@ PointOfSale::PointOfSale(const std::string& name) :
     internetOrders = internetReceiver.receiveOrders();
 }
 
-void PointOfSale::receiveData() {
-    receiveFlowers();
-    receiveClients();
+void PointOfSale::receiveData(Data data) {
+    if (data.getHeader() == FLOWERS_DATA) {
+        receiveFlowers(data.getData());
+    } else if (data.getHeader() == ORDER_DATA) {
+        receiveClient(data.getData());
+    }
 
     attendNextClient();
     attendInternetOrder();
 }
 
-void PointOfSale::receiveFlowers() {
-    /*FlowerList list = flowerReceiver.receiveFlowers();
+void PointOfSale::receiveFlowers(const std::string& flowers) {
+    FlowerList list = flowerReceiver.receiveFlowers(flowers);
     Logger::sendTransaction(FlowerTransaction(actorName, list));
-    stock.addFlowers(list);*/
+    stock.addFlowers(list);
 }
 
-void PointOfSale::receiveClients() {
-   /* OrderList list = clientReceiver.receiveOrders();
-    clients.splice(clients.end(), list);*/
+void PointOfSale::receiveClient(const std::string& clientData) {
+    Order client = clientReceiver.receiveOrder(clientData);
+    clients.push_back(client);
 }
 
 void PointOfSale::attendNextClient() {

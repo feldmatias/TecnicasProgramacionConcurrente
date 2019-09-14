@@ -49,7 +49,7 @@ public:
     /**
      * Do producer's work.
      */
-    void receiveData() override;
+    void receiveData(Data data) override;
 
 };
 

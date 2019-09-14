@@ -12,11 +12,10 @@ ClientGenerator::ClientGenerator(std::string clientConfigFile) :
 
 ClientGenerator::~ClientGenerator() = default;
 
-void ClientGenerator::receiveData() {
+void ClientGenerator::receiveData(Data data) {
     if (Random::probability(config.clientGeneratorRate())) {
         Order client = createClient();
         sendClient(client);
-        return;
     }
 }
 

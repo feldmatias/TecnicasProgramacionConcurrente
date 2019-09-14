@@ -4,6 +4,7 @@
 #define PRIMAVERA_CONCURRENTE_RUNNABLE_H
 
 #include <string>
+#include "../comunication/Data.h"
 
 class Runnable {
 public:
@@ -20,7 +21,7 @@ public:
     /**
      * Receive data.
      */
-    virtual void receiveData() = 0;
+    virtual void receiveData(Data data) = 0;
 
     /**
      * Get name.
