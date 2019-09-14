@@ -1,5 +1,6 @@
 
 
+#include <iostream>
 #include "ShippingSystem.h"
 #include "../logger/Logger.h"
 #include "../comunication/flowers/FlowerSender.h"
@@ -14,7 +15,7 @@ std::string ShippingSystem::name() {
 
 void ShippingSystem::receiveData(Data data) {
     FlowerTransaction transaction = receiver.receiveFlowerTransaction(data.getData());
-    Logger::sendTransaction(transaction);
+    std::cout << "SHIPPING SYSTEM" << std::endl;
 }
 
 void ShippingSystem::sendTransaction(const FlowerTransaction& transaction) {
