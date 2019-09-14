@@ -3,6 +3,7 @@
 #include <memory>
 #include <unistd.h>
 #include "Fifo.h"
+#include "../utils/SystemCallException.h"
 
 #define FIFO_EXTENSION ".fifo"
 
@@ -12,7 +13,9 @@ std::string Fifo::filename(const std::string& name) {
 
 Fifo::Fifo(const std::string &fileName) :
     name(filename(fileName)) {
-    mknod(name.c_str(), S_IFIFO|0666, 0);
+    if (mknod(name.c_str(), S_IFIFO|0666, 0) < 0) {
+        throw SystemCallException("mknod");
+    }
     file = std::make_unique<File>(name);
 }
 
