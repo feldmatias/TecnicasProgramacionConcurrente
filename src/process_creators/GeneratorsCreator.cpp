@@ -23,7 +23,7 @@ bool GeneratorsCreator::createClientGenerator() const {
     pid_t pid = fork();
     if (pid == 0) {
         // Child process, clients
-        ClientGenerator generator(CLIENTS_CONFIG);
+        ClientGenerator generator;
         Process process(generator);
         process.run();
         return true;

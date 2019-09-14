@@ -8,13 +8,11 @@
 #include "Actor.h"
 #include "../comunication/flowers/FlowerReceiver.h"
 #include "../comunication/orders/OrderReceiver.h"
-#include "../comunication/orders/InternetOrderReceiver.h"
 
 class PointOfSale : public Actor {
 private:
     FlowerReceiver flowerReceiver;
-    OrderReceiver clientReceiver;
-    InternetOrderReceiver internetReceiver;
+    OrderReceiver orderReceiver;
     OrderList clients, internetOrders;
 
     /**

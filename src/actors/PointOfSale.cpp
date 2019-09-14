@@ -13,9 +13,7 @@ std::string PointOfSale::getName(int name) {
 }
 
 PointOfSale::PointOfSale(const std::string& name) :
-    Actor(name),
-    internetReceiver(INTERNET_ORDERS_CONFIG, name) {
-    internetOrders = internetReceiver.receiveOrders();
+    Actor(name) {
 }
 
 void PointOfSale::receiveData(Data data) {
@@ -36,7 +34,7 @@ void PointOfSale::receiveFlowers(const std::string& flowers) {
 }
 
 void PointOfSale::receiveClient(const std::string& clientData) {
-    Order client = clientReceiver.receiveOrder(clientData);
+    Order client = orderReceiver.receiveOrder(clientData);
     clients.push_back(client);
 }
 
