@@ -78,4 +78,8 @@ FlowerTransaction FlowerProtocol::receiveFlowersTransaction(const std::string &d
     return transaction;
 }
 
+char FlowerProtocol::getFlowersSeparator() const {
+    return FLOWERS_SEPARATOR;
+}
+
 

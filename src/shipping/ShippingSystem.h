@@ -9,6 +9,8 @@
 
 #define SHIPPING_SYSTEM "ServicioDeEnvios"
 
+#define DISPATCH_NOTE_DATA "dispatchnote"
+
 class ShippingSystem : public Runnable {
 private:
     FlowerReceiver receiver;

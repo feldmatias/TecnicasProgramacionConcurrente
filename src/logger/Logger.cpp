@@ -2,14 +2,23 @@
 #include "Logger.h"
 #include "../flower/FlowerStock.h"
 #include "../comunication/flowers/FlowerSender.h"
+#include "../shipping/ShippingSystem.h"
 
 Logger::Logger() :
     logFile(LOG_FILE) {
 }
 
+std::string Logger::name() {
+    return LOG_FILE;
+}
+
 void Logger::receiveData(Data data) {
     FlowerTransaction transaction = receiver.receiveFlowerTransaction(data.getData());
-    log(transaction);
+    if (data.getHeader() == TRANSACTION_DATA) {
+        log(transaction);
+    } else if (data.getHeader() == DISPATCH_NOTE_DATA) {
+        logDispatchNote(transaction);
+    }
 }
 
 void Logger::log(const FlowerTransaction& transaction) {
@@ -45,13 +54,40 @@ std::string Logger::log(const FlowerList &flowers) {
     return stream.str();
 }
 
-void Logger::sendTransaction(const FlowerTransaction& transaction) {
-    FlowerSender sender;
-    sender.sendFlowerTransaction(LOG_FILE, transaction);
+void Logger::logDispatchNote(const FlowerTransaction &transaction) {
+    if (transaction.getFlowers().empty()) {
+        return;
+    }
+
+    std::stringstream line;
+    line << "Remito generado para " << transaction.getReceiver();
+
+    FlowerProtocol protocol;
+    std::stringstream data(protocol.sendFlowers(transaction.getFlowers()));
+
+    while(true) {
+        std::string item;
+        std::getline(data, item, protocol.getFlowersSeparator());
+
+        if (item.empty()) {
+            break;
+        }
+
+        std::replace(item.begin(), item.end(), ',', ' ');
+        line << '\n' << "\t\t" << item;
+    }
+
+    logFile.writeLine(line.str());
 }
 
-std::string Logger::name() {
-    return LOG_FILE;
+void Logger::sendTransaction(const FlowerTransaction& transaction) {
+    FlowerProtocol protocol;
+    DataSender::sendData(LOG_FILE, TRANSACTION_DATA, protocol.sendFlowerTransaction(transaction));
+}
+
+void Logger::sendDispatchNote(const FlowerTransaction &transaction) {
+    FlowerProtocol protocol;
+    DataSender::sendData(LOG_FILE, DISPATCH_NOTE_DATA, protocol.sendFlowerTransaction(transaction));
 }
 
 Logger::~Logger() = default;
