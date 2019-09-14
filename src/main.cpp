@@ -7,7 +7,6 @@
 #include "concurrency/Fifo.h"
 #include "process_creators/StatisticsCreator.h"
 #include "comunication/input_receiver/InputReceiver.h"
-#include "actors/Producer.h"
 #include "actors/DistributionCenter.h"
 
 #define EXIT_OK 0
@@ -52,6 +51,6 @@ int main() {
         // Child process finished
     }
 
-    remove(FIFO_FOLDER);
+    std::remove(FIFO_FOLDER);
     return EXIT_OK;
 }

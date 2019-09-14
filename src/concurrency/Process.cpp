@@ -1,4 +1,6 @@
 
+#include <chrono>
+#include <thread>
 #include "Process.h"
 #include "../comunication/DataSender.h"
 
@@ -15,6 +17,10 @@ void Process::run() {
         if (!runnable.receivesData()) {
             // This to avoid process which does not expect data to block.
             DataSender::sendData(runnable.name(), NO_DATA_SENT);
+
+            //Simulate time passed
+            //TODO move this out of here
+            std::this_thread::sleep_for(std::chrono::milliseconds(15));
         }
 
         Data data = receiver.receiveNext();
