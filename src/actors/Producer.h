@@ -51,6 +51,13 @@ public:
      */
     void receiveData(Data data) override;
 
+    /**
+      * If receives data from other process.
+      */
+    bool receivesData() override {
+        return false;
+    }
+
 };
 
 

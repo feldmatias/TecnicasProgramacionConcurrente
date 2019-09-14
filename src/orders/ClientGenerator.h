@@ -52,6 +52,13 @@ public:
      * Get name.
      */
     std::string name() override;
+
+    /**
+      * If receives data from other process.
+      */
+    bool receivesData() override {
+        return false;
+    }
 };
 
 

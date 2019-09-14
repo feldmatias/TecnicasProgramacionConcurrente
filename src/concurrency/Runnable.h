@@ -28,6 +28,13 @@ public:
      */
      virtual std::string name() = 0;
 
+     /**
+      * If receives data from other process.
+      */
+      virtual bool receivesData() {
+          return true;
+      }
+
 };
 
 #endif //PRIMAVERA_CONCURRENTE_RUNNABLE_H

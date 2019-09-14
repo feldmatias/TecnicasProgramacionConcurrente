@@ -1,22 +1,26 @@
-
-
-#include <chrono>
-#include <thread>
 #include "Process.h"
+#include "../comunication/DataSender.h"
 
-#define CPU_SAVE_SLEEP 50
+#define NO_DATA_SENT "NO_DATA"
 
 Process::Process(Runnable &runnable) :
-    runnable(runnable) {
+    runnable(runnable), receiver(runnable.name()) {
 }
 
 Process::~Process() = default;
 
 void Process::run() {
-    while (!exitComunicator.shouldExit()) {
-        //runnable.receiveData(nullptr);
+    while (true) {
+        if (!runnable.receivesData()) {
+            // This to avoid process which does not expect data to block.
+            DataSender::sendData(runnable.name(), NO_DATA_SENT, "");
+        }
 
-        // Sleep to avoid cpu work at 100%
-        std::this_thread::sleep_for(std::chrono::milliseconds(CPU_SAVE_SLEEP));
+        Data data = receiver.receiveNext();
+        if (data.getHeader() == EXIT) {
+            return;
+        }
+        
+        runnable.receiveData(data);
     }
 }

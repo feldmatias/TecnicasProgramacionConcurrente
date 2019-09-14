@@ -17,7 +17,6 @@ typedef std::unordered_map<std::string, size_t> StatisticsMap;
 class Statistics : public Runnable {
 private:
     FlowerReceiver transactionReceiver;
-    StatisticsComunicator comunicator;
 
     StatisticsMap salesBySeller;
     StatisticsMap salesByType;
