@@ -12,6 +12,12 @@ private:
      */
     bool createClientGenerator() const;
 
+    /**
+     * Create internet orders generator.
+     * Returns true if was created (child process), false otherwise.
+     */
+    bool createInternetGenerator() const;
+
 public:
     /**
      * Constructor.
