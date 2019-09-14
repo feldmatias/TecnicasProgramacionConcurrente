@@ -1,8 +1,6 @@
 #ifndef PRIMAVERA_CONCURRENTE_PROCESS_H
 #define PRIMAVERA_CONCURRENTE_PROCESS_H
 
-
-#include "../comunication/comunicators/ExitComunicator.h"
 #include "Runnable.h"
 #include "../comunication/DataReceiver.h"
 #include <list>

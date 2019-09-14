@@ -22,14 +22,14 @@ void DistributionCenter::receiveData(Data data) {
 }
 
 void DistributionCenter::saveStock(){
-    WriteOnlyFile saveFile(PERSISTENCE_PATH + actorName + ".csv");
+    /*WriteOnlyFile saveFile(PERSISTENCE_PATH + actorName + ".csv");
     FlowerList flowers = stock.getAllFlowers();
     for(const Flower& flower : flowers){
         CsvLine line;
         line.setNext(flower.getType().getName());
         line.setNext(flower.getProducer());
         saveFile.writeLine(line.getCsv());
-    }
+    }*/
 }
 
 void DistributionCenter::receiveFlowers(const std::string& flowers) {
@@ -56,7 +56,7 @@ void DistributionCenter::sendFlowers(const FlowerType& type) {
 }
 
 void DistributionCenter::restoreStock() {
-    ReadOnlyFile readFile(PERSISTENCE_PATH + actorName + ".csv");
+    /*ReadOnlyFile readFile(PERSISTENCE_PATH + actorName + ".csv");
     FlowerList flowerList;
     while(true){
         std::string line(readFile.getLine());
@@ -67,7 +67,7 @@ void DistributionCenter::restoreStock() {
         Flower newFlower = Flower(producer, type);
         flowerList.push_back(std::move(newFlower));
     }
-    stock.addFlowers(flowerList);
+    stock.addFlowers(flowerList);*/
 }
 
 DistributionCenter::~DistributionCenter() = default;

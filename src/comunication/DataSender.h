@@ -8,7 +8,16 @@
 
 class DataSender {
 public:
-   static void sendData(const std::string& receiver, const std::string& header, const std::string& data);
+
+    /**
+     * Send data to a receiver.
+     */
+    static void sendData(const std::string& receiver, const std::string& header, const std::string& data);
+
+    /**
+     * Send data to a receiver.
+     */
+    static void sendData(const std::string& receiver, const std::string& header);
 };
 
 

@@ -1,3 +1,4 @@
+
 #include "Process.h"
 #include "../comunication/DataSender.h"
 
@@ -13,14 +14,14 @@ void Process::run() {
     while (true) {
         if (!runnable.receivesData()) {
             // This to avoid process which does not expect data to block.
-            DataSender::sendData(runnable.name(), NO_DATA_SENT, "");
+            DataSender::sendData(runnable.name(), NO_DATA_SENT);
         }
 
         Data data = receiver.receiveNext();
         if (data.getHeader() == EXIT) {
             return;
         }
-        
+
         runnable.receiveData(data);
     }
 }

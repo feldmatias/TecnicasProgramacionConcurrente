@@ -1,10 +1,7 @@
-
-
 #ifndef PRIMAVERA_CONCURRENTE_STATISTICS_H
 #define PRIMAVERA_CONCURRENTE_STATISTICS_H
 
 
-#include "../comunication/comunicators/StatisticsComunicator.h"
 #include "../flower/FlowerTransaction.h"
 #include "../comunication/flowers/FlowerReceiver.h"
 #include "../concurrency/Runnable.h"

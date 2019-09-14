@@ -2,12 +2,13 @@
 #include <unistd.h>
 #include <sys/stat.h>
 #include "process_creators/ActorsCreator.h"
-#include "comunication/comunicators/ExitComunicator.h"
 #include "process_creators/LoggerCreator.h"
 #include "process_creators/GeneratorsCreator.h"
 #include "concurrency/Fifo.h"
-#include "comunication/comunicators/ParentComunicator.h"
 #include "process_creators/StatisticsCreator.h"
+#include "comunication/input_receiver/InputReceiver.h"
+#include "actors/Producer.h"
+#include "actors/DistributionCenter.h"
 
 #define EXIT_OK 0
 
@@ -39,8 +40,13 @@ int main() {
         return EXIT_OK;
     }
 
-    ParentComunicator parentComunicator;
-    parentComunicator.start();
+    ProcessNames processNames;
+    processNames.splice(processNames.end(), logger);
+    processNames.splice(processNames.end(), statistics);
+    processNames.splice(processNames.end(), actors);
+    processNames.splice(processNames.end(), generators);
+    InputReceiver inputReceiver(processNames);
+    inputReceiver.start();
 
     while (wait(NULL) > 0) {
         // Child process finished

@@ -7,7 +7,7 @@
 #include "OrderProtocol.h"
 #include "../DataSender.h"
 
-#define ORDER_DATA "order"
+#define CLIENT_DATA "client"
 
 class OrderSender : public DataSender {
 private:
@@ -27,7 +27,7 @@ public:
     /**
      * Send an order to a receiver.
      */
-    void sendOrder(const std::string& receiver, const Order& order) const;
+    void sendClient(const std::string& receiver, const Order& order) const;
 };
 
 

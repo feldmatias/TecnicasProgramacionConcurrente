@@ -26,12 +26,12 @@ PointOfSale::PointOfSale(const std::string& name) :
 void PointOfSale::receiveData(Data data) {
     if (data.getHeader() == FLOWERS_DATA) {
         receiveFlowers(data.getData());
-    } else if (data.getHeader() == ORDER_DATA) {
+    } else if (data.getHeader() == CLIENT_DATA) {
         receiveClient(data.getData());
     }
 
     attendNextClient();
-    attendInternetOrder();
+    //attendInternetOrder();
 }
 
 void PointOfSale::receiveFlowers(const std::string& flowers) {
