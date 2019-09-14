@@ -16,6 +16,12 @@ private:
 
 public:
     /**
+     * Create a child process.
+     * Returns true if the process was created(child process), false otherwise.
+     */
+     static bool create(Runnable& runnable);
+
+    /**
      * Create a process with a runnable.
      */
     explicit Process(Runnable& runnable);

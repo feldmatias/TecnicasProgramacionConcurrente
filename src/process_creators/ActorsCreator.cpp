@@ -1,7 +1,5 @@
 
-#include <unistd.h>
 #include "ActorsCreator.h"
-#include "../utils/file/ReadOnlyFile.h"
 #include "../utils/csv/CsvLine.h"
 #include "../actors/Producer.h"
 #include "../actors/DistributionCenter.h"
@@ -13,16 +11,11 @@ ProcessNames createActorsFromConfig(int count) {
     ProcessNames processNames;
 
     for (int i = 0; i < count; i++) {
-        std::string name = T::getName(i);
-        pid_t pid = fork();
-        if (pid == 0) {
-            // Child process
-            T actor(name);
-            Process process(actor);
-            process.run();
+        T actor(T::getName(i));
+        if (Process::create(actor)) {
             return ProcessNames();
         } else {
-            processNames.push_back(name);
+            processNames.push_back(actor.name());
         }
     }
     return processNames;
