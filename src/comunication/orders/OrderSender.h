@@ -5,11 +5,10 @@
 
 
 #include "OrderProtocol.h"
-#include "../DataSender.h"
 
 #define CLIENT_DATA "client"
 
-class OrderSender : public DataSender {
+class OrderSender {
 private:
     OrderProtocol protocol;
 

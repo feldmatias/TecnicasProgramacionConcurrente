@@ -49,11 +49,6 @@ public:
     static std::string getName(int name);
 
     /**
-     * Convert an index to a point of sale name for a client.
-     */
-    static std::string getClientName(int name);
-
-    /**
      * Create a point of sale with a name.
      */
     explicit PointOfSale(const std::string& name);

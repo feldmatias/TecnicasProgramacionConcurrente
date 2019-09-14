@@ -33,7 +33,7 @@ Order ClientGenerator::createClient() {
 
 void ClientGenerator::sendClient(const Order& client) {
     int salePointNumber = Random::generate(actorsConfig.numberOfPointsOfSale());
-    std::string salePoint = PointOfSale::getClientName(salePointNumber);
+    std::string salePoint = PointOfSale::getName(salePointNumber);
 
     clientSender.sendClient(salePoint, client);
 }
