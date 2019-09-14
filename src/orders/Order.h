@@ -18,6 +18,11 @@ public:
     explicit Order(std::string client);
 
     /**
+     * Create an order.
+     */
+    Order();
+
+    /**
      * Destructor.
      */
     ~Order();
@@ -26,6 +31,11 @@ public:
      * Add flowers to the order.
      */
     void addFlowers(const FlowerType& type, size_t count);
+
+    /**
+     * Set client name.
+     */
+    void setClient(std::string clientName);
 
     /**
      * Get client name.

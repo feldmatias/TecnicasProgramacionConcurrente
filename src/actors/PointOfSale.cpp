@@ -5,8 +5,6 @@
 #include "../comunication/orders/OrderSender.h"
 
 #define SALE_POINT_NAME std::string("PointOfSale")
-#define INTERNET_NAME std::string("Internet-")
-#define INTERNET_ORDERS_CONFIG std::string("config/internet-orders.csv")
 
 std::string PointOfSale::getName(int name) {
     return SALE_POINT_NAME + std::to_string(name);
