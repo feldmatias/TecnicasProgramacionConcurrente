@@ -2,8 +2,6 @@
 #include "Statistics.h"
 #include "../comunication/flowers/FlowerSender.h"
 
-#define STATISTICS "Statistics"
-
 typedef std::pair<const std::string, size_t> StatisticData;
 
 StatisticData getMaxFromHash(const StatisticsMap& hash) {

@@ -4,6 +4,8 @@
 #define PRIMAVERA_CONCURRENTE_STATISTICSCREATOR_H
 
 
+#include "../concurrency/Process.h"
+
 class StatisticsCreator {
 public:
     /**
@@ -18,9 +20,9 @@ public:
 
     /**
      * Create statistics.
-     * Returns true if was created (child process), false otherwise.
+     * Returns empty list if was created (child process), process name otherwise.
      */
-    bool createStatistics() const;
+    ProcessNames createStatistics() const;
 };
 
 

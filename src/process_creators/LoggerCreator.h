@@ -4,6 +4,8 @@
 #define PRIMAVERA_CONCURRENTE_LOGGERCREATOR_H
 
 
+#include "../concurrency/Process.h"
+
 class LoggerCreator {
 public:
     /**
@@ -18,9 +20,9 @@ public:
 
     /**
      * Create logger.
-     * Returns true if was created (child process), false otherwise.
+     * Returns empty if was created (child process), Process name otherwise.
      */
-    bool createLogger() const;
+    ProcessNames createLogger() const;
 };
 
 

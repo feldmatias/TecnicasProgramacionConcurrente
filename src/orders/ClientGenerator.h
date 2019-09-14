@@ -11,6 +11,8 @@
 #define CLIENT_NAME std::string("Client")
 #define INTERNET_NAME std::string("Internet-order")
 
+#define CLIENTS_GENERATOR "ClientsGenerator"
+
 class ClientGenerator : public Runnable {
 private:
     ActorsConfig actorsConfig;

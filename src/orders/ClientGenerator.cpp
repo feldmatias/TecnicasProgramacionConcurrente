@@ -40,5 +40,5 @@ void ClientGenerator::sendClient(const Order& client) {
 }
 
 std::string ClientGenerator::name() {
-    return "ClientsGenerator";
+    return CLIENTS_GENERATOR;
 }

@@ -4,6 +4,9 @@
 
 #include "../comunication/comunicators/ExitComunicator.h"
 #include "Runnable.h"
+#include <list>
+
+typedef std::list<std::string> ProcessNames;
 
 class Process {
 private:

@@ -16,22 +16,26 @@ int main() {
     mkdir(FIFO_FOLDER, 0777);
 
     LoggerCreator loggerCreator;
-    if (loggerCreator.createLogger()) {
+    ProcessNames logger = loggerCreator.createLogger();
+    if (logger.empty()) {
         return EXIT_OK;
     }
 
     StatisticsCreator statisticsCreator;
-    if (statisticsCreator.createStatistics()) {
+    ProcessNames statistics = statisticsCreator.createStatistics();
+    if (statistics.empty()) {
         return EXIT_OK;
     }
 
     ActorsCreator actorsCreator;
-    if (actorsCreator.createActors()) {
+    ProcessNames actors = actorsCreator.createActors();
+    if (actors.empty()) {
         return EXIT_OK;
     }
 
     GeneratorsCreator generatorsCreator;
-    if (generatorsCreator.createGenerators()) {
+    ProcessNames generators = generatorsCreator.createGenerators();
+    if (generators.empty()) {
         return EXIT_OK;
     }
 

@@ -9,6 +9,8 @@
 #include "../comunication/flowers/FlowerReceiver.h"
 #include "../concurrency/Runnable.h"
 
+#define STATISTICS "Statistics"
+
 typedef std::unordered_map<std::string, size_t> StatisticsMap;
 
 class Statistics : public Runnable {

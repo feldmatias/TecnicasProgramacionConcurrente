@@ -9,14 +9,17 @@ StatisticsCreator::StatisticsCreator() = default;
 
 StatisticsCreator::~StatisticsCreator() = default;
 
-bool StatisticsCreator::createStatistics() const {
+ProcessNames StatisticsCreator::createStatistics() const {
     pid_t pid = fork();
     if (pid == 0) {
         // Child process
         Statistics statistics;
         Process process(statistics);
         process.run();
-        return true;
+        return ProcessNames();
     }
-    return false;
+
+    ProcessNames processNames;
+    processNames.push_back(STATISTICS);
+    return processNames;
 }
