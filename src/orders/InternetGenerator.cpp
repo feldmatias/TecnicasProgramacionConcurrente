@@ -5,6 +5,7 @@
 #include "../../config/ConfigFiles.h"
 #include "../utils/file/ReadOnlyFile.h"
 #include "../utils/csv/CsvLine.h"
+#include "../actors/PointOfSale.h"
 
 InternetGenerator::InternetGenerator() {
     lastOrder = 0;
@@ -45,7 +46,16 @@ void InternetGenerator::initializeOrders() {
 }
 
 void InternetGenerator::sendOrder() {
+    Order order = orders.front();
+    order.setClient(INTERNET_NAME + std::to_string(lastOrder));
+
+    int salePointNumber = Random::generate(actorsConfig.numberOfPointsOfSale());
+    std::string salePoint = PointOfSale::getName(salePointNumber);
+    orderSender.sendInternetOrder(salePoint, order);
+
     lastOrder++;
+    orders.pop_front();
+    orders.push_back(order);
 }
 
 InternetGenerator::~InternetGenerator() = default;
