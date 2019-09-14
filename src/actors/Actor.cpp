@@ -1,10 +1,13 @@
 
 #include "Actor.h"
+#include "../utils/file/WriteOnlyFile.h"
+#include "../utils/file/ReadOnlyFile.h"
 
 #include <utility>
 
 Actor::Actor(std::string name) :
         actorName(std::move(name)) {
+    restoreStock();
 }
 
 std::string Actor::name() {
@@ -12,29 +15,28 @@ std::string Actor::name() {
 }
 
 void Actor::saveStock() {
-/*WriteOnlyFile saveFile(PERSISTENCE_PATH + actorName + ".csv");
-    FlowerList flowers = stock.getAllFlowers();
-    for(const Flower& flower : flowers){
-        CsvLine line;
-        line.setNext(flower.getType().getName());
-        line.setNext(flower.getProducer());
-        saveFile.writeLine(line.getCsv());
-    }*/
+    std::string data = protocol.sendFlowers(stock.getAllFlowers());
+    WriteOnlyFile saveFile(stockFileName());
+    saveFile.writeLine(data);
 }
 
 void Actor::restoreStock() {
-/*ReadOnlyFile readFile(PERSISTENCE_PATH + actorName + ".csv");
-    FlowerList flowerList;
-    while(true){
-        std::string line(readFile.getLine());
-        if(line.empty()) break;
-        CsvLine csvLine(line);
-        FlowerType type = FlowerType(csvLine.getNext());
-        std::string producer(csvLine.getNext());
-        Flower newFlower = Flower(producer, type);
-        flowerList.push_back(std::move(newFlower));
+    ReadOnlyFile readFile(stockFileName());
+    if (!readFile.hasMoreData()) {
+        return;
     }
-    stock.addFlowers(flowerList);*/
+
+    std::string data = readFile.getLine();
+    if (!data.empty()) {
+        FlowerList flowers = protocol.receiveFlowers(data);
+        stock.addFlowers(flowers);
+    }
 }
 
-Actor::~Actor() = default;
+std::string Actor::stockFileName() const {
+    return std::string(STOCK_SAVE_FOLDER) + '/' + actorName;
+}
+
+Actor::~Actor() {
+    saveStock();
+}

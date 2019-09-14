@@ -13,7 +13,6 @@ std::string DistributionCenter::getName(int name) {
 DistributionCenter::DistributionCenter(const std::string& name) :
     Actor(name) {
     boxSize = config.centersBoxSize();
-    restoreStock();
 }
 
 void DistributionCenter::receiveData(Data data) {
