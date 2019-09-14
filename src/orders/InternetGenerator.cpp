@@ -15,6 +15,7 @@ void InternetGenerator::receiveData(Data data) {
     if (Random::probability(config.clientGeneratorRate())) {
         sendOrder();
     }
+    timeSimulator.simulate();
 }
 
 std::string InternetGenerator::name() {

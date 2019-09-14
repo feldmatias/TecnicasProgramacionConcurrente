@@ -15,6 +15,7 @@ void ClientGenerator::receiveData(Data data) {
         Order client = createClient();
         sendClient(client);
     }
+    timeSimulator.simulate();
 }
 
 Order ClientGenerator::createClient() {

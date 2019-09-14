@@ -22,6 +22,7 @@ void Producer::receiveData(Data data) {
     if (stock.countFlowers() == boxSize) {
         sendFlowers();
     }
+    timeSimulator.simulate();
 }
 
 void Producer::collectFlower() {

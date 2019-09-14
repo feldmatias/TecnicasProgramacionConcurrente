@@ -5,8 +5,12 @@
 
 #include <string>
 #include "../comunication/Data.h"
+#include "../utils/common/TimeSimulator.h"
 
 class Runnable {
+protected:
+    TimeSimulator timeSimulator;
+
 public:
     /**
      * Constructor.
