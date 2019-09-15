@@ -10,13 +10,6 @@ DataReceiver::DataReceiver(const std::string& receiver) :
     fifo(receiver) {
 }
 
-/*void DataReceiver::initializeReceiver() {
-    // This allows to know if Fifo has new data or not.
-    // Without this, there is no way to know if fifo has data, and getline() blocks
-    WriteOnlyFile file(Fifo::filename(receiver));
-    file.writeLine(END_OF_BLOCK);
-}**/
-
 Data DataReceiver::receiveNext() {
     std::stringstream line(fifo.getLine());
 
