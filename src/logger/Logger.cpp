@@ -1,4 +1,5 @@
 #include <sstream>
+#include <algorithm>
 #include "Logger.h"
 #include "../flower/FlowerStock.h"
 #include "../comunication/flowers/FlowerSender.h"
