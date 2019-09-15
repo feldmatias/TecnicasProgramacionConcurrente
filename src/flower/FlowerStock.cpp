@@ -43,3 +43,21 @@ size_t FlowerStock::countFlowers() {
     }
     return count;
 }
+
+FlowerList FlowerStock::getFlowers(const Order &order) {
+    FlowerList orderFlowers;
+    for (const FlowerType& type : FlowerType::all()) {
+        orderFlowers.splice(orderFlowers.end(), getFlowers(type, order.getFlowersCount(type)));
+    }
+    return orderFlowers;
+}
+
+bool FlowerStock::canCompleteOrder(const Order &order) {
+    for (const FlowerType& type : FlowerType::all()) {
+        if (order.getFlowersCount(type) > countFlowers(type)) {
+            // Not enough stock
+            return false;
+        }
+    }
+    return true;
+}

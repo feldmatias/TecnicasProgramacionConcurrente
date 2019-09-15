@@ -2,7 +2,7 @@
 #include "../utils/common/Random.h"
 #include "PointOfSale.h"
 #include "../logger/Logger.h"
-#include "../../config/ConfigFiles.h"
+#include "../ConfigFiles.h"
 
 #define CENTER_NAME std::string("CentroDeDistribucion")
 

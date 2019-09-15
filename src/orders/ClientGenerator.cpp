@@ -2,7 +2,7 @@
 #include "ClientGenerator.h"
 #include "../utils/common/Random.h"
 #include "../actors/PointOfSale.h"
-#include "../../config/ConfigFiles.h"
+#include "../ConfigFiles.h"
 #include "../utils/common/TimeSimulator.h"
 
 ClientGenerator::ClientGenerator() {

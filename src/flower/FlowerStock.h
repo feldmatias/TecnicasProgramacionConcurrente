@@ -8,6 +8,7 @@
 #include <unordered_map>
 #include "FlowerType.h"
 #include "Flower.h"
+#include "../orders/Order.h"
 
 class FlowerStock {
 private:
@@ -43,6 +44,16 @@ public:
      * Get all flowers of a type in stock.
      */
     FlowerList getFlowers(const FlowerType& type, int count);
+
+    /**
+     * Get all flowers needed to complete an order.
+     */
+    FlowerList getFlowers(const Order& order);
+
+    /**
+     * If has all flowers needed to complete an order.
+     */
+    bool canCompleteOrder(const Order& order);
 
     /**
      * Count all flowers of a type in stock.
