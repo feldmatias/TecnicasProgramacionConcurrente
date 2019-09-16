@@ -30,10 +30,6 @@ private:
      */
     void sendFlowers(const FlowerType& type);
 
-    void saveStock();
-
-    void restoreStock();
-
 public:
     /**
      * Convert index to a distribution center name.

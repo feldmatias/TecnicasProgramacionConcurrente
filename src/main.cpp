@@ -7,13 +7,15 @@
 #include "concurrency/Fifo.h"
 #include "process_creators/StatisticsCreator.h"
 #include "comunication/input_receiver/InputReceiver.h"
-#include "actors/DistributionCenter.h"
+#include "../config/ConfigFiles.h"
+#include "actors/Actor.h"
 
 #define EXIT_OK 0
 
 int main() {
 
     mkdir(FIFO_FOLDER, 0777);
+    mkdir(STOCK_SAVE_FOLDER, 0777);
 
     LoggerCreator loggerCreator;
     ProcessNames logger = loggerCreator.createLogger();

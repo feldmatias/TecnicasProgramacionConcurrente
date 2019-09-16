@@ -7,8 +7,6 @@
 
 #define CONFIG_PATH std::string("config/")
 
-#define PERSISTENCE_PATH std::string("persistence/")
-
 #define ACTORS_CONFIG (CONFIG_PATH + "actors.config.csv")
 
 #define CLIENTS_CONFIG (CONFIG_PATH + "clients.config.csv")
