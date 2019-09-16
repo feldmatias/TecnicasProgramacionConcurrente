@@ -4,9 +4,7 @@
 #include "../actors/PointOfSale.h"
 #include "../../config/ConfigFiles.h"
 
-ClientGenerator::ClientGenerator(std::string clientConfigFile) :
-    config(clientConfigFile),
-    clientName(clientConfigFile == CLIENTS_CONFIG ? CLIENT_NAME : INTERNET_NAME){
+ClientGenerator::ClientGenerator() {
     lastClient = 0;
 }
 
@@ -20,7 +18,7 @@ void ClientGenerator::receiveData(Data data) {
 }
 
 Order ClientGenerator::createClient() {
-    Order client(clientName + std::to_string(lastClient));
+    Order client(CLIENT_NAME + std::to_string(lastClient));
     lastClient++;
 
     for (const FlowerType& type : FlowerType::all()) {

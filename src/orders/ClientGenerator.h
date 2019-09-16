@@ -9,7 +9,6 @@
 #include "../comunication/orders/OrderSender.h"
 
 #define CLIENT_NAME std::string("Client")
-#define INTERNET_NAME std::string("Internet-order")
 
 #define CLIENTS_GENERATOR "ClientsGenerator"
 
@@ -20,7 +19,6 @@ private:
     OrderSender clientSender;
 
     int lastClient;
-    std::string clientName;
 
     /**
      * Create a new client.
@@ -36,7 +34,7 @@ public:
     /**
      * Constructor.
      */
-    explicit ClientGenerator(std::string clientConfigFile);
+    ClientGenerator();
 
     /**
      * Destructor.

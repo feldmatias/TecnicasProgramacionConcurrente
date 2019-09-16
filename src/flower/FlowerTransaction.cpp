@@ -1,5 +1,6 @@
 #include "FlowerTransaction.h"
 #include "../orders/ClientGenerator.h"
+#include "../orders/InternetGenerator.h"
 
 #include <utility>
 
@@ -32,7 +33,8 @@ bool FlowerTransaction::hasSender() const {
 }
 
 bool FlowerTransaction::isSell() const {
-    return receiver.find(CLIENT_NAME) != std::string::npos || receiver.find(INTERNET_NAME) != std::string::npos;
+    return receiver.find(CLIENT_NAME) != std::string::npos ||
+           receiver.find(INTERNET_NAME) != std::string::npos;
 }
 
 FlowerTransaction::~FlowerTransaction() = default;

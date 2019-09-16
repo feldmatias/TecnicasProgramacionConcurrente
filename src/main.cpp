@@ -46,6 +46,7 @@ int main() {
     processNames.splice(processNames.end(), statistics);
     processNames.splice(processNames.end(), actors);
     processNames.splice(processNames.end(), generators);
+
     InputReceiver inputReceiver(processNames);
     inputReceiver.start();
 
