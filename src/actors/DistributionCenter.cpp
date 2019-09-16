@@ -4,7 +4,7 @@
 #include "../logger/Logger.h"
 #include "../../config/ConfigFiles.h"
 
-#define CENTER_NAME std::string("DistributionCenter")
+#define CENTER_NAME std::string("CentroDeDistribucion")
 
 std::string DistributionCenter::getName(int name) {
     return CENTER_NAME + std::to_string(name);

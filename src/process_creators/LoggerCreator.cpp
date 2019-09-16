@@ -1,4 +1,3 @@
-#include <unistd.h>
 #include "LoggerCreator.h"
 #include "../logger/Logger.h"
 #include "../concurrency/Process.h"
@@ -6,17 +5,13 @@
 LoggerCreator::LoggerCreator() = default;
 
 ProcessNames LoggerCreator::createLogger() const {
-    pid_t pid = fork();
-    if (pid == 0) {
-        // Child process
-        Logger logger;
-        Process process(logger);
-        process.run();
+    Logger logger;
+    if (Process::create(logger)) {
         return ProcessNames();
     }
 
     ProcessNames processNames;
-    processNames.push_back(LOG_FILE);
+    processNames.push_back(logger.name());
     return processNames;
 }
 

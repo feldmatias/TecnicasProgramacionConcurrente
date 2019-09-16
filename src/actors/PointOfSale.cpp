@@ -5,7 +5,7 @@
 #include "../comunication/flowers/FlowerSender.h"
 #include "../comunication/orders/OrderSender.h"
 
-#define SALE_POINT_NAME std::string("PointOfSale")
+#define SALE_POINT_NAME std::string("PuntoDeVenta")
 
 std::string PointOfSale::getName(int name) {
     return SALE_POINT_NAME + std::to_string(name);

@@ -1,8 +1,10 @@
 
 #include <chrono>
 #include <thread>
+#include <unistd.h>
 #include "Process.h"
 #include "../comunication/DataSender.h"
+#include "../utils/SystemCallException.h"
 
 #define NO_DATA_SENT "NO_DATA"
 
@@ -30,4 +32,20 @@ void Process::run() {
 
         runnable.receiveData(data);
     }
+}
+
+bool Process::create(Runnable &runnable) {
+    pid_t pid = fork();
+    if (pid < 0) {
+        throw SystemCallException("fork");
+    }
+
+    if (pid == 0) {
+        // Child process
+        Process process(runnable);
+        process.run();
+        return true;
+    }
+
+    return false;
 }
