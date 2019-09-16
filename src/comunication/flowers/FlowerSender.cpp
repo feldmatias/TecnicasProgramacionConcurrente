@@ -6,10 +6,10 @@ FlowerSender::~FlowerSender() = default;
 
 void FlowerSender::sendFlowers(const std::string &receiver, const FlowerList& flowers) const {
     std::string info = protocol.sendFlowers(flowers);
-    sendData(receiver, info);
+    DataSender::sendData(receiver, FLOWERS_DATA, info);
 }
 
 void FlowerSender::sendFlowerTransaction(const std::string& receiver, const FlowerTransaction& transaction) const {
     std::string info = protocol.sendFlowerTransaction(transaction);
-    sendData(receiver, info);
+    DataSender::sendData(receiver, TRANSACTION_DATA, info);
 }

@@ -1,8 +1,9 @@
 #include "PointOfSale.h"
 #include "../logger/Logger.h"
 #include "../statistics/Statistics.h"
+#include "../comunication/flowers/FlowerSender.h"
+#include "../comunication/orders/OrderSender.h"
 
-#define CLIENT_NAME std::string("Clients-")
 #define SALE_POINT_NAME std::string("PointOfSale")
 #define INTERNET_NAME std::string("Internet-")
 #define INTERNET_ORDERS_CONFIG std::string("config/internet-orders.csv")
@@ -11,38 +12,32 @@ std::string PointOfSale::getName(int name) {
     return SALE_POINT_NAME + std::to_string(name);
 }
 
-std::string PointOfSale::getClientName(int name) {
-    return CLIENT_NAME + getName(name);
-}
-
 PointOfSale::PointOfSale(const std::string& name) :
-    Actor(name), flowerReceiver(name), clientReceiver(CLIENT_NAME + name),
-    internetReceiver(INTERNET_ORDERS_CONFIG, name){
+    Actor(name),
+    internetReceiver(INTERNET_ORDERS_CONFIG, name) {
     internetOrders = internetReceiver.receiveOrders();
 }
 
-void PointOfSale::doWork() {
-    receiveFlowers();
-    receiveClients();
+void PointOfSale::receiveData(Data data) {
+    if (data.getHeader() == FLOWERS_DATA) {
+        receiveFlowers(data.getData());
+    } else if (data.getHeader() == CLIENT_DATA) {
+        receiveClient(data.getData());
+    }
 
     attendNextClient();
-    attendInternetOrder();
-    // TODO: implement this
+    //attendInternetOrder();
 }
 
-void PointOfSale::finish() {
-    // TODO: implement this
-}
-
-void PointOfSale::receiveFlowers() {
-    FlowerList list = flowerReceiver.receiveFlowers();
-    Logger::sendTransaction(FlowerTransaction(name, list));
+void PointOfSale::receiveFlowers(const std::string& flowers) {
+    FlowerList list = flowerReceiver.receiveFlowers(flowers);
+    Logger::sendTransaction(FlowerTransaction(actorName, list));
     stock.addFlowers(list);
 }
 
-void PointOfSale::receiveClients() {
-    OrderList list = clientReceiver.receiveOrders();
-    clients.splice(clients.end(), list);
+void PointOfSale::receiveClient(const std::string& clientData) {
+    Order client = clientReceiver.receiveOrder(clientData);
+    clients.push_back(client);
 }
 
 void PointOfSale::attendNextClient() {
@@ -82,7 +77,7 @@ void PointOfSale::sellFlowersToClient(const Order& order, OrderList& orderList) 
         flowers.splice(flowers.end(), stock.getFlowers(type, order.getFlowersCount(type)));
     }
 
-    FlowerTransaction transaction(name, order, flowers);
+    FlowerTransaction transaction(actorName, order, flowers);
     Logger::sendTransaction(transaction);
     Statistics::sendTransaction(transaction);
     orderList.pop_front();

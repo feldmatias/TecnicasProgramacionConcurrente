@@ -9,36 +9,48 @@
 #include "../concurrency/Process.h"
 
 template <class T>
-bool createActorsFromConfig(int count) {
+ProcessNames createActorsFromConfig(int count) {
+    ProcessNames processNames;
+
     for (int i = 0; i < count; i++) {
+        std::string name = T::getName(i);
         pid_t pid = fork();
         if (pid == 0) {
             // Child process
-            T actor(T::getName(i));
+            T actor(name);
             Process process(actor);
             process.run();
-            return true;
+            return ProcessNames();
+        } else {
+            processNames.push_back(name);
         }
     }
-    return false;
+    return processNames;
 }
 
 ActorsCreator::ActorsCreator() = default;
 
 ActorsCreator::~ActorsCreator() = default;
 
-bool ActorsCreator::createActors() const {
-    if (createActorsFromConfig<Producer>(config.numberOfProducers())) {
-        return true;
+ProcessNames ActorsCreator::createActors() const {
+    ProcessNames producers = createActorsFromConfig<Producer>(config.numberOfProducers());
+    if (producers.empty()) {
+        return producers;
     }
 
-    if (createActorsFromConfig<DistributionCenter>(config.numberOfDistributionCenters())) {
-        return true;
+    ProcessNames centers = createActorsFromConfig<DistributionCenter>(config.numberOfDistributionCenters());
+    if (centers.empty()) {
+        return centers;
     }
 
-    if (createActorsFromConfig<PointOfSale>(config.numberOfPointsOfSale())) {
-        return true;
+    ProcessNames pointsOfSale = createActorsFromConfig<PointOfSale>(config.numberOfPointsOfSale());
+    if (pointsOfSale.empty()) {
+        return pointsOfSale;
     }
 
-    return false;
+    ProcessNames processNames;
+    processNames.splice(processNames.end(), producers);
+    processNames.splice(processNames.end(), centers);
+    processNames.splice(processNames.end(), pointsOfSale);
+    return processNames;
 }

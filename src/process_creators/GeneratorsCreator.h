@@ -2,6 +2,8 @@
 #define PRIMAVERA_CONCURRENTE_GENERATORSCREATOR_H
 
 
+#include "../concurrency/Process.h"
+
 class GeneratorsCreator {
 private:
     /**
@@ -23,9 +25,9 @@ public:
 
     /**
      * Create client and internet generators.
-     * Returns true if a generator was created (child process), false otherwise.
+     * Returns empty if a generator was created (child process), ProcessNames otherwise.
      */
-    bool createGenerators() const;
+    ProcessNames createGenerators() const;
 };
 
 

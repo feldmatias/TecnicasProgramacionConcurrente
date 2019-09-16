@@ -20,12 +20,12 @@ private:
     /**
      * Receive flowers from distribution centers.
      */
-    void receiveFlowers();
+    void receiveFlowers(const std::string& flowers);
 
     /**
      * Receive new clients.
      */
-    void receiveClients();
+    void receiveClient(const std::string& client);
 
     /**
      * Attend the next client in queue.
@@ -49,11 +49,6 @@ public:
     static std::string getName(int name);
 
     /**
-     * Convert an index to a point of sale name for a client.
-     */
-    static std::string getClientName(int name);
-
-    /**
      * Create a point of sale with a name.
      */
     explicit PointOfSale(const std::string& name);
@@ -66,12 +61,8 @@ public:
     /**
      * Do point of sale's work.
      */
-    void doWork() override;
+    void receiveData(Data data) override;
 
-    /**
-     * Finish doing work.
-     */
-    void finish() override;
 };
 
 

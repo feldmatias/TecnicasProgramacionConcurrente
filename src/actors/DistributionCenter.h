@@ -18,7 +18,7 @@ private:
     /**
      * Receive flowers from producers.
      */
-    void receiveFlowers();
+    void receiveFlowers(const std::string& flowers);
 
     /**
      * Classify flowers by type.
@@ -29,6 +29,10 @@ private:
      * Send flowers to a point of sale.
      */
     void sendFlowers(const FlowerType& type);
+
+    void saveStock();
+
+    void restoreStock();
 
 public:
     /**
@@ -49,16 +53,7 @@ public:
     /**
      * Do distribution center's work.
      */
-    void doWork() override;
-
-    /**
-     * Finish doing work.
-     */
-    void finish() override;
-
-    void saveStock();
-
-    void restoreStock();
+    void receiveData(Data data) override;
 };
 
 

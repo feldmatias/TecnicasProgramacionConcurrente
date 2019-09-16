@@ -1,10 +1,11 @@
 #include "OrderSender.h"
+#include "../DataSender.h"
 
 OrderSender::OrderSender() = default;
 
 OrderSender::~OrderSender() = default;
 
-void OrderSender::sendOrder(const std::string& receiver, const Order& order) const {
+void OrderSender::sendClient(const std::string& receiver, const Order& order) const {
     std::string info = protocol.sendOrder(order);
-    sendData(receiver, info);
+    DataSender::sendData(receiver, CLIENT_DATA, info);
 }

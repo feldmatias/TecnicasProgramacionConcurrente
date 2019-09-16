@@ -5,18 +5,11 @@
 
 
 #include "../concurrency/Fifo.h"
+#include "Data.h"
 
 class DataReceiver {
 private:
     Fifo fifo;
-
-protected:
-    std::string receiver;
-
-    /**
-     * Initialize the receiver to start receiving.
-     */
-    void initializeReceiver();
 
 public:
     /**
@@ -27,12 +20,12 @@ public:
     /**
      * Destructor.
      */
-    virtual ~DataReceiver();
+    ~DataReceiver();
 
     /**
      * Receive next data sent.
      */
-    std::string receiveNext();
+    Data receiveNext();
 };
 
 

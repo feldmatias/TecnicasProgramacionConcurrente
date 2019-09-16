@@ -1,20 +1,19 @@
-
-
 #ifndef PRIMAVERA_CONCURRENTE_STATISTICS_H
 #define PRIMAVERA_CONCURRENTE_STATISTICS_H
 
 
-#include "../comunication/comunicators/StatisticsComunicator.h"
 #include "../flower/FlowerTransaction.h"
 #include "../comunication/flowers/FlowerReceiver.h"
 #include "../concurrency/Runnable.h"
+
+#define STATISTICS "Statistics"
+#define SHOW_STATISTICS "SHOW_STATISTICS"
 
 typedef std::unordered_map<std::string, size_t> StatisticsMap;
 
 class Statistics : public Runnable {
 private:
     FlowerReceiver transactionReceiver;
-    StatisticsComunicator comunicator;
 
     StatisticsMap salesBySeller;
     StatisticsMap salesByType;
@@ -22,7 +21,7 @@ private:
     /**
      * Receive all transactions made.
      */
-    void receiveTransactions();
+    void receiveTransaction(const std::string& transactionData);
 
     /**
      * Show statistics to the user.
@@ -48,12 +47,13 @@ public:
     /**
      * Show statistics if were asked.
      */
-    void doWork() override;
+    void receiveData(Data data) override;
 
     /**
-     * Stop working.
+     * Get name.
      */
-    void finish() override;
+    std::string name() override;
+
 };
 
 

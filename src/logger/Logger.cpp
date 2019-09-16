@@ -4,18 +4,12 @@
 #include "../comunication/flowers/FlowerSender.h"
 
 Logger::Logger() :
-    receiver(LOG_FILE), logFile(LOG_FILE) {
+    logFile(LOG_FILE) {
 }
 
-void Logger::doWork() {
-    FlowerTransactionList transactions = receiver.receiveFlowerTransactions();
-    for (const FlowerTransaction& transaction : transactions) {
-        log(transaction);
-    }
-}
-
-void Logger::finish() {
-    // Do nothing
+void Logger::receiveData(Data data) {
+    FlowerTransaction transaction = receiver.receiveFlowerTransaction(data.getData());
+    log(transaction);
 }
 
 void Logger::log(const FlowerTransaction& transaction) {
@@ -54,6 +48,10 @@ std::string Logger::log(const FlowerList &flowers) {
 void Logger::sendTransaction(const FlowerTransaction& transaction) {
     FlowerSender sender;
     sender.sendFlowerTransaction(LOG_FILE, transaction);
+}
+
+std::string Logger::name() {
+    return LOG_FILE;
 }
 
 Logger::~Logger() = default;

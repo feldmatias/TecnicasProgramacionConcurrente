@@ -2,12 +2,12 @@
 #include <unistd.h>
 #include <sys/stat.h>
 #include "process_creators/ActorsCreator.h"
-#include "comunication/comunicators/ExitComunicator.h"
 #include "process_creators/LoggerCreator.h"
 #include "process_creators/GeneratorsCreator.h"
 #include "concurrency/Fifo.h"
-#include "comunication/comunicators/ParentComunicator.h"
 #include "process_creators/StatisticsCreator.h"
+#include "comunication/input_receiver/InputReceiver.h"
+#include "actors/DistributionCenter.h"
 
 #define EXIT_OK 0
 
@@ -16,32 +16,41 @@ int main() {
     mkdir(FIFO_FOLDER, 0777);
 
     LoggerCreator loggerCreator;
-    if (loggerCreator.createLogger()) {
+    ProcessNames logger = loggerCreator.createLogger();
+    if (logger.empty()) {
         return EXIT_OK;
     }
 
     StatisticsCreator statisticsCreator;
-    if (statisticsCreator.createStatistics()) {
+    ProcessNames statistics = statisticsCreator.createStatistics();
+    if (statistics.empty()) {
         return EXIT_OK;
     }
 
     ActorsCreator actorsCreator;
-    if (actorsCreator.createActors()) {
+    ProcessNames actors = actorsCreator.createActors();
+    if (actors.empty()) {
         return EXIT_OK;
     }
 
     GeneratorsCreator generatorsCreator;
-    if (generatorsCreator.createGenerators()) {
+    ProcessNames generators = generatorsCreator.createGenerators();
+    if (generators.empty()) {
         return EXIT_OK;
     }
 
-    ParentComunicator parentComunicator;
-    parentComunicator.start();
+    ProcessNames processNames;
+    processNames.splice(processNames.end(), logger);
+    processNames.splice(processNames.end(), statistics);
+    processNames.splice(processNames.end(), actors);
+    processNames.splice(processNames.end(), generators);
+    InputReceiver inputReceiver(processNames);
+    inputReceiver.start();
 
     while (wait(NULL) > 0) {
         // Child process finished
     }
 
-    remove(FIFO_FOLDER);
+    std::remove(FIFO_FOLDER);
     return EXIT_OK;
 }

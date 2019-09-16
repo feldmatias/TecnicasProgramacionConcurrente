@@ -9,12 +9,14 @@ GeneratorsCreator::GeneratorsCreator() = default;
 
 GeneratorsCreator::~GeneratorsCreator() = default;
 
-bool GeneratorsCreator::createGenerators() const {
+ProcessNames GeneratorsCreator::createGenerators() const {
     if (createClientGenerator()) {
-        return true;
+        return ProcessNames();
     }
 
-    return false;
+    ProcessNames processNames;
+    processNames.push_back(CLIENTS_GENERATOR);
+    return processNames;
 }
 
 bool GeneratorsCreator::createClientGenerator() const {

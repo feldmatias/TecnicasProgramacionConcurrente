@@ -6,6 +6,7 @@
 
 #include <vector>
 #include "../config/ActorsConfig.h"
+#include "../concurrency/Process.h"
 
 class ActorsCreator {
 private:
@@ -24,9 +25,9 @@ public:
 
     /**
      * Create producers, distribution centers and points of sale.
-     * Returns true if an actor was created (child process), false otherwise.
+     * Returns empty list if an actor was created (child process), process names otherwise.
      */
-    bool createActors() const;
+    ProcessNames createActors() const;
 };
 
 

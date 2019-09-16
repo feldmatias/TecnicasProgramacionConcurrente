@@ -5,16 +5,19 @@
 
 LoggerCreator::LoggerCreator() = default;
 
-bool LoggerCreator::createLogger() const {
+ProcessNames LoggerCreator::createLogger() const {
     pid_t pid = fork();
     if (pid == 0) {
         // Child process
         Logger logger;
         Process process(logger);
         process.run();
-        return true;
+        return ProcessNames();
     }
-    return false;
+
+    ProcessNames processNames;
+    processNames.push_back(LOG_FILE);
+    return processNames;
 }
 
 LoggerCreator::~LoggerCreator() = default;

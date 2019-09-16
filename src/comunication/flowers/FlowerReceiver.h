@@ -9,7 +9,7 @@
 #include "FlowerProtocol.h"
 #include "../DataReceiver.h"
 
-class FlowerReceiver : public DataReceiver {
+class FlowerReceiver {
 private:
     FlowerProtocol protocol;
 
@@ -17,22 +17,22 @@ public:
     /**
      * Create a receiver.
      */
-    explicit FlowerReceiver(const std::string& receiver);
+    explicit FlowerReceiver();
 
     /**
      * Destructor.
      */
-    ~FlowerReceiver() override;
+    ~FlowerReceiver();
 
     /**
      * Receive all flowers.
      */
-    FlowerList receiveFlowers();
+    FlowerList receiveFlowers(const std::string& flowers);
 
     /**
-     * Receive all transactions.
+     * Receive a transaction.
      */
-    FlowerTransactionList receiveFlowerTransactions();
+    FlowerTransaction receiveFlowerTransaction(const std::string& transaction);
 
 };
 

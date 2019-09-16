@@ -11,6 +11,8 @@
 #define CLIENT_NAME std::string("Client")
 #define INTERNET_NAME std::string("Internet-order")
 
+#define CLIENTS_GENERATOR "ClientsGenerator"
+
 class ClientGenerator : public Runnable {
 private:
     ActorsConfig actorsConfig;
@@ -34,7 +36,7 @@ public:
     /**
      * Constructor.
      */
-    ClientGenerator(std::string clientConfigFile);
+    explicit ClientGenerator(std::string clientConfigFile);
 
     /**
      * Destructor.
@@ -44,14 +46,19 @@ public:
     /**
      * Generate clients.
      */
-    void doWork() override;
+    void receiveData(Data data) override;
 
     /**
-     * Stop working.
+     * Get name.
      */
-    void finish() override;
+    std::string name() override;
 
-    Order createInternetOrder();
+    /**
+      * If receives data from other process.
+      */
+    bool receivesData() override {
+        return false;
+    }
 };
 
 

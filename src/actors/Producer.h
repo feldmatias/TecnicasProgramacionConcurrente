@@ -49,12 +49,15 @@ public:
     /**
      * Do producer's work.
      */
-    void doWork() override;
+    void receiveData(Data data) override;
 
     /**
-     * Finish doing work.
-     */
-    void finish() override;
+      * If receives data from other process.
+      */
+    bool receivesData() override {
+        return false;
+    }
+
 };
 
 

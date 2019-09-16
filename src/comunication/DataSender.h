@@ -4,23 +4,20 @@
 
 #include <string>
 
+#define DATA_HEADER_SEPARATOR '@'
+
 class DataSender {
-protected:
+public:
+
     /**
      * Send data to a receiver.
      */
-    void sendData(const std::string& receiver, const std::string& data) const;
-
-public:
-    /**
-     * Constructor.
-     */
-    DataSender();
+    static void sendData(const std::string& receiver, const std::string& header, const std::string& data);
 
     /**
-     * Destructor.
+     * Send data to a receiver.
      */
-    virtual ~DataSender();
+    static void sendData(const std::string& receiver, const std::string& header);
 };
 
 

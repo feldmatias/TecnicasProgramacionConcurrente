@@ -1,13 +1,17 @@
 #ifndef PRIMAVERA_CONCURRENTE_PROCESS_H
 #define PRIMAVERA_CONCURRENTE_PROCESS_H
 
-
-#include "../comunication/comunicators/ExitComunicator.h"
 #include "Runnable.h"
+#include "../comunication/DataReceiver.h"
+#include <list>
+
+#define EXIT "EXIT"
+
+typedef std::list<std::string> ProcessNames;
 
 class Process {
 private:
-    ExitComunicator exitComunicator;
+    DataReceiver receiver;
     Runnable& runnable;
 
 public:
@@ -22,7 +26,7 @@ public:
     ~Process();
 
     /**
-     * Start the runnable.
+     * Start the process.
      */
     void run();
 };
