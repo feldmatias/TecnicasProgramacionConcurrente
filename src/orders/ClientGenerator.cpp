@@ -3,6 +3,7 @@
 #include "../utils/common/Random.h"
 #include "../actors/PointOfSale.h"
 #include "../../config/ConfigFiles.h"
+#include "../utils/common/TimeSimulator.h"
 
 ClientGenerator::ClientGenerator() {
     lastClient = 0;
@@ -15,6 +16,7 @@ void ClientGenerator::receiveData(Data data) {
         Order client = createClient();
         sendClient(client);
     }
+    TimeSimulator::simulate();
 }
 
 Order ClientGenerator::createClient() {

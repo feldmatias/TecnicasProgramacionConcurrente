@@ -1,7 +1,7 @@
-number_of_producers, 1
+number_of_producers, 10
 producers_box_size, 10
 
-number_of_centers, 1
+number_of_centers, 3
 centers_box_size, 100
 
-number_of_sale_points, 1
+number_of_sale_points, 6

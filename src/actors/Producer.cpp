@@ -5,6 +5,7 @@
 #include "DistributionCenter.h"
 #include "../utils/common/Random.h"
 #include "../logger/Logger.h"
+#include "../utils/common/TimeSimulator.h"
 
 #define PRODUCER_NAME std::string("Productor")
 
@@ -22,6 +23,7 @@ void Producer::receiveData(Data data) {
     if (stock.countFlowers() == boxSize) {
         sendFlowers();
     }
+    TimeSimulator::simulate();
 }
 
 void Producer::collectFlower() {
