@@ -23,11 +23,21 @@ private:
      */
     std::string log(const FlowerList& flowers);
 
+    /**
+    * Log dispatch note.
+    */
+    void logDispatchNote(const FlowerTransaction& transaction);
+
 public:
     /**
      * Send a transaction to be logged.
      */
     static void sendTransaction(const FlowerTransaction& transaction);
+
+    /**
+     * Send a dispatch note to be logged.
+     */
+    static void sendDispatchNote(const FlowerTransaction& transaction);
 
     /**
      * Constructor.

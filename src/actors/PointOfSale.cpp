@@ -4,6 +4,7 @@
 #include "../statistics/Statistics.h"
 #include "../comunication/flowers/FlowerSender.h"
 #include "../comunication/orders/OrderSender.h"
+#include "../shipping/ShippingSystem.h"
 
 #define SALE_POINT_NAME std::string("PuntoDeVenta")
 
@@ -102,10 +103,10 @@ void PointOfSale::sellFlowersToInternet(const Order &order) {
         flowers.splice(flowers.end(), stock.getFlowers(type, order.getFlowersCount(type)));
     }
 
-    FlowerTransaction transaction(actorName, order, flowers);
-    Logger::sendTransaction(transaction);
-    Statistics::sendTransaction(transaction);
-    //TODO send to shipping system
+    FlowerTransaction sell(actorName, order, flowers);
+    Logger::sendTransaction(FlowerTransaction(actorName, SHIPPING_SYSTEM, flowers));
+    Statistics::sendTransaction(sell);
+    ShippingSystem::sendTransaction(sell);
 }
 
 PointOfSale::~PointOfSale() = default;

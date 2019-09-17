@@ -38,6 +38,11 @@ public:
      * Convert string to transaction.
      */
     FlowerTransaction receiveFlowersTransaction(const std::string &data) const;
+
+    /**
+     * Get flowers separator used in protocol.
+     */
+     char getFlowersSeparator() const;
 };
 
 

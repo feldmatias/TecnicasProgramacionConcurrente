@@ -10,6 +10,7 @@
 #include "process_creators/StatisticsCreator.h"
 #include "process_creators/LoggerCreator.h"
 #include "comunication/input_receiver/InputReceiver.h"
+#include "process_creators/ShippingSystemCreator.h"
 
 PrimaveraConcurrente::PrimaveraConcurrente() {
     mkdir(FIFO_FOLDER, 0777);
@@ -31,6 +32,14 @@ void PrimaveraConcurrente::start() {
         return;
     } else {
         processNames.splice(processNames.end(), logger);
+    }
+
+    ShippingSystemCreator shippingSystemCreator;
+    ProcessNames shippingSystem = shippingSystemCreator.createShippingSystem();
+    if (shippingSystem.empty()) {
+        return;
+    } else {
+        processNames.splice(processNames.end(), shippingSystem);
     }
 
     StatisticsCreator statisticsCreator;
