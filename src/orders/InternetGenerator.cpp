@@ -1,7 +1,7 @@
 
 #include "InternetGenerator.h"
 #include "../utils/common/Random.h"
-#include "../../config/ConfigFiles.h"
+#include "../ConfigFiles.h"
 #include "../utils/file/ReadOnlyFile.h"
 #include "../utils/csv/CsvLine.h"
 #include "../actors/PointOfSale.h"

@@ -42,55 +42,38 @@ void PointOfSale::receiveClient(const std::string& clientData) {
 
 void PointOfSale::receiveInternetOrder(const std::string &orderData) {
     Order order = orderReceiver.receiveOrder(orderData);
-    internet.push_back(order);
+    internetOrders.push_back(order);
 }
 
 void PointOfSale::attendClients() {
     while (!clients.empty()) {
         Order client = clients.front();
-        for (const FlowerType& type : FlowerType::all()) {
-            if (client.getFlowersCount(type) > stock.countFlowers(type)) {
-                // Not enough stock
-                // Do not attend next clients.
-                return;
-            }
+        if (stock.canCompleteOrder(client)) {
+            sellFlowersToClient(client);
+            clients.pop_front();
         }
-
-        sellFlowersToClient(client);
-        clients.pop_front();
     }
 }
 
 void PointOfSale::attendInternetOrders(){
-    if (internet.empty()) {
+    if (internetOrders.empty()) {
         return;
     }
 
     OrderList currentOrders;
-    currentOrders.splice(currentOrders.end(), internet);
+    currentOrders.splice(currentOrders.end(), internetOrders);
 
     for (const Order& order : currentOrders) {
-        bool hasStock = true;
-        for (const FlowerType& type : FlowerType::all()) {
-            if (order.getFlowersCount(type) > stock.countFlowers(type)) {
-                // Not enough stock
-                hasStock = false;
-            }
-        }
-
-        if (hasStock){
+        if (stock.canCompleteOrder(order)){
             sellFlowersToInternet(order);
         } else {
-            internet.push_back(order);
+            internetOrders.push_back(order);
         }
     }
 }
 
 void PointOfSale::sellFlowersToClient(const Order& order) {
-    FlowerList flowers;
-    for (const FlowerType& type : FlowerType::all()) {
-        flowers.splice(flowers.end(), stock.getFlowers(type, order.getFlowersCount(type)));
-    }
+    FlowerList flowers = stock.getFlowers(order);
 
     FlowerTransaction transaction(actorName, order, flowers);
     Logger::sendTransaction(transaction);
@@ -98,10 +81,7 @@ void PointOfSale::sellFlowersToClient(const Order& order) {
 }
 
 void PointOfSale::sellFlowersToInternet(const Order &order) {
-    FlowerList flowers;
-    for (const FlowerType& type : FlowerType::all()) {
-        flowers.splice(flowers.end(), stock.getFlowers(type, order.getFlowersCount(type)));
-    }
+    FlowerList flowers = stock.getFlowers(order);
 
     FlowerTransaction sell(actorName, order, flowers);
     Logger::sendTransaction(FlowerTransaction(actorName, SHIPPING_SYSTEM, flowers));

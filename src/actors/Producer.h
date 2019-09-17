@@ -9,7 +9,7 @@
 #include "../process_creators/ActorsCreator.h"
 #include "../concurrency/Fifo.h"
 #include "../utils/file/WriteOnlyFile.h"
-#include "../../config/ConfigFiles.h"
+#include "../ConfigFiles.h"
 #include "../comunication/flowers/FlowerSender.h"
 #include <unistd.h>
 #include <vector>

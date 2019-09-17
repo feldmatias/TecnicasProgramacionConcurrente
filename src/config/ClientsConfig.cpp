@@ -1,7 +1,7 @@
 
 
 #include "ClientsConfig.h"
-#include "../../config/ConfigFiles.h"
+#include "../ConfigFiles.h"
 
 ClientsConfig::ClientsConfig() : Config(CLIENTS_CONFIG) {
 }
