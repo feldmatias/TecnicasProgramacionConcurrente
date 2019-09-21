@@ -2,7 +2,6 @@
 
 #include <sys/stat.h>
 #include <sys/wait.h>
-#include <iostream>
 #include "PrimaveraConcurrente.h"
 #include "concurrency/fifos/Fifo.h"
 #include "actors/Actor.h"
