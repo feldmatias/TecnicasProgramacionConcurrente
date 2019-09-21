@@ -1,6 +1,5 @@
 #include "Producer.h"
 
-#include <utility>
 #include "Actor.h"
 #include "DistributionCenter.h"
 #include "../utils/common/Random.h"

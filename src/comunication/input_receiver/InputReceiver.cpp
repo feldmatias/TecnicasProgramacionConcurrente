@@ -4,6 +4,7 @@
 #include "../DataSender.h"
 #include "../../statistics/Statistics.h"
 #include "../../concurrency/signals/ExitSignalEventHandler.h"
+#include "../../concurrency/process/DataReceiverProcess.h"
 
 InputReceiver::InputReceiver(ProcessInfoList process) :
     process(std::move(process)) {

@@ -4,7 +4,6 @@
 #include "Runnable.h"
 #include "../../comunication/DataReceiver.h"
 #include "ProcessInfo.h"
-#include <list>
 
 #define EXIT "EXIT"
 

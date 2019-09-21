@@ -1,7 +1,6 @@
 
 #include <unistd.h>
 #include "DataReceiverProcess.h"
-#include "../../comunication/DataSender.h"
 #include "Process.h"
 
 DataReceiverProcess::DataReceiverProcess(Runnable &runnable) :

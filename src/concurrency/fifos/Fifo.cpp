@@ -1,6 +1,5 @@
 #include <sys/stat.h>
 
-#include <memory>
 #include <unistd.h>
 #include "Fifo.h"
 #include "../../utils/SystemCallException.h"
