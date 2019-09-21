@@ -6,7 +6,6 @@
 
 #include <csignal>
 #include <memory.h>
-#include <unordered_map>
 #include "SignalEventHandler.h"
 
 

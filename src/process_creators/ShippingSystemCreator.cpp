@@ -2,6 +2,7 @@
 
 #include "ShippingSystemCreator.h"
 #include "../shipping/ShippingSystem.h"
+#include "../concurrency/process/DataReceiverProcess.h"
 
 ShippingSystemCreator::ShippingSystemCreator() = default;
 
