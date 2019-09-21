@@ -3,7 +3,6 @@
 #include <sys/stat.h>
 #include <sys/wait.h>
 #include <iostream>
-#include <cstring>
 #include "PrimaveraConcurrente.h"
 #include "concurrency/fifos/Fifo.h"
 #include "actors/Actor.h"
@@ -13,7 +12,6 @@
 #include "process_creators/LoggerCreator.h"
 #include "comunication/input_receiver/InputReceiver.h"
 #include "process_creators/ShippingSystemCreator.h"
-#include "concurrency/signals/SignalHandler.h"
 
 PrimaveraConcurrente::PrimaveraConcurrente() {
     mkdir(FIFO_FOLDER, 0777);
@@ -25,7 +23,6 @@ PrimaveraConcurrente::~PrimaveraConcurrente() {
         waitpid(childProcess.getPid(), nullptr, 0);
     }
 
-    SignalHandler::destroy();
     std::remove(FIFO_FOLDER);
 }
 

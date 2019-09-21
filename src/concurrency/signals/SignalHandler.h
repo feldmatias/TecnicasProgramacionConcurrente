@@ -13,7 +13,6 @@
 class SignalHandler {
 
 private:
-    static SignalHandler* instance;
     static SignalEventHandler* signalHandlers[NSIG];
 
     /**
@@ -28,20 +27,11 @@ private:
     static void handleSignal(int signum);
 
 public:
-    /**
-     * Singleton.
-     */
-    static SignalHandler& getInstance();
-
-    /**
-     * Destroy signal handler.
-     */
-    static void destroy();
 
     /**
      * Register signal event.
      */
-    void registerSignalEvent(int signum, SignalEventHandler* signalEvent);
+    static void registerSignalEvent(int signum, SignalEventHandler* signalEvent);
 };
 
 

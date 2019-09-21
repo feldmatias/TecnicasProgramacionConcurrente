@@ -5,7 +5,7 @@
 
 DataSenderProcess::DataSenderProcess(Runnable &runnable) :
     runnable(runnable) {
-    SignalHandler::getInstance().registerSignalEvent(ExitSignalEventHandler::signum(), &exitHandler);
+    SignalHandler::registerSignalEvent(ExitSignalEventHandler::signum(), &exitHandler);
 }
 
 void DataSenderProcess::run() {

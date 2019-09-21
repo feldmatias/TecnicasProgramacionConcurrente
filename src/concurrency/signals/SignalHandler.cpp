@@ -1,23 +1,9 @@
 #include "SignalHandler.h"
 
-SignalHandler* SignalHandler::instance = nullptr;
 SignalEventHandler* SignalHandler::signalHandlers[NSIG];
-
-SignalHandler &SignalHandler::getInstance() {
-    if (instance == nullptr) {
-        instance = new SignalHandler;
-    }
-    return *instance;
-}
 
 void SignalHandler::handleSignal(int signum) {
     signalHandlers[signum]->handleSignal();
-}
-
-void SignalHandler::destroy() {
-    if (instance != nullptr) {
-        delete instance;
-    }
 }
 
 void SignalHandler::registerSignalEvent(int signum, SignalEventHandler* signalEvent) {
