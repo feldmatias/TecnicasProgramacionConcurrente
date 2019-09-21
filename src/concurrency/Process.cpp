@@ -28,7 +28,7 @@ void Process::run() {
     }
 }
 
-bool Process::create(Runnable &runnable) {
+ProcessInfo Process::create(Runnable &runnable) {
     pid_t pid = fork();
     if (pid < 0) {
         throw SystemCallException("fork");
@@ -38,8 +38,8 @@ bool Process::create(Runnable &runnable) {
         // Child process
         Process process(runnable);
         process.run();
-        return true;
+        return ProcessInfo::childProcess();
     }
 
-    return false;
+    return ProcessInfo(pid, runnable.name());
 }

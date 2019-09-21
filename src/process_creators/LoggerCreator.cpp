@@ -4,15 +4,16 @@
 
 LoggerCreator::LoggerCreator() = default;
 
-ProcessNames LoggerCreator::createLogger() const {
+ProcessInfoList LoggerCreator::createLogger() const {
     Logger logger;
-    if (Process::create(logger)) {
-        return ProcessNames();
+    ProcessInfo processInfo = Process::create(logger);
+    if (processInfo.isChildProcess()) {
+        return ProcessInfoList();
     }
 
-    ProcessNames processNames;
-    processNames.push_back(logger.name());
-    return processNames;
+    ProcessInfoList process;
+    process.push_back(processInfo);
+    return process;
 }
 
 LoggerCreator::~LoggerCreator() = default;

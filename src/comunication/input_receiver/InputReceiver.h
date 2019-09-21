@@ -8,7 +8,7 @@
 
 class InputReceiver {
 private:
-    ProcessNames processNames;
+    ProcessInfoList process;
 
     /**
      * Finish all processes.
@@ -25,7 +25,7 @@ public:
     /**
      * Constructor.
      */
-    InputReceiver(ProcessNames processNames);
+    InputReceiver(ProcessInfoList process);
 
     /**
      * Destructor.

@@ -4,8 +4,8 @@
 #include "../DataSender.h"
 #include "../../statistics/Statistics.h"
 
-InputReceiver::InputReceiver(ProcessNames processNames) :
-    processNames(std::move(processNames)) {
+InputReceiver::InputReceiver(ProcessInfoList process) :
+    process(std::move(process)) {
 }
 
 InputReceiver::~InputReceiver() = default;
@@ -28,8 +28,8 @@ void InputReceiver::start() {
 }
 
 void InputReceiver::exit() {
-    for (const std::string& process : processNames) {
-        DataSender::sendData(process, EXIT);
+    for (const ProcessInfo& childProcess : process) {
+        DataSender::sendData(childProcess.getName(), EXIT);
     }
 }
 

@@ -7,13 +7,14 @@ StatisticsCreator::StatisticsCreator() = default;
 
 StatisticsCreator::~StatisticsCreator() = default;
 
-ProcessNames StatisticsCreator::createStatistics() const {
+ProcessInfoList StatisticsCreator::createStatistics() const {
     Statistics statistics;
-    if (Process::create(statistics)) {
-        return ProcessNames();
+    ProcessInfo processInfo = Process::create(statistics);
+    if (processInfo.isChildProcess()) {
+        return ProcessInfoList();
     }
 
-    ProcessNames processNames;
-    processNames.push_back(statistics.name());
-    return processNames;
+    ProcessInfoList process;
+    process.push_back(processInfo);
+    return process;
 }

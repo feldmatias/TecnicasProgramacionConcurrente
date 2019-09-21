@@ -3,11 +3,10 @@
 
 #include "Runnable.h"
 #include "../comunication/DataReceiver.h"
+#include "ProcessInfo.h"
 #include <list>
 
 #define EXIT "EXIT"
-
-typedef std::list<std::string> ProcessNames;
 
 class Process {
 private:
@@ -17,9 +16,8 @@ private:
 public:
     /**
      * Create a child process.
-     * Returns true if the process was created(child process), false otherwise.
      */
-     static bool create(Runnable& runnable);
+     static ProcessInfo create(Runnable& runnable);
 
     /**
      * Create a process with a runnable.

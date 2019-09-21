@@ -4,6 +4,8 @@
 
 #include <fcntl.h>
 #include <string>
+#include <list>
+
 
 class ProcessInfo {
 private:
@@ -47,6 +49,8 @@ public:
      */
     bool isChildProcess() const;
 };
+
+typedef std::list<ProcessInfo> ProcessInfoList;
 
 
 #endif //PRIMAVERA_CONCURRENTE_PROCESSINFO_H

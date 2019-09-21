@@ -20,9 +20,9 @@ public:
 
     /**
      * Create statistics.
-     * Returns empty list if was created (child process), process name otherwise.
+     * Returns empty list if was created (child process), process info otherwise.
      */
-    ProcessNames createStatistics() const;
+    ProcessInfoList createStatistics() const;
 };
 
 

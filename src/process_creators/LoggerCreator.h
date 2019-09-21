@@ -20,9 +20,9 @@ public:
 
     /**
      * Create logger.
-     * Returns empty if was created (child process), Process name otherwise.
+     * Returns empty if was created (child process), Process info otherwise.
      */
-    ProcessNames createLogger() const;
+    ProcessInfoList createLogger() const;
 };
 
 
