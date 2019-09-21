@@ -47,7 +47,7 @@ public:
     /**
      * Show statistics if were asked.
      */
-    void receiveData(Data data) override;
+    void doWork(Data data) override;
 
     /**
      * Get name.

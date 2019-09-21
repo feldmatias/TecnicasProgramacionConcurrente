@@ -21,7 +21,7 @@ public:
     /**
      * Receive data.
      */
-    virtual void receiveData(Data data) = 0;
+    virtual void doWork(Data data) = 0;
 
     /**
      * Get name.

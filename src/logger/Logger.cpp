@@ -13,7 +13,7 @@ std::string Logger::name() {
     return LOG_FILE;
 }
 
-void Logger::receiveData(Data data) {
+void Logger::doWork(Data data) {
     FlowerTransaction transaction = receiver.receiveFlowerTransaction(data.getData());
     if (data.getHeader() == TRANSACTION_DATA) {
         log(transaction);

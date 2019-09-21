@@ -15,7 +15,7 @@ DistributionCenter::DistributionCenter(const std::string& name) :
     boxSize = config.centersBoxSize();
 }
 
-void DistributionCenter::receiveData(Data data) {
+void DistributionCenter::doWork(Data data) {
     receiveFlowers(data.getData());
     processFlowers();
 }

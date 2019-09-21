@@ -49,7 +49,7 @@ public:
     /**
      * Do distribution center's work.
      */
-    void receiveData(Data data) override;
+    void doWork(Data data) override;
 };
 
 
