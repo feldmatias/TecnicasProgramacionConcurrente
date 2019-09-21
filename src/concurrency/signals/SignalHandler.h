@@ -31,6 +31,11 @@ public:
      * Register signal event.
      */
     static void registerSignalEvent(int signum, SignalEventHandler* signalEvent);
+
+    /**
+     * Send signal to process.
+     */
+     static void sendSignal(pid_t pid, int signum);
 };
 
 

@@ -17,4 +17,8 @@ void SignalHandler::registerSignalEvent(int signum, SignalEventHandler* signalEv
     sigaction(signum, &sa, nullptr);
 }
 
+void SignalHandler::sendSignal(pid_t pid, int signum) {
+    kill(pid, signum);
+}
+
 SignalHandler::SignalHandler() = default;
