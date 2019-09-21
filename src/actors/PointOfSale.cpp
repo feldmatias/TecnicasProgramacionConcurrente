@@ -16,7 +16,7 @@ PointOfSale::PointOfSale(const std::string& name) :
     Actor(name) {
 }
 
-void PointOfSale::receiveData(Data data) {
+void PointOfSale::doWork(Data data) {
     if (data.getHeader() == FLOWERS_DATA) {
         receiveFlowers(data.getData());
     } else if (data.getHeader() == CLIENT_DATA) {

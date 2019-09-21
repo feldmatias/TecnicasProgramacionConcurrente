@@ -16,4 +16,6 @@ std::string Data::getData() const {
     return data;
 }
 
+Data::Data() = default;
+
 Data::~Data() = default;

@@ -11,7 +11,7 @@ std::string ShippingSystem::name() {
     return SHIPPING_SYSTEM;
 }
 
-void ShippingSystem::receiveData(Data data) {
+void ShippingSystem::doWork(Data data) {
     FlowerTransaction transaction = receiver.receiveFlowerTransaction(data.getData());
     Logger::sendDispatchNote(transaction);
 }

@@ -10,7 +10,7 @@ DataSenderProcess::DataSenderProcess(Runnable &runnable) :
 
 void DataSenderProcess::run() {
     while (!exitHandler.shouldQuit()) {
-        runnable.receiveData(Data("", ""));
+        runnable.doWork(Data());
     }
 }
 

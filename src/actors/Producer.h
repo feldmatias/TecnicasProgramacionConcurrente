@@ -49,7 +49,7 @@ public:
     /**
      * Do producer's work.
      */
-    void receiveData(Data data) override;
+    void doWork(Data data) override;
 
     /**
       * If receives data from other process.

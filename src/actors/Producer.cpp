@@ -18,7 +18,7 @@ Producer::Producer(std::string name) :
     boxSize = config.producersBoxSize();
 }
 
-void Producer::receiveData(Data data) {
+void Producer::doWork(Data data) {
     collectFlower();
     if (stock.countFlowers() == boxSize) {
         sendFlowers();

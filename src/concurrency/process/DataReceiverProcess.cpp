@@ -17,7 +17,7 @@ void DataReceiverProcess::run() {
             return;
         }
 
-        runnable.receiveData(data);
+        runnable.doWork(data);
     }
 }
 
