@@ -1,7 +1,7 @@
 
 #include "StatisticsCreator.h"
 #include "../statistics/Statistics.h"
-#include "../concurrency/Process.h"
+#include "../concurrency/process/Process.h"
 
 StatisticsCreator::StatisticsCreator() = default;
 

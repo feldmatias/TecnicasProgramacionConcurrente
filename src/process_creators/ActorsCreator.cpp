@@ -3,7 +3,7 @@
 #include "../actors/Producer.h"
 #include "../actors/DistributionCenter.h"
 #include "../actors/PointOfSale.h"
-#include "../concurrency/Process.h"
+#include "../concurrency/process/Process.h"
 
 template <class T>
 ProcessInfoList createActorsFromConfig(int count) {

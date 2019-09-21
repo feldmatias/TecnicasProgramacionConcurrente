@@ -4,7 +4,7 @@
 #define PRIMAVERA_CONCURRENTE_RUNNABLE_H
 
 #include <string>
-#include "../comunication/Data.h"
+#include "../../comunication/Data.h"
 
 class Runnable {
 public:

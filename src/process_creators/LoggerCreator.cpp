@@ -1,6 +1,6 @@
 #include "LoggerCreator.h"
 #include "../logger/Logger.h"
-#include "../concurrency/Process.h"
+#include "../concurrency/process/Process.h"
 
 LoggerCreator::LoggerCreator() = default;
 

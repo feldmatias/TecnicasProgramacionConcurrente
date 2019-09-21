@@ -4,7 +4,7 @@
 
 #include "../flower/FlowerTransaction.h"
 #include "../comunication/flowers/FlowerReceiver.h"
-#include "../concurrency/Runnable.h"
+#include "../concurrency/process/Runnable.h"
 
 #define STATISTICS "Statistics"
 #define SHOW_STATISTICS "SHOW_STATISTICS"

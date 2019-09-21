@@ -1,8 +1,8 @@
 
 #include <unistd.h>
 #include "Process.h"
-#include "../comunication/DataSender.h"
-#include "../utils/SystemCallException.h"
+#include "../../comunication/DataSender.h"
+#include "../../utils/SystemCallException.h"
 
 #define NO_DATA_SENT "NO_DATA"
 

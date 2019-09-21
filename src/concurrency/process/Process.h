@@ -2,7 +2,7 @@
 #define PRIMAVERA_CONCURRENTE_PROCESS_H
 
 #include "Runnable.h"
-#include "../comunication/DataReceiver.h"
+#include "../../comunication/DataReceiver.h"
 #include "ProcessInfo.h"
 #include <list>
 

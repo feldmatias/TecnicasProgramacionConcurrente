@@ -4,7 +4,7 @@
 #define PRIMAVERA_CONCURRENTE_FLOWERRECEIVER_H
 
 
-#include "../../concurrency/Fifo.h"
+#include "../../concurrency/fifos/Fifo.h"
 #include "../../flower/Flower.h"
 #include "FlowerProtocol.h"
 #include "../DataReceiver.h"

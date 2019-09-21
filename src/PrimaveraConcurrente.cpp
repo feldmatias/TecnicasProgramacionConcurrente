@@ -5,7 +5,7 @@
 #include <iostream>
 #include <cstring>
 #include "PrimaveraConcurrente.h"
-#include "concurrency/Fifo.h"
+#include "concurrency/fifos/Fifo.h"
 #include "actors/Actor.h"
 #include "process_creators/ActorsCreator.h"
 #include "process_creators/GeneratorsCreator.h"

@@ -4,7 +4,7 @@
 #define PRIMAVERA_CONCURRENTE_ACTOR_H
 
 #include <string>
-#include "../concurrency/Runnable.h"
+#include "../concurrency/process/Runnable.h"
 #include "../config/ActorsConfig.h"
 #include "../flower/FlowerStock.h"
 #include "../comunication/flowers/FlowerProtocol.h"

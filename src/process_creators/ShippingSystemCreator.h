@@ -4,7 +4,7 @@
 #define PRIMAVERA_CONCURRENTE_SHIPPINGSYSTEMCREATOR_H
 
 
-#include "../concurrency/Process.h"
+#include "../concurrency/process/Process.h"
 
 class ShippingSystemCreator {
 public:

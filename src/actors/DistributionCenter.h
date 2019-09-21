@@ -4,7 +4,7 @@
 
 #include <string>
 #include "Actor.h"
-#include "../concurrency/Fifo.h"
+#include "../concurrency/fifos/Fifo.h"
 #include "../comunication/flowers/FlowerReceiver.h"
 #include "../comunication/flowers/FlowerSender.h"
 

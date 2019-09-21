@@ -7,7 +7,7 @@
 #include <string>
 #include "Actor.h"
 #include "../process_creators/ActorsCreator.h"
-#include "../concurrency/Fifo.h"
+#include "../concurrency/fifos/Fifo.h"
 #include "../utils/file/WriteOnlyFile.h"
 #include "../ConfigFiles.h"
 #include "../comunication/flowers/FlowerSender.h"

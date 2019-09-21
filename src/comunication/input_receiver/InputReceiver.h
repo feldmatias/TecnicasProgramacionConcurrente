@@ -1,7 +1,7 @@
 #ifndef PRIMAVERA_CONCURRENTE_INPUTRECEIVER_H
 #define PRIMAVERA_CONCURRENTE_INPUTRECEIVER_H
 
-#include "../../concurrency/Process.h"
+#include "../../concurrency/process/Process.h"
 
 #define STATISTICS_CHAR 's'
 #define EXIT_CHAR 'q'

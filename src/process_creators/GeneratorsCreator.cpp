@@ -1,7 +1,7 @@
 
 #include "GeneratorsCreator.h"
 #include "../orders/ClientGenerator.h"
-#include "../concurrency/Process.h"
+#include "../concurrency/process/Process.h"
 #include "../orders/InternetGenerator.h"
 
 GeneratorsCreator::GeneratorsCreator() = default;

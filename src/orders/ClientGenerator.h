@@ -2,7 +2,7 @@
 #define PRIMAVERA_CONCURRENTE_CLIENTGENERATOR_H
 
 
-#include "../concurrency/Runnable.h"
+#include "../concurrency/process/Runnable.h"
 #include "../config/ClientsConfig.h"
 #include "Order.h"
 #include "../config/ActorsConfig.h"

@@ -6,7 +6,7 @@
 
 #include <vector>
 #include "../config/ActorsConfig.h"
-#include "../concurrency/Process.h"
+#include "../concurrency/process/Process.h"
 
 class ActorsCreator {
 private:
