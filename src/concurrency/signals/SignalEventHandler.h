@@ -10,6 +10,11 @@ public:
      * Handle signal.
      */
     virtual void handleSignal() = 0;
+
+    /**
+     * Destructor;
+     */
+    virtual ~SignalEventHandler() = default;
 };
 
 

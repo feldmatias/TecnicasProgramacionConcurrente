@@ -14,7 +14,7 @@ class SignalHandler {
 
 private:
     static SignalHandler* instance;
-    static std::unordered_map<int, SignalEventHandler&> signalEvents;
+    static SignalEventHandler* signalHandlers[NSIG];
 
     /**
      * Private constructor.
@@ -41,7 +41,7 @@ public:
     /**
      * Register signal event.
      */
-    void registerSignalEvent(int signum, SignalEventHandler& signalEvent);
+    void registerSignalEvent(int signum, SignalEventHandler* signalEvent);
 };
 
 

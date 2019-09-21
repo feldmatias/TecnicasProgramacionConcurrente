@@ -1,6 +1,7 @@
 #include "SignalHandler.h"
 
 SignalHandler* SignalHandler::instance = nullptr;
+SignalEventHandler* SignalHandler::signalHandlers[NSIG];
 
 SignalHandler &SignalHandler::getInstance() {
     if (instance == nullptr) {
@@ -10,7 +11,7 @@ SignalHandler &SignalHandler::getInstance() {
 }
 
 void SignalHandler::handleSignal(int signum) {
-    signalEvents.at(signum).handleSignal();
+    signalHandlers[signum]->handleSignal();
 }
 
 void SignalHandler::destroy() {
@@ -19,8 +20,8 @@ void SignalHandler::destroy() {
     }
 }
 
-void SignalHandler::registerSignalEvent(int signum, SignalEventHandler &signalEvent) {
-    signalEvents.insert({signum, signalEvent});
+void SignalHandler::registerSignalEvent(int signum, SignalEventHandler* signalEvent) {
+    signalHandlers[signum] = signalEvent;
 
     struct sigaction sa;
     memset(&sa, 0, sizeof(sa));
