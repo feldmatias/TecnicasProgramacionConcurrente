@@ -22,9 +22,7 @@ PrimaveraConcurrente::PrimaveraConcurrente() {
 
 PrimaveraConcurrente::~PrimaveraConcurrente() {
     for (const ProcessInfo& childProcess : process) {
-        if (waitpid(childProcess.getPid(), NULL, 0) < 0) {
-            std::cerr << "Error en waitpid: " << std::strerror(errno) << std::endl;
-        }
+        waitpid(childProcess.getPid(), nullptr, 0);
     }
 
     SignalHandler::destroy();
