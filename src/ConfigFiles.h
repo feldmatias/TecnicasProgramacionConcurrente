@@ -13,4 +13,6 @@
 
 #define INTERNET_ORDERS_CONFIG (CONFIG_PATH + "internet_orders.csv")
 
+#define SIMULATION_CONFIG (CONFIG_PATH + "simulation.config.csv")
+
 #endif //PRIMAVERA_CONCURRENTE_CONFIGFILES_H

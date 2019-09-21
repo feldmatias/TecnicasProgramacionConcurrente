@@ -2,9 +2,9 @@
 
 #include <thread>
 #include "TimeSimulator.h"
-
-#define TIME_TO_SIMULATE 100
+#include "../../config/SimulationConfig.h"
 
 void TimeSimulator::simulate() {
-    std::this_thread::sleep_for(std::chrono::milliseconds(TIME_TO_SIMULATE));
+    SimulationConfig config;
+    std::this_thread::sleep_for(std::chrono::milliseconds(config.simulationTime()));
 }
