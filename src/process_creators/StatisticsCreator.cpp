@@ -1,7 +1,7 @@
 
 #include "StatisticsCreator.h"
 #include "../statistics/Statistics.h"
-#include "../concurrency/process/Process.h"
+#include "../concurrency/process/DataReceiverProcess.h"
 
 StatisticsCreator::StatisticsCreator() = default;
 
@@ -9,7 +9,7 @@ StatisticsCreator::~StatisticsCreator() = default;
 
 ProcessInfoList StatisticsCreator::createStatistics() const {
     Statistics statistics;
-    ProcessInfo processInfo = Process::create(statistics);
+    ProcessInfo processInfo = DataReceiverProcess::create(statistics);
     if (processInfo.isChildProcess()) {
         return ProcessInfoList();
     }

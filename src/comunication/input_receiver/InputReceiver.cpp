@@ -3,6 +3,7 @@
 #include "InputReceiver.h"
 #include "../DataSender.h"
 #include "../../statistics/Statistics.h"
+#include "../../concurrency/signals/ExitSignalEventHandler.h"
 
 InputReceiver::InputReceiver(ProcessInfoList process) :
     process(std::move(process)) {
@@ -29,7 +30,11 @@ void InputReceiver::start() {
 
 void InputReceiver::exit() {
     for (const ProcessInfo& childProcess : process) {
-        DataSender::sendData(childProcess.getName(), EXIT);
+        if (childProcess.receivesData()) {
+            DataSender::sendData(childProcess.getName(), EXIT);
+        } else {
+            kill(childProcess.getPid(), ExitSignalEventHandler::signum());
+        }
     }
 }
 

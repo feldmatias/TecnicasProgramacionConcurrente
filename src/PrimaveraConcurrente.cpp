@@ -13,6 +13,7 @@
 #include "process_creators/LoggerCreator.h"
 #include "comunication/input_receiver/InputReceiver.h"
 #include "process_creators/ShippingSystemCreator.h"
+#include "concurrency/signals/SignalHandler.h"
 
 PrimaveraConcurrente::PrimaveraConcurrente() {
     mkdir(FIFO_FOLDER, 0777);
@@ -26,6 +27,7 @@ PrimaveraConcurrente::~PrimaveraConcurrente() {
         }
     }
 
+    SignalHandler::destroy();
     std::remove(FIFO_FOLDER);
 }
 

@@ -1,5 +1,5 @@
-#ifndef PRIMAVERA_CONCURRENTE_PROCESS_H
-#define PRIMAVERA_CONCURRENTE_PROCESS_H
+#ifndef PRIMAVERA_CONCURRENTE_DATARECEIVERPROCESS_H
+#define PRIMAVERA_CONCURRENTE_DATARECEIVERPROCESS_H
 
 #include "Runnable.h"
 #include "../../comunication/DataReceiver.h"
@@ -8,7 +8,7 @@
 
 #define EXIT "EXIT"
 
-class Process {
+class DataReceiverProcess {
 private:
     DataReceiver receiver;
     Runnable& runnable;
@@ -17,17 +17,17 @@ public:
     /**
      * Create a child process.
      */
-     static ProcessInfo create(Runnable& runnable);
+    static ProcessInfo create(Runnable& runnable);
 
     /**
      * Create a process with a runnable.
      */
-    explicit Process(Runnable& runnable);
+    explicit DataReceiverProcess(Runnable& runnable);
 
     /**
      * Destructor.
      */
-    ~Process();
+    ~DataReceiverProcess();
 
     /**
      * Start the process.
@@ -36,4 +36,4 @@ public:
 };
 
 
-#endif //PRIMAVERA_CONCURRENTE_PROCESS_H
+#endif //PRIMAVERA_CONCURRENTE_DATARECEIVERPROCESS_H

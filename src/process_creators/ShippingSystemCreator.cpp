@@ -9,7 +9,7 @@ ShippingSystemCreator::~ShippingSystemCreator() = default;
 
 ProcessInfoList ShippingSystemCreator::createShippingSystem() const {
     ShippingSystem system;
-    ProcessInfo processInfo = Process::create(system);
+    ProcessInfo processInfo = DataReceiverProcess::create(system);
     if (processInfo.isChildProcess()) {
         return ProcessInfoList();
     }

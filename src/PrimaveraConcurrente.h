@@ -4,7 +4,7 @@
 #define PRIMAVERA_CONCURRENTE_PRIMAVERACONCURRENTE_H
 
 
-#include "concurrency/process/Process.h"
+#include "concurrency/process/DataReceiverProcess.h"
 
 class PrimaveraConcurrente {
 private:

@@ -1,7 +1,7 @@
 #ifndef PRIMAVERA_CONCURRENTE_INPUTRECEIVER_H
 #define PRIMAVERA_CONCURRENTE_INPUTRECEIVER_H
 
-#include "../../concurrency/process/Process.h"
+#include "../../concurrency/process/DataReceiverProcess.h"
 
 #define STATISTICS_CHAR 's'
 #define EXIT_CHAR 'q'
@@ -25,7 +25,7 @@ public:
     /**
      * Constructor.
      */
-    InputReceiver(ProcessInfoList process);
+    explicit InputReceiver(ProcessInfoList process);
 
     /**
      * Destructor.

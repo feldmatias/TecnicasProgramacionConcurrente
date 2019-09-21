@@ -1,7 +1,7 @@
 
 #include "GeneratorsCreator.h"
 #include "../orders/ClientGenerator.h"
-#include "../concurrency/process/Process.h"
+#include "../concurrency/process/DataSenderProcess.h"
 #include "../orders/InternetGenerator.h"
 
 GeneratorsCreator::GeneratorsCreator() = default;
@@ -27,10 +27,10 @@ ProcessInfoList GeneratorsCreator::createGenerators() const {
 
 ProcessInfo GeneratorsCreator::createClientGenerator() const {
     ClientGenerator generator;
-    return Process::create(generator);
+    return DataSenderProcess::create(generator);
 }
 
 ProcessInfo GeneratorsCreator::createInternetGenerator() const {
     InternetGenerator generator;
-    return Process::create(generator);
+    return DataSenderProcess::create(generator);
 }

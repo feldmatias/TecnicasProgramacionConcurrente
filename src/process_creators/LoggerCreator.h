@@ -4,7 +4,7 @@
 #define PRIMAVERA_CONCURRENTE_LOGGERCREATOR_H
 
 
-#include "../concurrency/process/Process.h"
+#include "../concurrency/process/DataReceiverProcess.h"
 
 class LoggerCreator {
 public:

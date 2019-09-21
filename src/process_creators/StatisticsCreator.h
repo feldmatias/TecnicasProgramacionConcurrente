@@ -4,7 +4,7 @@
 #define PRIMAVERA_CONCURRENTE_STATISTICSCREATOR_H
 
 
-#include "../concurrency/process/Process.h"
+#include "../concurrency/process/DataReceiverProcess.h"
 
 class StatisticsCreator {
 public:

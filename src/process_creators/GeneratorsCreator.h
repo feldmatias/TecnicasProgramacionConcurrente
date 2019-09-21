@@ -2,7 +2,7 @@
 #define PRIMAVERA_CONCURRENTE_GENERATORSCREATOR_H
 
 
-#include "../concurrency/process/Process.h"
+#include "../concurrency/process/DataReceiverProcess.h"
 
 class GeneratorsCreator {
 private:
