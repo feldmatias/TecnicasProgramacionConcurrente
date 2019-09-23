@@ -29,14 +29,14 @@ ActorsCreator::ActorsCreator() = default;
 ActorsCreator::~ActorsCreator() = default;
 
 ProcessInfoList ActorsCreator::createActors() const {
-    ProcessInfoList centers = createActorsFromConfig<DistributionCenter>(config.numberOfDistributionCenters(), true);
-    if (centers.empty()) {
-        return centers;
-    }
-
     ProcessInfoList pointsOfSale = createActorsFromConfig<PointOfSale>(config.numberOfPointsOfSale(), true);
     if (pointsOfSale.empty()) {
         return pointsOfSale;
+    }
+
+    ProcessInfoList centers = createActorsFromConfig<DistributionCenter>(config.numberOfDistributionCenters(), true);
+    if (centers.empty()) {
+        return centers;
     }
 
     ProcessInfoList producers = createActorsFromConfig<Producer>(config.numberOfProducers(), false);

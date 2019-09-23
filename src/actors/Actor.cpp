@@ -2,6 +2,7 @@
 #include "Actor.h"
 #include "../utils/file/WriteOnlyFile.h"
 #include "../utils/file/ReadOnlyFile.h"
+#include "../logger/Logger.h"
 
 #include <utility>
 
@@ -30,6 +31,7 @@ void Actor::restoreStock() {
     if (!data.empty()) {
         FlowerList flowers = protocol.receiveFlowers(data);
         stock.addFlowers(flowers);
+        Logger::sendTransaction(FlowerTransaction(actorName + "(Stock Inicial)", flowers));
     }
 }
 
