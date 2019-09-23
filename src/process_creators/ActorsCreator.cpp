@@ -29,11 +29,6 @@ ActorsCreator::ActorsCreator() = default;
 ActorsCreator::~ActorsCreator() = default;
 
 ProcessInfoList ActorsCreator::createActors() const {
-    ProcessInfoList producers = createActorsFromConfig<Producer>(config.numberOfProducers(), false);
-    if (producers.empty()) {
-        return producers;
-    }
-
     ProcessInfoList centers = createActorsFromConfig<DistributionCenter>(config.numberOfDistributionCenters(), true);
     if (centers.empty()) {
         return centers;
@@ -42,6 +37,11 @@ ProcessInfoList ActorsCreator::createActors() const {
     ProcessInfoList pointsOfSale = createActorsFromConfig<PointOfSale>(config.numberOfPointsOfSale(), true);
     if (pointsOfSale.empty()) {
         return pointsOfSale;
+    }
+
+    ProcessInfoList producers = createActorsFromConfig<Producer>(config.numberOfProducers(), false);
+    if (producers.empty()) {
+        return producers;
     }
 
     ProcessInfoList process;
