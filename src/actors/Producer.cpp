@@ -37,8 +37,8 @@ void Producer::sendFlowers() {
     std::string center = DistributionCenter::getName(centerNumber);
 
     FlowerList flowers = stock.getAllFlowers();
-    flowerSender.sendFlowers(center, flowers);
     Logger::sendTransaction(FlowerTransaction(actorName, center, flowers));
+    flowerSender.sendFlowers(center, flowers);
 }
 
 Producer::~Producer() = default;

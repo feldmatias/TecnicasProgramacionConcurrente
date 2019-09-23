@@ -38,8 +38,8 @@ void DistributionCenter::sendFlowers(const FlowerType& type) {
     std::string salePoint = PointOfSale::getName(salePointNumber);
 
     FlowerList flowers = stock.getFlowers(type, boxSize);
-    flowerSender.sendFlowers(salePoint, flowers);
     Logger::sendTransaction(FlowerTransaction(actorName, salePoint, flowers));
+    flowerSender.sendFlowers(salePoint, flowers);
 }
 
 DistributionCenter::~DistributionCenter() = default;
