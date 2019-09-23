@@ -6,13 +6,7 @@
 
 #include <string>
 #include "Actor.h"
-#include "../process_creators/ActorsCreator.h"
-#include "../concurrency/Fifo.h"
-#include "../utils/file/WriteOnlyFile.h"
-#include "../ConfigFiles.h"
 #include "../comunication/flowers/FlowerSender.h"
-#include <unistd.h>
-#include <vector>
 
 class Producer : public Actor {
 private:
@@ -49,7 +43,7 @@ public:
     /**
      * Do producer's work.
      */
-    void receiveData(Data data) override;
+    void doWork(Data data) override;
 
     /**
       * If receives data from other process.

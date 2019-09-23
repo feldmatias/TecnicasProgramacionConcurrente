@@ -4,7 +4,7 @@
 #define PRIMAVERA_CONCURRENTE_DATARECEIVER_H
 
 
-#include "../concurrency/Fifo.h"
+#include "../concurrency/fifos/Fifo.h"
 #include "Data.h"
 
 class DataReceiver {

@@ -1,9 +1,9 @@
 #include <sstream>
 #include <algorithm>
 #include "Logger.h"
-#include "../flower/FlowerStock.h"
 #include "../comunication/flowers/FlowerSender.h"
 #include "../shipping/ShippingSystem.h"
+#include "../flower/FlowerStock.h"
 
 Logger::Logger() :
     logFile(LOG_FILE) {
@@ -13,7 +13,7 @@ std::string Logger::name() {
     return LOG_FILE;
 }
 
-void Logger::receiveData(Data data) {
+void Logger::doWork(Data data) {
     FlowerTransaction transaction = receiver.receiveFlowerTransaction(data.getData());
     if (data.getHeader() == TRANSACTION_DATA) {
         log(transaction);

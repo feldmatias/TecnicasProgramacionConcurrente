@@ -12,7 +12,7 @@ InternetGenerator::InternetGenerator() {
     initializeOrders();
 }
 
-void InternetGenerator::receiveData(Data data) {
+void InternetGenerator::doWork(Data data) {
     if (Random::probability(config.clientGeneratorRate())) {
         sendOrder();
     }

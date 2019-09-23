@@ -11,7 +11,7 @@ ClientGenerator::ClientGenerator() {
 
 ClientGenerator::~ClientGenerator() = default;
 
-void ClientGenerator::receiveData(Data data) {
+void ClientGenerator::doWork(Data data) {
     if (Random::probability(config.clientGeneratorRate())) {
         Order client = createClient();
         sendClient(client);

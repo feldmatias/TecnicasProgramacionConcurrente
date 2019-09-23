@@ -13,6 +13,11 @@ private:
 
 public:
     /**
+     * Constructor.
+     */
+    Data();
+
+    /**
      * Create data with header.
      */
     Data(std::string header, std::string data);

@@ -1,34 +1,36 @@
 
 #include "GeneratorsCreator.h"
 #include "../orders/ClientGenerator.h"
-#include "../concurrency/Process.h"
+#include "../concurrency/process/DataSenderProcess.h"
 #include "../orders/InternetGenerator.h"
 
 GeneratorsCreator::GeneratorsCreator() = default;
 
 GeneratorsCreator::~GeneratorsCreator() = default;
 
-ProcessNames GeneratorsCreator::createGenerators() const {
-    if (createClientGenerator()) {
-        return ProcessNames();
+ProcessInfoList GeneratorsCreator::createGenerators() const {
+    ProcessInfo clientsGenerator = createClientGenerator();
+    if (clientsGenerator.isChildProcess()) {
+        return ProcessInfoList();
     }
 
-    if (createInternetGenerator()) {
-        return ProcessNames();
+    ProcessInfo internetGenerator = createInternetGenerator();
+    if (internetGenerator.isChildProcess()) {
+        return ProcessInfoList();
     }
 
-    ProcessNames processNames;
-    processNames.push_back(CLIENTS_GENERATOR);
-    processNames.push_back(INTERNET_GENERATOR);
-    return processNames;
+    ProcessInfoList process;
+    process.push_back(clientsGenerator);
+    process.push_back(internetGenerator);
+    return process;
 }
 
-bool GeneratorsCreator::createClientGenerator() const {
+ProcessInfo GeneratorsCreator::createClientGenerator() const {
     ClientGenerator generator;
-    return Process::create(generator);
+    return DataSenderProcess::create(generator);
 }
 
-bool GeneratorsCreator::createInternetGenerator() const {
+ProcessInfo GeneratorsCreator::createInternetGenerator() const {
     InternetGenerator generator;
-    return Process::create(generator);
+    return DataSenderProcess::create(generator);
 }

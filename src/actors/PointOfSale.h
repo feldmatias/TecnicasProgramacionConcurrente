@@ -70,7 +70,7 @@ public:
     /**
      * Do point of sale's work.
      */
-    void receiveData(Data data) override;
+    void doWork(Data data) override;
 
 };
 

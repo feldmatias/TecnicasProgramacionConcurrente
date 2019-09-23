@@ -16,16 +16,6 @@ public:
     static std::vector<FlowerType> all();
 
     /**
-     * Create a tulip.
-     */
-    static FlowerType Tulip();
-
-    /**
-     * Create a rose.
-     */
-    static FlowerType Rose();
-
-    /**
      * Create a flower type.
      */
     explicit FlowerType(std::string type);
@@ -34,11 +24,6 @@ public:
      * Destructor..
      */
     ~FlowerType();
-
-    /**
-     * Add flower type to ostream.
-     */
-    friend std::ostream& operator<<(std::ostream& os, const FlowerType& flowerType);
 
     /**
      * Compare to other flower type.

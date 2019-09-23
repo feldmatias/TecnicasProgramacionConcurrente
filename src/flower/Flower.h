@@ -16,7 +16,7 @@ public:
     /**
      * Create a flower with a producer and a type.
      */
-    Flower(std::string producer, FlowerType type);
+    Flower(std::string producer, const FlowerType& type);
 
     /**
      * Destructor.

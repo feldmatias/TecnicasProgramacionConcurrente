@@ -4,11 +4,11 @@
 #define PRIMAVERA_CONCURRENTE_PRIMAVERACONCURRENTE_H
 
 
-#include "concurrency/Process.h"
+#include "concurrency/process/ProcessInfo.h"
 
 class PrimaveraConcurrente {
 private:
-    ProcessNames processNames;
+    ProcessInfoList process;
 
     /**
      * Receive user input.

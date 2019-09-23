@@ -1,18 +1,19 @@
 #include "LoggerCreator.h"
 #include "../logger/Logger.h"
-#include "../concurrency/Process.h"
+#include "../concurrency/process/DataReceiverProcess.h"
 
 LoggerCreator::LoggerCreator() = default;
 
-ProcessNames LoggerCreator::createLogger() const {
+ProcessInfoList LoggerCreator::createLogger() const {
     Logger logger;
-    if (Process::create(logger)) {
-        return ProcessNames();
+    ProcessInfo processInfo = DataReceiverProcess::create(logger);
+    if (processInfo.isChildProcess()) {
+        return ProcessInfoList();
     }
 
-    ProcessNames processNames;
-    processNames.push_back(logger.name());
-    return processNames;
+    ProcessInfoList process;
+    process.push_back(processInfo);
+    return process;
 }
 
 LoggerCreator::~LoggerCreator() = default;

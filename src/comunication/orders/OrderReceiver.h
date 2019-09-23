@@ -4,7 +4,6 @@
 #define PRIMAVERA_CONCURRENTE_ORDERRECEIVER_H
 
 
-#include "../DataReceiver.h"
 #include "OrderProtocol.h"
 
 class OrderReceiver {

@@ -1,10 +1,8 @@
 
-
 #include <sstream>
 #include "DataReceiver.h"
 #include "DataSender.h"
 
-#define END_OF_BLOCK "END_OF_BLOCK"
 
 DataReceiver::DataReceiver(const std::string& receiver) :
     fifo(receiver) {

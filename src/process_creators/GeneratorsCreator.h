@@ -2,21 +2,19 @@
 #define PRIMAVERA_CONCURRENTE_GENERATORSCREATOR_H
 
 
-#include "../concurrency/Process.h"
+#include "../concurrency/process/ProcessInfo.h"
 
 class GeneratorsCreator {
 private:
     /**
      * Create client generator.
-     * Returns true if was created (child process), false otherwise.
      */
-    bool createClientGenerator() const;
+    ProcessInfo createClientGenerator() const;
 
     /**
      * Create internet orders generator.
-     * Returns true if was created (child process), false otherwise.
      */
-    bool createInternetGenerator() const;
+    ProcessInfo createInternetGenerator() const;
 
 public:
     /**
@@ -31,9 +29,9 @@ public:
 
     /**
      * Create client and internet generators.
-     * Returns empty if a generator was created (child process), ProcessNames otherwise.
+     * Returns empty if a generator was created (child process), Process infos otherwise.
      */
-    ProcessNames createGenerators() const;
+    ProcessInfoList createGenerators() const;
 };
 
 

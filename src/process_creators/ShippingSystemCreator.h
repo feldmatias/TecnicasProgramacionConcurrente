@@ -4,7 +4,7 @@
 #define PRIMAVERA_CONCURRENTE_SHIPPINGSYSTEMCREATOR_H
 
 
-#include "../concurrency/Process.h"
+#include "../concurrency/process/ProcessInfo.h"
 
 class ShippingSystemCreator {
 public:
@@ -20,9 +20,9 @@ public:
 
     /**
      * Create shipping system.
-     * Returns empty if was created (child process), Process name otherwise.
+     * Returns empty if was created (child process), Process info otherwise.
      */
-    ProcessNames createShippingSystem() const;
+    ProcessInfoList createShippingSystem() const;
 };
 
 

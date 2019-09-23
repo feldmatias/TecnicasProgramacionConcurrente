@@ -1,14 +1,15 @@
 #ifndef PRIMAVERA_CONCURRENTE_INPUTRECEIVER_H
 #define PRIMAVERA_CONCURRENTE_INPUTRECEIVER_H
 
-#include "../../concurrency/Process.h"
+
+#include "../../concurrency/process/ProcessInfo.h"
 
 #define STATISTICS_CHAR 's'
 #define EXIT_CHAR 'q'
 
 class InputReceiver {
 private:
-    ProcessNames processNames;
+    ProcessInfoList process;
 
     /**
      * Finish all processes.
@@ -25,7 +26,7 @@ public:
     /**
      * Constructor.
      */
-    InputReceiver(ProcessNames processNames);
+    explicit InputReceiver(ProcessInfoList process);
 
     /**
      * Destructor.

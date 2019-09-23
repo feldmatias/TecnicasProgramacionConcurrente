@@ -2,18 +2,20 @@
 
 #include "ShippingSystemCreator.h"
 #include "../shipping/ShippingSystem.h"
+#include "../concurrency/process/DataReceiverProcess.h"
 
 ShippingSystemCreator::ShippingSystemCreator() = default;
 
 ShippingSystemCreator::~ShippingSystemCreator() = default;
 
-ProcessNames ShippingSystemCreator::createShippingSystem() const {
+ProcessInfoList ShippingSystemCreator::createShippingSystem() const {
     ShippingSystem system;
-    if (Process::create(system)) {
-        return ProcessNames();
+    ProcessInfo processInfo = DataReceiverProcess::create(system);
+    if (processInfo.isChildProcess()) {
+        return ProcessInfoList();
     }
 
-    ProcessNames processNames;
-    processNames.push_back(system.name());
-    return processNames;
+    ProcessInfoList process;
+    process.push_back(processInfo);
+    return process;
 }

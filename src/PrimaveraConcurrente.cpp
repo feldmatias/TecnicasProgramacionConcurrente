@@ -3,7 +3,7 @@
 #include <sys/stat.h>
 #include <sys/wait.h>
 #include "PrimaveraConcurrente.h"
-#include "concurrency/Fifo.h"
+#include "concurrency/fifos/Fifo.h"
 #include "actors/Actor.h"
 #include "process_creators/ActorsCreator.h"
 #include "process_creators/GeneratorsCreator.h"
@@ -18,8 +18,8 @@ PrimaveraConcurrente::PrimaveraConcurrente() {
 };
 
 PrimaveraConcurrente::~PrimaveraConcurrente() {
-    while (wait(NULL) > 0) {
-        // Child process finished
+    for (const ProcessInfo& childProcess : process) {
+        waitpid(childProcess.getPid(), nullptr, 0);
     }
 
     std::remove(FIFO_FOLDER);
@@ -27,49 +27,49 @@ PrimaveraConcurrente::~PrimaveraConcurrente() {
 
 void PrimaveraConcurrente::start() {
     LoggerCreator loggerCreator;
-    ProcessNames logger = loggerCreator.createLogger();
+    ProcessInfoList logger = loggerCreator.createLogger();
     if (logger.empty()) {
         return;
     } else {
-        processNames.splice(processNames.end(), logger);
+        process.splice(process.end(), logger);
     }
 
     ShippingSystemCreator shippingSystemCreator;
-    ProcessNames shippingSystem = shippingSystemCreator.createShippingSystem();
+    ProcessInfoList shippingSystem = shippingSystemCreator.createShippingSystem();
     if (shippingSystem.empty()) {
         return;
     } else {
-        processNames.splice(processNames.end(), shippingSystem);
+        process.splice(process.end(), shippingSystem);
     }
 
     StatisticsCreator statisticsCreator;
-    ProcessNames statistics = statisticsCreator.createStatistics();
+    ProcessInfoList statistics = statisticsCreator.createStatistics();
     if (statistics.empty()) {
         return;
     } else {
-        processNames.splice(processNames.end(), statistics);
+        process.splice(process.end(), statistics);
     }
 
     ActorsCreator actorsCreator;
-    ProcessNames actors = actorsCreator.createActors();
+    ProcessInfoList actors = actorsCreator.createActors();
     if (actors.empty()) {
         return;
     } else {
-        processNames.splice(processNames.end(), actors);
+        process.splice(process.end(), actors);
     }
 
     GeneratorsCreator generatorsCreator;
-    ProcessNames generators = generatorsCreator.createGenerators();
+    ProcessInfoList generators = generatorsCreator.createGenerators();
     if (generators.empty()) {
         return;
     } else {
-        processNames.splice(processNames.end(), generators);
+        process.splice(process.end(), generators);
     }
 
     receiveUserInput();
 }
 
 void PrimaveraConcurrente::receiveUserInput() {
-    InputReceiver inputReceiver(processNames);
+    InputReceiver inputReceiver(process);
     inputReceiver.start();
 }

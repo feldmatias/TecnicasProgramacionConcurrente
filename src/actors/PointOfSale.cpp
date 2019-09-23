@@ -16,7 +16,7 @@ PointOfSale::PointOfSale(const std::string& name) :
     Actor(name) {
 }
 
-void PointOfSale::receiveData(Data data) {
+void PointOfSale::doWork(Data data) {
     if (data.getHeader() == FLOWERS_DATA) {
         receiveFlowers(data.getData());
     } else if (data.getHeader() == CLIENT_DATA) {
@@ -46,30 +46,21 @@ void PointOfSale::receiveInternetOrder(const std::string &orderData) {
 }
 
 void PointOfSale::attendClients() {
-    while (!clients.empty()) {
-        Order client = clients.front();
+    for (const Order& client : clients) {
         if (stock.canCompleteOrder(client)) {
             sellFlowersToClient(client);
-            clients.pop_front();
         }
     }
+    clients.clear();
 }
 
 void PointOfSale::attendInternetOrders(){
-    if (internetOrders.empty()) {
-        return;
-    }
-
-    OrderList currentOrders;
-    currentOrders.splice(currentOrders.end(), internetOrders);
-
-    for (const Order& order : currentOrders) {
+    for (const Order& order : internetOrders) {
         if (stock.canCompleteOrder(order)){
             sellFlowersToInternet(order);
-        } else {
-            internetOrders.push_back(order);
         }
     }
+    internetOrders.clear();
 }
 
 void PointOfSale::sellFlowersToClient(const Order& order) {

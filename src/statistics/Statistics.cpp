@@ -25,7 +25,7 @@ void Statistics::sendTransaction(const FlowerTransaction &transaction) {
 
 Statistics::Statistics() = default;
 
-void Statistics::receiveData(Data data) {
+void Statistics::doWork(Data data) {
     if (data.getHeader() == SHOW_STATISTICS) {
         showStatistics();
     } else {

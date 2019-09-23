@@ -6,7 +6,7 @@
 
 #include "../comunication/flowers/FlowerReceiver.h"
 #include "../utils/file/WriteOnlyFile.h"
-#include "../concurrency/Runnable.h"
+#include "../concurrency/process/Runnable.h"
 
 class Logger: public Runnable {
 private:
@@ -52,7 +52,7 @@ public:
     /**
      * Log pending transactions.
      */
-    void receiveData(Data data) override;
+    void doWork(Data data) override;
 
     /**
      * Get name.

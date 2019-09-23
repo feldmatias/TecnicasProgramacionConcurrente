@@ -1,6 +1,5 @@
 #include "Producer.h"
 
-#include <utility>
 #include "Actor.h"
 #include "DistributionCenter.h"
 #include "../utils/common/Random.h"
@@ -18,7 +17,7 @@ Producer::Producer(std::string name) :
     boxSize = config.producersBoxSize();
 }
 
-void Producer::receiveData(Data data) {
+void Producer::doWork(Data data) {
     collectFlower();
     if (stock.countFlowers() == boxSize) {
         sendFlowers();

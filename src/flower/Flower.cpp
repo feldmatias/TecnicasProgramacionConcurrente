@@ -4,7 +4,7 @@
 
 #include <utility>
 
-Flower::Flower(std::string producer, FlowerType type) :
+Flower::Flower(std::string producer, const FlowerType& type) :
     producer(std::move(producer)), type(type) {
 }
 

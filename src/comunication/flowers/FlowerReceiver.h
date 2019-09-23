@@ -3,11 +3,8 @@
 #ifndef PRIMAVERA_CONCURRENTE_FLOWERRECEIVER_H
 #define PRIMAVERA_CONCURRENTE_FLOWERRECEIVER_H
 
-
-#include "../../concurrency/Fifo.h"
 #include "../../flower/Flower.h"
 #include "FlowerProtocol.h"
-#include "../DataReceiver.h"
 
 class FlowerReceiver {
 private:

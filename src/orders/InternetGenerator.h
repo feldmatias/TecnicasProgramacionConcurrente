@@ -3,7 +3,7 @@
 #ifndef PRIMAVERA_CONCURRENTE_INTERNETGENERATOR_H
 #define PRIMAVERA_CONCURRENTE_INTERNETGENERATOR_H
 
-#include "../concurrency/Runnable.h"
+#include "../concurrency/process/Runnable.h"
 #include "../config/ActorsConfig.h"
 #include "../config/ClientsConfig.h"
 #include "../comunication/orders/OrderSender.h"
@@ -45,7 +45,7 @@ public:
     /**
      * Generate internet orders.
      */
-    void receiveData(Data data) override;
+    void doWork(Data data) override;
 
     /**
      * Get name.

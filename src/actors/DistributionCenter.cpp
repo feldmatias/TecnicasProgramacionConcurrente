@@ -1,8 +1,7 @@
 #include "DistributionCenter.h"
-#include "../utils/common/Random.h"
 #include "PointOfSale.h"
 #include "../logger/Logger.h"
-#include "../ConfigFiles.h"
+#include "../utils/common/Random.h"
 
 #define CENTER_NAME std::string("CentroDeDistribucion")
 
@@ -15,7 +14,7 @@ DistributionCenter::DistributionCenter(const std::string& name) :
     boxSize = config.centersBoxSize();
 }
 
-void DistributionCenter::receiveData(Data data) {
+void DistributionCenter::doWork(Data data) {
     receiveFlowers(data.getData());
     processFlowers();
 }

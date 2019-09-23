@@ -1,9 +1,8 @@
 #include <sys/stat.h>
 
-#include <memory>
 #include <unistd.h>
 #include "Fifo.h"
-#include "../utils/SystemCallException.h"
+#include "../../utils/SystemCallException.h"
 
 #define FIFO_EXTENSION ".fifo"
 

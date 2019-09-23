@@ -1,6 +1,6 @@
 #include "DataSender.h"
 #include "../utils/file/WriteOnlyFile.h"
-#include "../concurrency/Fifo.h"
+#include "../concurrency/fifos/Fifo.h"
 
 void DataSender::sendData(const std::string &receiver, const std::string &header, const std::string &data) {
     std::string filename = Fifo::filename(receiver);

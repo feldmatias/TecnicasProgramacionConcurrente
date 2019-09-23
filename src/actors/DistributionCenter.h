@@ -4,7 +4,6 @@
 
 #include <string>
 #include "Actor.h"
-#include "../concurrency/Fifo.h"
 #include "../comunication/flowers/FlowerReceiver.h"
 #include "../comunication/flowers/FlowerSender.h"
 
@@ -49,7 +48,7 @@ public:
     /**
      * Do distribution center's work.
      */
-    void receiveData(Data data) override;
+    void doWork(Data data) override;
 };
 
 

@@ -3,46 +3,50 @@
 #include "../actors/Producer.h"
 #include "../actors/DistributionCenter.h"
 #include "../actors/PointOfSale.h"
-#include "../concurrency/Process.h"
+#include "../concurrency/process/DataReceiverProcess.h"
+#include "../concurrency/process/DataSenderProcess.h"
 
 template <class T>
-ProcessNames createActorsFromConfig(int count) {
-    ProcessNames processNames;
+ProcessInfoList createActorsFromConfig(int count, bool receivesData) {
+    ProcessInfoList process;
 
     for (int i = 0; i < count; i++) {
         T actor(T::getName(i));
-        if (Process::create(actor)) {
-            return ProcessNames();
+
+        ProcessInfo info = receivesData ? DataReceiverProcess::create(actor) : DataSenderProcess::create(actor);
+
+        if (info.isChildProcess()) {
+            return ProcessInfoList();
         } else {
-            processNames.push_back(actor.name());
+            process.push_back(info);
         }
     }
-    return processNames;
+    return process;
 }
 
 ActorsCreator::ActorsCreator() = default;
 
 ActorsCreator::~ActorsCreator() = default;
 
-ProcessNames ActorsCreator::createActors() const {
-    ProcessNames producers = createActorsFromConfig<Producer>(config.numberOfProducers());
+ProcessInfoList ActorsCreator::createActors() const {
+    ProcessInfoList producers = createActorsFromConfig<Producer>(config.numberOfProducers(), false);
     if (producers.empty()) {
         return producers;
     }
 
-    ProcessNames centers = createActorsFromConfig<DistributionCenter>(config.numberOfDistributionCenters());
+    ProcessInfoList centers = createActorsFromConfig<DistributionCenter>(config.numberOfDistributionCenters(), true);
     if (centers.empty()) {
         return centers;
     }
 
-    ProcessNames pointsOfSale = createActorsFromConfig<PointOfSale>(config.numberOfPointsOfSale());
+    ProcessInfoList pointsOfSale = createActorsFromConfig<PointOfSale>(config.numberOfPointsOfSale(), true);
     if (pointsOfSale.empty()) {
         return pointsOfSale;
     }
 
-    ProcessNames processNames;
-    processNames.splice(processNames.end(), producers);
-    processNames.splice(processNames.end(), centers);
-    processNames.splice(processNames.end(), pointsOfSale);
-    return processNames;
+    ProcessInfoList process;
+    process.splice(process.end(), producers);
+    process.splice(process.end(), centers);
+    process.splice(process.end(), pointsOfSale);
+    return process;
 }
