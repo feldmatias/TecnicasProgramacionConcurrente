@@ -16,6 +16,7 @@ InputReceiver::~InputReceiver() = default;
 void InputReceiver::start() {
     std::cout << "Ingrese '" << STATISTICS_CHAR << "' para ver estadisticas." << std::endl;
     std::cout << "Ingrese '" << EXIT_CHAR << "' para terminar." << std::endl;
+    std::cout << std::endl;
 
     while (true) {
         int c = std::cin.get();

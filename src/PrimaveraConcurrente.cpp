@@ -2,6 +2,8 @@
 
 #include <sys/stat.h>
 #include <sys/wait.h>
+#include <iostream>
+#include <cstring>
 #include "PrimaveraConcurrente.h"
 #include "concurrency/fifos/Fifo.h"
 #include "actors/Actor.h"
@@ -19,7 +21,9 @@ PrimaveraConcurrente::PrimaveraConcurrente() {
 
 PrimaveraConcurrente::~PrimaveraConcurrente() {
     for (const ProcessInfo& childProcess : process) {
-        waitpid(childProcess.getPid(), nullptr, 0);
+        if (waitpid(childProcess.getPid(), nullptr, 0) < 0) {
+            std::cerr << "Error en waitpid: " << std::strerror(errno) << std::endl;
+        }
     }
 
     std::remove(FIFO_FOLDER);
@@ -29,6 +33,7 @@ void PrimaveraConcurrente::start() {
     LoggerCreator loggerCreator;
     ProcessInfoList logger = loggerCreator.createLogger();
     if (logger.empty()) {
+        process.clear();
         return;
     } else {
         process.splice(process.end(), logger);
@@ -37,6 +42,7 @@ void PrimaveraConcurrente::start() {
     ShippingSystemCreator shippingSystemCreator;
     ProcessInfoList shippingSystem = shippingSystemCreator.createShippingSystem();
     if (shippingSystem.empty()) {
+        process.clear();
         return;
     } else {
         process.splice(process.end(), shippingSystem);
@@ -45,6 +51,7 @@ void PrimaveraConcurrente::start() {
     StatisticsCreator statisticsCreator;
     ProcessInfoList statistics = statisticsCreator.createStatistics();
     if (statistics.empty()) {
+        process.clear();
         return;
     } else {
         process.splice(process.end(), statistics);
@@ -53,6 +60,7 @@ void PrimaveraConcurrente::start() {
     ActorsCreator actorsCreator;
     ProcessInfoList actors = actorsCreator.createActors();
     if (actors.empty()) {
+        process.clear();
         return;
     } else {
         process.splice(process.end(), actors);
@@ -61,6 +69,7 @@ void PrimaveraConcurrente::start() {
     GeneratorsCreator generatorsCreator;
     ProcessInfoList generators = generatorsCreator.createGenerators();
     if (generators.empty()) {
+        process.clear();
         return;
     } else {
         process.splice(process.end(), generators);

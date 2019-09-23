@@ -45,13 +45,13 @@ std::string Logger::log(const FlowerList &flowers) {
     FlowerStock stock;
     stock.addFlowers(flowers);
 
-    stream << "(";
+    stream << " (";
     for (const FlowerType& type : FlowerType::all()) {
         stream << " " << stock.countFlowers(type) << " " << type.getName() << ",";
     }
 
     stream.seekp(-1, std::ios_base::end);
-    stream << " )";
+    stream << " ) ";
     return stream.str();
 }
 

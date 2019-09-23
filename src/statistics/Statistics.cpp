@@ -42,8 +42,11 @@ void Statistics::receiveTransaction(const std::string& transactionData) {
 }
 
 void Statistics::showStatistics() {
+    std::cout << std::endl;
+
     if (salesBySeller.empty() || salesByType.empty()) {
         std::cout << "No hubo ventas." << std::endl;
+        std::cout << std::endl;
         return;
     }
 
