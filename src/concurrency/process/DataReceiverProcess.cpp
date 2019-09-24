@@ -28,6 +28,7 @@ ProcessInfo DataReceiverProcess::create(Runnable &runnable) {
     if (pid == 0) {
         // Child process
         process.run();
+        Fifo::remove(runnable.name());
         return ProcessInfo::childProcess();
     }
 

@@ -1,10 +1,7 @@
-
-
 #include <sys/stat.h>
 #include <sys/wait.h>
 #include <iostream>
 #include <cstring>
-#include <unistd.h>
 #include "PrimaveraConcurrente.h"
 #include "concurrency/fifos/Fifo.h"
 #include "actors/Actor.h"
@@ -29,7 +26,7 @@ PrimaveraConcurrente::~PrimaveraConcurrente() {
 
         if (childProcess.receivesData()) {
             // Delete Fifo files
-            unlink(Fifo::filename(childProcess.getName()).c_str());
+            Fifo::remove(childProcess.getName());
         }
     }
 

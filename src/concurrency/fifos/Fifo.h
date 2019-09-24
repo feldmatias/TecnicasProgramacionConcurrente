@@ -20,6 +20,11 @@ public:
     static std::string filename(const std::string& name);
 
     /**
+     * Delete a fifo.
+     */
+    static void remove(const std::string& name);
+
+    /**
      * Create a Fifo with a name.
      */
     explicit Fifo(const std::string& name);
