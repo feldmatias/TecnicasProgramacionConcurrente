@@ -4,8 +4,8 @@
 #include "DataSender.h"
 
 
-DataReceiver::DataReceiver(const std::string& receiver) :
-    fifo(receiver) {
+DataReceiver::DataReceiver(const std::string &receiver) :
+        fifo(receiver) {
 }
 
 Data DataReceiver::receiveNext() {

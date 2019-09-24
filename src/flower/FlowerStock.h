@@ -28,12 +28,12 @@ public:
     /**
      * Add one flower to the stock.
      */
-    void addFlower(Flower&& newFlower);
+    void addFlower(Flower &&newFlower);
 
     /**
      * Add flowers to the stock.
      */
-    void addFlowers(const FlowerList& newFlowers);
+    void addFlowers(const FlowerList &newFlowers);
 
     /**
      * Get all flowers in stock.
@@ -43,22 +43,22 @@ public:
     /**
      * Get all flowers of a type in stock.
      */
-    FlowerList getFlowers(const FlowerType& type, int count);
+    FlowerList getFlowers(const FlowerType &type, int count);
 
     /**
      * Get all flowers needed to complete an order.
      */
-    FlowerList getFlowers(const Order& order);
+    FlowerList getFlowers(const Order &order);
 
     /**
      * If has all flowers needed to complete an order.
      */
-    bool canCompleteOrder(const Order& order);
+    bool canCompleteOrder(const Order &order);
 
     /**
      * Count all flowers of a type in stock.
      */
-    size_t countFlowers(const FlowerType& type);
+    size_t countFlowers(const FlowerType &type);
 
     /**
      * Count all flowers in stock.

@@ -12,8 +12,8 @@ std::string PointOfSale::getName(int name) {
     return SALE_POINT_NAME + std::to_string(name);
 }
 
-PointOfSale::PointOfSale(const std::string& name) :
-    Actor(name) {
+PointOfSale::PointOfSale(const std::string &name) :
+        Actor(name) {
 }
 
 void PointOfSale::doWork(Data data) {
@@ -29,13 +29,13 @@ void PointOfSale::doWork(Data data) {
     attendInternetOrders();
 }
 
-void PointOfSale::receiveFlowers(const std::string& flowers) {
+void PointOfSale::receiveFlowers(const std::string &flowers) {
     FlowerList list = flowerReceiver.receiveFlowers(flowers);
     Logger::sendTransaction(FlowerTransaction(actorName, list));
     stock.addFlowers(list);
 }
 
-void PointOfSale::receiveClient(const std::string& clientData) {
+void PointOfSale::receiveClient(const std::string &clientData) {
     Order client = orderReceiver.receiveOrder(clientData);
     clients.push_back(client);
 }
@@ -46,7 +46,7 @@ void PointOfSale::receiveInternetOrder(const std::string &orderData) {
 }
 
 void PointOfSale::attendClients() {
-    for (const Order& client : clients) {
+    for (const Order &client : clients) {
         if (stock.canCompleteOrder(client)) {
             sellFlowersToClient(client);
         }
@@ -54,16 +54,16 @@ void PointOfSale::attendClients() {
     clients.clear();
 }
 
-void PointOfSale::attendInternetOrders(){
-    for (const Order& order : internetOrders) {
-        if (stock.canCompleteOrder(order)){
+void PointOfSale::attendInternetOrders() {
+    for (const Order &order : internetOrders) {
+        if (stock.canCompleteOrder(order)) {
             sellFlowersToInternet(order);
         }
     }
     internetOrders.clear();
 }
 
-void PointOfSale::sellFlowersToClient(const Order& order) {
+void PointOfSale::sellFlowersToClient(const Order &order) {
     FlowerList flowers = stock.getFlowers(order);
 
     FlowerTransaction transaction(actorName, order, flowers);

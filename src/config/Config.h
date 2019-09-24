@@ -13,7 +13,7 @@ public:
     /**
      * Read a config file.
      */
-    explicit Config(const std::string& configFile);
+    explicit Config(const std::string &configFile);
 
     /**
      * Destructor.

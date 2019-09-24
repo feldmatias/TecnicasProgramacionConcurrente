@@ -13,7 +13,7 @@ private:
     /**
      * Receive user input.
      */
-     void receiveUserInput();
+    void receiveUserInput();
 
 public:
     /**

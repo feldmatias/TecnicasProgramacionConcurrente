@@ -25,17 +25,17 @@ public:
     /**
      * Destructor
      */
-     ~Data();
+    ~Data();
 
-     /**
-      * Get header.
-      */
-      std::string getHeader() const;
+    /**
+     * Get header.
+     */
+    std::string getHeader() const;
 
-      /**
-       * Get data.
-       */
-       std::string getData() const;
+    /**
+     * Get data.
+     */
+    std::string getData() const;
 
 };
 

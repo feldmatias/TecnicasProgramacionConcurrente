@@ -10,18 +10,18 @@
 class DataReceiverProcess {
 private:
     DataReceiver receiver;
-    Runnable& runnable;
+    Runnable &runnable;
 
 public:
     /**
      * Create a child process.
      */
-    static ProcessInfo create(Runnable& runnable);
+    static ProcessInfo create(Runnable &runnable);
 
     /**
      * Create a process with a runnable.
      */
-    explicit DataReceiverProcess(Runnable& runnable);
+    explicit DataReceiverProcess(Runnable &runnable);
 
     /**
      * Destructor.

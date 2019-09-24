@@ -16,7 +16,7 @@ void ShippingSystem::doWork(Data data) {
     Logger::sendDispatchNote(transaction);
 }
 
-void ShippingSystem::sendTransaction(const FlowerTransaction& transaction) {
+void ShippingSystem::sendTransaction(const FlowerTransaction &transaction) {
     FlowerSender sender;
     sender.sendFlowerTransaction(SHIPPING_SYSTEM, transaction);
 }

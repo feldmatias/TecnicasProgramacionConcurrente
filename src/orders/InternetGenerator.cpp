@@ -33,7 +33,7 @@ void InternetGenerator::initializeOrders() {
 
         CsvLine line(data);
         Order order;
-        while(true) {
+        while (true) {
             std::string typeName = line.getNext();
             if (typeName.empty()) {
                 break;

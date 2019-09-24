@@ -19,7 +19,7 @@ public:
     /**
      * Send transaction to shipping system.
      */
-    static void sendTransaction(const FlowerTransaction& transaction);
+    static void sendTransaction(const FlowerTransaction &transaction);
 
     /**
      * Constructor.

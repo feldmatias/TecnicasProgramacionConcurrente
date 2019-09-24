@@ -6,7 +6,7 @@
 #include "../flower/FlowerStock.h"
 
 Logger::Logger() :
-    logFile(LOG_FILE) {
+        logFile(LOG_FILE) {
 }
 
 std::string Logger::name() {
@@ -22,7 +22,7 @@ void Logger::doWork(Data data) {
     }
 }
 
-void Logger::log(const FlowerTransaction& transaction) {
+void Logger::log(const FlowerTransaction &transaction) {
     if (transaction.getFlowers().empty()) {
         return;
     }
@@ -46,7 +46,7 @@ std::string Logger::log(const FlowerList &flowers) {
     stock.addFlowers(flowers);
 
     stream << " (";
-    for (const FlowerType& type : FlowerType::all()) {
+    for (const FlowerType &type : FlowerType::all()) {
         stream << " " << stock.countFlowers(type) << " " << type.getName() << ",";
     }
 
@@ -66,7 +66,7 @@ void Logger::logDispatchNote(const FlowerTransaction &transaction) {
     FlowerProtocol protocol;
     std::stringstream data(protocol.sendFlowers(transaction.getFlowers()));
 
-    while(true) {
+    while (true) {
         std::string item;
         std::getline(data, item, protocol.getFlowersSeparator());
 
@@ -81,7 +81,7 @@ void Logger::logDispatchNote(const FlowerTransaction &transaction) {
     logFile.writeLine(line.str());
 }
 
-void Logger::sendTransaction(const FlowerTransaction& transaction) {
+void Logger::sendTransaction(const FlowerTransaction &transaction) {
     FlowerProtocol protocol;
     DataSender::sendData(LOG_FILE, TRANSACTION_DATA, protocol.sendFlowerTransaction(transaction));
 }

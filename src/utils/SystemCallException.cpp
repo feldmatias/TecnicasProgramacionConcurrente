@@ -6,7 +6,7 @@
 #include "SystemCallException.h"
 
 SystemCallException::SystemCallException(std::string function) :
-    function(std::move(function)), msg(std::strerror(errno)) {
+        function(std::move(function)), msg(std::strerror(errno)) {
 }
 
 const char *SystemCallException::what() const noexcept {

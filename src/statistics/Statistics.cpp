@@ -4,11 +4,11 @@
 
 typedef std::pair<const std::string, size_t> StatisticData;
 
-StatisticData getMaxStatisticFromHash(const StatisticsMap& hash) {
+StatisticData getMaxStatisticFromHash(const StatisticsMap &hash) {
     std::string maxKey;
     size_t maxValue = 0;
 
-    for (auto & it : hash) {
+    for (auto &it : hash) {
         if (it.second >= maxValue) {
             maxKey = it.first;
             maxValue = it.second;
@@ -33,9 +33,9 @@ void Statistics::doWork(Data data) {
     }
 }
 
-void Statistics::receiveTransaction(const std::string& transactionData) {
+void Statistics::receiveTransaction(const std::string &transactionData) {
     FlowerTransaction transaction = transactionReceiver.receiveFlowerTransaction(transactionData);
-    for (const Flower& flower : transaction.getFlowers()) {
+    for (const Flower &flower : transaction.getFlowers()) {
         salesBySeller[transaction.getSender()]++;
         salesByType[flower.getType().getName()]++;
     }
@@ -53,7 +53,8 @@ void Statistics::showStatistics() {
     StatisticData maxSeller = getMaxStatisticFromHash(salesBySeller);
     StatisticData maxType = getMaxStatisticFromHash(salesByType);
 
-    std::cout << "El punto de venta con más ventas es " << maxSeller.first << " con " << maxSeller.second << " flores vendidas." << std::endl;
+    std::cout << "El punto de venta con más ventas es " << maxSeller.first << " con " << maxSeller.second
+              << " flores vendidas." << std::endl;
     std::cout << "La flor más comprada es " << maxType.first << " con " << maxType.second << " compras." << std::endl;
     std::cout << std::endl;
 }

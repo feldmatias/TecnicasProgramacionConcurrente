@@ -12,7 +12,7 @@ int main() {
         PrimaveraConcurrente program;
         program.start();
         return EXIT_OK;
-    } catch (SystemCallException& exception) {
+    } catch (SystemCallException &exception) {
         std::cerr << exception.message() << std::endl;
         return EXIT_ERROR;
     }

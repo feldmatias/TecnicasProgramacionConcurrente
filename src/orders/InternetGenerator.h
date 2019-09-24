@@ -24,7 +24,7 @@ private:
     /**
      * Initialize orders.
      */
-     void initializeOrders();
+    void initializeOrders();
 
     /**
      * Send order to a point of sale.

@@ -14,14 +14,14 @@ FlowerProtocol::FlowerProtocol() = default;
 
 FlowerProtocol::~FlowerProtocol() = default;
 
-std::string FlowerProtocol::sendFlowers(const FlowerList& flowers) const {
+std::string FlowerProtocol::sendFlowers(const FlowerList &flowers) const {
     std::unordered_map<Flower, size_t> groupedFlowers;
-    for (const Flower& flower : flowers) {
+    for (const Flower &flower : flowers) {
         groupedFlowers[flower]++;
     }
 
     std::string data;
-    for (auto& it: groupedFlowers) {
+    for (auto &it: groupedFlowers) {
         CsvLine csv;
         csv.setNext(it.first.getProducer());
         csv.setNext(it.first.getType().getName());
@@ -32,7 +32,7 @@ std::string FlowerProtocol::sendFlowers(const FlowerList& flowers) const {
     return std::move(data);
 }
 
-FlowerList FlowerProtocol::receiveFlowers(const std::string& data) const {
+FlowerList FlowerProtocol::receiveFlowers(const std::string &data) const {
     FlowerList list;
     std::stringstream stream(data);
     while (true) {

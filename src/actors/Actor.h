@@ -28,7 +28,7 @@ private:
     /**
      * Get stock file name.
      */
-     std::string stockFileName() const;
+    std::string stockFileName() const;
 
 protected:
     std::string actorName;

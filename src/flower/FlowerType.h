@@ -40,9 +40,9 @@ public:
  * Hash a flower type.
  */
 namespace std {
-    template <>
+    template<>
     struct hash<FlowerType> {
-        std::size_t operator()(const FlowerType& key) const {
+        std::size_t operator()(const FlowerType &key) const {
             return hash<string>()(key.getName());
         }
     };

@@ -3,13 +3,13 @@
 
 #define LINE_SEPARATOR '\n'
 
-File::File(const std::string& name, std::ios_base::openmode mode) :
-    file(name, mode){
+File::File(const std::string &name, std::ios_base::openmode mode) :
+        file(name, mode) {
 }
 
 File::~File() = default;
 
-void File::writeLine(const std::string& line) {
+void File::writeLine(const std::string &line) {
     std::string newLine = line + LINE_SEPARATOR;
     file << newLine;
 }
@@ -25,6 +25,6 @@ bool File::hasMoreData() {
     return !file.eof() && file.peek() != EOF;
 }
 
-bool File::exists(const std::string& filename) {
-    return (bool)std::ifstream(filename);
+bool File::exists(const std::string &filename) {
+    return (bool) std::ifstream(filename);
 }

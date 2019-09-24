@@ -10,19 +10,19 @@
 
 class DataSenderProcess {
 private:
-    Runnable& runnable;
+    Runnable &runnable;
     ExitSignalEventHandler exitHandler;
 
 public:
     /**
      * Create a child process.
      */
-    static ProcessInfo create(Runnable& runnable);
+    static ProcessInfo create(Runnable &runnable);
 
     /**
      * Create a process with a runnable.
      */
-    explicit DataSenderProcess(Runnable& runnable);
+    explicit DataSenderProcess(Runnable &runnable);
 
     /**
      * Destructor.

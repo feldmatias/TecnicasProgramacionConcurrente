@@ -7,10 +7,10 @@
 
 
 std::vector<FlowerType> FlowerType::all() {
-    return { FlowerType(TULIP), FlowerType(ROSE) };
+    return {FlowerType(TULIP), FlowerType(ROSE)};
 }
 
-FlowerType::FlowerType(std::string type) : type(std::move(type)){
+FlowerType::FlowerType(std::string type) : type(std::move(type)) {
 }
 
 FlowerType::~FlowerType() = default;

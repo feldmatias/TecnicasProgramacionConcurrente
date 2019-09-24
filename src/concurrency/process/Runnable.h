@@ -26,14 +26,14 @@ public:
     /**
      * Get name.
      */
-     virtual std::string name() = 0;
+    virtual std::string name() = 0;
 
-     /**
-      * If receives data from other process.
-      */
-      virtual bool receivesData() {
-          return true;
-      }
+    /**
+     * If receives data from other process.
+     */
+    virtual bool receivesData() {
+        return true;
+    }
 
 };
 

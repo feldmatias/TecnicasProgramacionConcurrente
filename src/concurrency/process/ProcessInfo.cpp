@@ -7,7 +7,7 @@
 #define CHILD_PID -1
 
 ProcessInfo::ProcessInfo(pid_t pid, std::string name, bool isDataReceiver) :
-    pid(pid), name(std::move(name)), isDataReceiver(isDataReceiver) {
+        pid(pid), name(std::move(name)), isDataReceiver(isDataReceiver) {
 }
 
 pid_t ProcessInfo::getPid() const {

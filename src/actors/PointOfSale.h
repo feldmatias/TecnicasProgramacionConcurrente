@@ -19,17 +19,17 @@ private:
     /**
      * Receive flowers from distribution centers.
      */
-    void receiveFlowers(const std::string& flowers);
+    void receiveFlowers(const std::string &flowers);
 
     /**
      * Receive new clients.
      */
-    void receiveClient(const std::string& client);
+    void receiveClient(const std::string &client);
 
     /**
      * Receive new internet order.
      */
-    void receiveInternetOrder(const std::string& order);
+    void receiveInternetOrder(const std::string &order);
 
     /**
      * Attend clients one by one.
@@ -60,7 +60,7 @@ public:
     /**
      * Create a point of sale with a name.
      */
-    explicit PointOfSale(const std::string& name);
+    explicit PointOfSale(const std::string &name);
 
     /**
      * Destructor.

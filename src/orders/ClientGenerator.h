@@ -28,7 +28,7 @@ private:
     /**
      * Send client to a point of sale.
      */
-    void sendClient(const Order& client);
+    void sendClient(const Order &client);
 
 public:
     /**

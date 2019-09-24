@@ -6,11 +6,11 @@ FlowerStock::FlowerStock() = default;
 
 FlowerStock::~FlowerStock() = default;
 
-void FlowerStock::addFlower(Flower&& newFlower) {
+void FlowerStock::addFlower(Flower &&newFlower) {
     flowers[newFlower.getType()].push_back(std::move(newFlower));
 }
 
-void FlowerStock::addFlowers(const FlowerList& newFlowers) {
+void FlowerStock::addFlowers(const FlowerList &newFlowers) {
     for (Flower flower : newFlowers) {
         addFlower(std::move(flower));
     }
@@ -18,7 +18,7 @@ void FlowerStock::addFlowers(const FlowerList& newFlowers) {
 
 FlowerList FlowerStock::getAllFlowers() {
     FlowerList list;
-    for (const FlowerType& type : FlowerType::all()) {
+    for (const FlowerType &type : FlowerType::all()) {
         list.splice(list.end(), flowers[type]);
     }
     return std::move(list);
@@ -32,13 +32,13 @@ FlowerList FlowerStock::getFlowers(const FlowerType &type, int count) {
     return list;
 }
 
-size_t FlowerStock::countFlowers(const FlowerType &type){
+size_t FlowerStock::countFlowers(const FlowerType &type) {
     return flowers[type].size();
 }
 
 size_t FlowerStock::countFlowers() {
     size_t count = 0;
-    for (const FlowerType& type : FlowerType::all()) {
+    for (const FlowerType &type : FlowerType::all()) {
         count += flowers[type].size();
     }
     return count;
@@ -46,14 +46,14 @@ size_t FlowerStock::countFlowers() {
 
 FlowerList FlowerStock::getFlowers(const Order &order) {
     FlowerList orderFlowers;
-    for (const FlowerType& type : FlowerType::all()) {
+    for (const FlowerType &type : FlowerType::all()) {
         orderFlowers.splice(orderFlowers.end(), getFlowers(type, order.getFlowersCount(type)));
     }
     return orderFlowers;
 }
 
 bool FlowerStock::canCompleteOrder(const Order &order) {
-    for (const FlowerType& type : FlowerType::all()) {
+    for (const FlowerType &type : FlowerType::all()) {
         if (order.getFlowersCount(type) > countFlowers(type)) {
             // Not enough stock
             return false;

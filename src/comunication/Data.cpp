@@ -5,7 +5,7 @@
 #include <utility>
 
 Data::Data(std::string header, std::string data) :
-    header(std::move(header)), data(std::move(data)) {
+        header(std::move(header)), data(std::move(data)) {
 }
 
 std::string Data::getHeader() const {

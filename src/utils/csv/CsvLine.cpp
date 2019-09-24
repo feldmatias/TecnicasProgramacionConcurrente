@@ -6,7 +6,7 @@ const char CSV_SEPARATOR = ',';
 
 CsvLine::CsvLine() = default;
 
-CsvLine::CsvLine(const std::string& line) : line(line) {
+CsvLine::CsvLine(const std::string &line) : line(line) {
 }
 
 std::string CsvLine::getCsv() const {
@@ -20,7 +20,7 @@ std::string CsvLine::getNext() {
     return std::move(next);
 }
 
-void CsvLine::setNext(const std::string& element) {
+void CsvLine::setNext(const std::string &element) {
     line << element << CSV_SEPARATOR;
 }
 

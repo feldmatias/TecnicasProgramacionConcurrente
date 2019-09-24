@@ -12,7 +12,7 @@ public:
     /**
      * Open a write only file.
      */
-    explicit WriteOnlyFile(const std::string& name);
+    explicit WriteOnlyFile(const std::string &name);
 
     /**
      * Close the file.

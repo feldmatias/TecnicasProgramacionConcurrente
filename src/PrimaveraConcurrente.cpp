@@ -19,7 +19,7 @@ PrimaveraConcurrente::PrimaveraConcurrente() {
 
 PrimaveraConcurrente::~PrimaveraConcurrente() {
     processes.reverse();
-    for (const ProcessInfo& childProcess : processes) {
+    for (const ProcessInfo &childProcess : processes) {
         if (waitpid(childProcess.getPid(), nullptr, 0) < 0) {
             std::cerr << "Error en waitpid: " << std::strerror(errno) << std::endl;
         }

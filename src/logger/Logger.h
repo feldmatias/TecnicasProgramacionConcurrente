@@ -8,7 +8,7 @@
 #include "../utils/file/WriteOnlyFile.h"
 #include "../concurrency/process/Runnable.h"
 
-class Logger: public Runnable {
+class Logger : public Runnable {
 private:
     FlowerReceiver receiver;
     WriteOnlyFile logFile;
@@ -16,28 +16,28 @@ private:
     /**
      * Log the transaction.
      */
-    void log(const FlowerTransaction& transaction);
+    void log(const FlowerTransaction &transaction);
 
     /**
      * Create a log of the flowers.
      */
-    std::string log(const FlowerList& flowers);
+    std::string log(const FlowerList &flowers);
 
     /**
     * Log dispatch note.
     */
-    void logDispatchNote(const FlowerTransaction& transaction);
+    void logDispatchNote(const FlowerTransaction &transaction);
 
 public:
     /**
      * Send a transaction to be logged.
      */
-    static void sendTransaction(const FlowerTransaction& transaction);
+    static void sendTransaction(const FlowerTransaction &transaction);
 
     /**
      * Send a dispatch note to be logged.
      */
-    static void sendDispatchNote(const FlowerTransaction& transaction);
+    static void sendDispatchNote(const FlowerTransaction &transaction);
 
     /**
      * Constructor.

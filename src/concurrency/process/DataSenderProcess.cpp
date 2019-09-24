@@ -4,7 +4,7 @@
 #include "Process.h"
 
 DataSenderProcess::DataSenderProcess(Runnable &runnable) :
-    runnable(runnable) {
+        runnable(runnable) {
     SignalHandler::registerSignalEvent(ExitSignalEventHandler::signum(), &exitHandler);
 }
 

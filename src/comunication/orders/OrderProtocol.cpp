@@ -8,11 +8,11 @@ OrderProtocol::OrderProtocol() = default;
 
 OrderProtocol::~OrderProtocol() = default;
 
-std::string OrderProtocol::sendOrder(const Order& order) const {
+std::string OrderProtocol::sendOrder(const Order &order) const {
     std::stringstream data;
     data << order.getClient() << ORDER_SEPARATOR;
 
-    for (const FlowerType& type : FlowerType::all()) {
+    for (const FlowerType &type : FlowerType::all()) {
         CsvLine line;
         line.setNext(type.getName());
         line.setNext(order.getFlowersCount(type));
@@ -22,7 +22,7 @@ std::string OrderProtocol::sendOrder(const Order& order) const {
     return data.str();
 }
 
-Order OrderProtocol::receiveOrder(const std::string& info) const {
+Order OrderProtocol::receiveOrder(const std::string &info) const {
     std::stringstream data(info);
 
     std::string client;

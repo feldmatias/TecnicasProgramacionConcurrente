@@ -17,7 +17,7 @@ private:
     /**
      * Receive flowers from producers.
      */
-    void receiveFlowers(const std::string& flowers);
+    void receiveFlowers(const std::string &flowers);
 
     /**
      * Classify flowers by type.
@@ -27,7 +27,7 @@ private:
     /**
      * Send flowers to a point of sale.
      */
-    void sendFlowers(const FlowerType& type);
+    void sendFlowers(const FlowerType &type);
 
 public:
     /**
@@ -38,7 +38,7 @@ public:
     /**
      * Create a distribution center with a name.
      */
-    explicit DistributionCenter(const std::string& name);
+    explicit DistributionCenter(const std::string &name);
 
     /**
      * Destructor.

@@ -28,7 +28,7 @@ public:
     /**
      * Create a transaction with a seller, a client and flowers.
      */
-    FlowerTransaction(std::string seller, const Order& client, FlowerList flowers);
+    FlowerTransaction(std::string seller, const Order &client, FlowerList flowers);
 
     /**
      * Destructor.

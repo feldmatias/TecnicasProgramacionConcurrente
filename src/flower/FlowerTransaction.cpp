@@ -5,15 +5,15 @@
 #include <utility>
 
 FlowerTransaction::FlowerTransaction(std::string sender, std::string receiver, FlowerList flowers) :
-    sender(std::move(sender)), receiver(std::move(receiver)), flowers(std::move(flowers)) {
+        sender(std::move(sender)), receiver(std::move(receiver)), flowers(std::move(flowers)) {
 }
 
 FlowerTransaction::FlowerTransaction(std::string receiver, FlowerList flowers) :
-    receiver(std::move(receiver)), flowers(std::move(flowers)) {
+        receiver(std::move(receiver)), flowers(std::move(flowers)) {
 }
 
-FlowerTransaction::FlowerTransaction(std::string seller, const Order& client, FlowerList flowers) :
-    sender(std::move(seller)), receiver(client.getClient()), flowers(std::move(flowers)) {
+FlowerTransaction::FlowerTransaction(std::string seller, const Order &client, FlowerList flowers) :
+        sender(std::move(seller)), receiver(client.getClient()), flowers(std::move(flowers)) {
 }
 
 std::string FlowerTransaction::getSender() const {

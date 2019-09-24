@@ -20,7 +20,7 @@ public:
     /**
      * Create a csv line.
      */
-    explicit CsvLine(const std::string& line);
+    explicit CsvLine(const std::string &line);
 
     /**
      * Destructor.
@@ -30,7 +30,7 @@ public:
     /**
      * Set next element of the csv.
      */
-    void setNext(const std::string& element);
+    void setNext(const std::string &element);
 
     /**
      * Get next element of the csv.

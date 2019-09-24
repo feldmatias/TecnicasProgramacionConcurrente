@@ -14,13 +14,13 @@ public:
     /**
      * If file exists.
      */
-    static bool exists(const std::string& filename);
+    static bool exists(const std::string &filename);
 
     /**
      * Open a file in mode.
      */
-    explicit File(const std::string& name,
-            std::ios_base::openmode mode = std::fstream::in | std::fstream::out | std::fstream::app);
+    explicit File(const std::string &name,
+                  std::ios_base::openmode mode = std::fstream::in | std::fstream::out | std::fstream::app);
 
     /**
      * Close the file.

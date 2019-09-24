@@ -25,7 +25,7 @@ public:
     /**
      * Exception message.
      */
-    const char* what() const noexcept override;
+    const char *what() const noexcept override;
 
     /**
      * Exception message.

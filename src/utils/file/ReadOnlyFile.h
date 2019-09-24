@@ -7,12 +7,12 @@
 #include "File.h"
 #include <functional>
 
-class ReadOnlyFile: public File {
+class ReadOnlyFile : public File {
 public:
     /**
      * Open a read only file.
      */
-    explicit ReadOnlyFile(const std::string& name);
+    explicit ReadOnlyFile(const std::string &name);
 
     /**
      * Close the file.

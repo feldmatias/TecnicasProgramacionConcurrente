@@ -16,7 +16,7 @@ public:
     /**
      * Create a flower with a producer and a type.
      */
-    Flower(std::string producer, const FlowerType& type);
+    Flower(std::string producer, const FlowerType &type);
 
     /**
      * Destructor.
@@ -44,9 +44,9 @@ public:
  * Hash a flower.
  */
 namespace std {
-    template <>
+    template<>
     struct hash<Flower> {
-        std::size_t operator()(const Flower& key) const {
+        std::size_t operator()(const Flower &key) const {
             return hash<string>()(key.getType().getName() + key.getProducer());
         }
     };

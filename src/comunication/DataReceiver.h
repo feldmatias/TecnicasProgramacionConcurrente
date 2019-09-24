@@ -15,7 +15,7 @@ public:
     /**
      * Create a receiver.
      */
-    explicit DataReceiver(const std::string& receiver);
+    explicit DataReceiver(const std::string &receiver);
 
     /**
      * Destructor.

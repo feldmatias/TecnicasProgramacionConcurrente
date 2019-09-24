@@ -24,12 +24,12 @@ public:
     /**
      * Receive all flowers.
      */
-    FlowerList receiveFlowers(const std::string& flowers);
+    FlowerList receiveFlowers(const std::string &flowers);
 
     /**
      * Receive a transaction.
      */
-    FlowerTransaction receiveFlowerTransaction(const std::string& transaction);
+    FlowerTransaction receiveFlowerTransaction(const std::string &transaction);
 
 };
 

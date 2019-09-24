@@ -22,17 +22,17 @@ public:
     /**
      * Convert flowers to a string.
      */
-    std::string sendFlowers(const FlowerList& flowers) const;
+    std::string sendFlowers(const FlowerList &flowers) const;
 
     /**
      * Convert string to flowers.
      */
-    FlowerList receiveFlowers(const std::string& data) const;
+    FlowerList receiveFlowers(const std::string &data) const;
 
     /**
      * Convert a transaction to a string.
      */
-    std::string sendFlowerTransaction(const FlowerTransaction& transaction) const;
+    std::string sendFlowerTransaction(const FlowerTransaction &transaction) const;
 
     /**
      * Convert string to transaction.
@@ -42,7 +42,7 @@ public:
     /**
      * Get flowers separator used in protocol.
      */
-     char getFlowersSeparator() const;
+    char getFlowersSeparator() const;
 };
 
 

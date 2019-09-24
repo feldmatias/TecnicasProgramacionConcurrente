@@ -6,7 +6,7 @@
 #include "../concurrency/process/DataReceiverProcess.h"
 #include "../concurrency/process/DataSenderProcess.h"
 
-template <class T>
+template<class T>
 ProcessInfoList createActorsFromConfig(int count, bool receivesData) {
     ProcessInfoList process;
 

@@ -21,7 +21,7 @@ private:
     /**
      * Receive all transactions made.
      */
-    void receiveTransaction(const std::string& transactionData);
+    void receiveTransaction(const std::string &transactionData);
 
     /**
      * Show statistics to the user.
@@ -32,7 +32,7 @@ public:
     /**
      * Send transaction to statistics.
      */
-    static void sendTransaction(const FlowerTransaction& transaction);
+    static void sendTransaction(const FlowerTransaction &transaction);
 
     /**
      * Constructor.

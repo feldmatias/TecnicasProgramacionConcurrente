@@ -7,10 +7,10 @@
 class TimeSimulator {
 public:
 
-     /**
-      * Simulate time passed.
-      */
-      static void simulate();
+    /**
+     * Simulate time passed.
+     */
+    static void simulate();
 };
 
 

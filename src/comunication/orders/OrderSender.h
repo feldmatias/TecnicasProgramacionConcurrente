@@ -27,12 +27,12 @@ public:
     /**
      * Send a client to a receiver.
      */
-    void sendClient(const std::string& receiver, const Order& order) const;
+    void sendClient(const std::string &receiver, const Order &order) const;
 
     /**
      * Send an internet order to a receiver.
      */
-    void sendInternetOrder(const std::string& receiver, const Order& order) const;
+    void sendInternetOrder(const std::string &receiver, const Order &order) const;
 };
 
 

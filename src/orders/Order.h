@@ -30,7 +30,7 @@ public:
     /**
      * Add flowers to the order.
      */
-    void addFlowers(const FlowerType& type, size_t count);
+    void addFlowers(const FlowerType &type, size_t count);
 
     /**
      * Set client name.
@@ -45,7 +45,7 @@ public:
     /**
      * Get flowers ordered for a type.
      */
-    size_t getFlowersCount(const FlowerType& type) const;
+    size_t getFlowersCount(const FlowerType &type) const;
 };
 
 typedef std::list<Order> OrderList;

@@ -4,7 +4,7 @@
 #include "Process.h"
 
 DataReceiverProcess::DataReceiverProcess(Runnable &runnable) :
-    runnable(runnable), receiver(runnable.name()) {
+        runnable(runnable), receiver(runnable.name()) {
 }
 
 DataReceiverProcess::~DataReceiverProcess() = default;

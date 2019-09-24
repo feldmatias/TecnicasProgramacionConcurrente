@@ -13,7 +13,7 @@ std::string Producer::getName(int name) {
 }
 
 Producer::Producer(std::string name) :
-    Actor(std::move(name)) {
+        Actor(std::move(name)) {
     boxSize = config.producersBoxSize();
 }
 
