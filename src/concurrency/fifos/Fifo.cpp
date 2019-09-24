@@ -1,6 +1,5 @@
 #include <sys/stat.h>
 
-#include <unistd.h>
 #include "Fifo.h"
 #include "../../utils/SystemCallException.h"
 
@@ -22,6 +21,4 @@ std::string Fifo::getLine() {
     return file->getLine();
 }
 
-Fifo::~Fifo() {
-    unlink(name.c_str());
-}
+Fifo::~Fifo() = default;

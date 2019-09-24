@@ -24,3 +24,7 @@ bool File::hasMoreData() {
     // This method does not work with fifo
     return !file.eof() && file.peek() != EOF;
 }
+
+bool File::exists(const std::string& filename) {
+    return (bool)std::ifstream(filename);
+}

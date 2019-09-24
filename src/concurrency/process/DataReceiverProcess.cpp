@@ -21,11 +21,12 @@ void DataReceiverProcess::run() {
 }
 
 ProcessInfo DataReceiverProcess::create(Runnable &runnable) {
+    DataReceiverProcess process(runnable);
+
     pid_t pid = Process::create();
 
     if (pid == 0) {
         // Child process
-        DataReceiverProcess process(runnable);
         process.run();
         return ProcessInfo::childProcess();
     }

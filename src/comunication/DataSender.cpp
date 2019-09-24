@@ -5,7 +5,7 @@
 void DataSender::sendData(const std::string &receiver, const std::string &header, const std::string &data) {
     std::string filename = Fifo::filename(receiver);
 
-    if (!std::ifstream(filename)) {
+    if (!File::exists(filename)) {
         //Fifo does not exist
         return;
     }

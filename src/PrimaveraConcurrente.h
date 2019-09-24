@@ -8,7 +8,7 @@
 
 class PrimaveraConcurrente {
 private:
-    ProcessInfoList process;
+    ProcessInfoList processes;
 
     /**
      * Receive user input.

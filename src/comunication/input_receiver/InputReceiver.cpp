@@ -7,8 +7,8 @@
 #include "../../concurrency/process/DataReceiverProcess.h"
 #include "../../concurrency/signals/SignalHandler.h"
 
-InputReceiver::InputReceiver(ProcessInfoList process) :
-    process(std::move(process)) {
+InputReceiver::InputReceiver(ProcessInfoList processes) :
+    processes(std::move(processes)) {
 }
 
 InputReceiver::~InputReceiver() = default;
@@ -32,7 +32,7 @@ void InputReceiver::start() {
 }
 
 void InputReceiver::exit() {
-    for (const ProcessInfo& childProcess : process) {
+    for (const ProcessInfo& childProcess : processes) {
         if (childProcess.receivesData()) {
             DataSender::sendData(childProcess.getName(), EXIT);
         } else {

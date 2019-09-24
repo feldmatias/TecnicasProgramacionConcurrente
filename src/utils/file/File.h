@@ -12,6 +12,11 @@ private:
 
 public:
     /**
+     * If file exists.
+     */
+    static bool exists(const std::string& filename);
+
+    /**
      * Open a file in mode.
      */
     explicit File(const std::string& name,
