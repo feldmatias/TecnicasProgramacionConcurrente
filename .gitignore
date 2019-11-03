@@ -77,3 +77,4 @@ primavera_concurrente
 log.txt
 fifo
 stock/*
+target/*
