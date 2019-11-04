@@ -36,6 +36,7 @@ impl Miner {
             self.data.current_mines += 1;
         }
 
+        self.prize_sender.send(-1);
         println!("miner {} started and did work", self.number);
     }
 

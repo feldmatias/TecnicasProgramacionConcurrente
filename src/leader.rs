@@ -21,17 +21,22 @@ impl Leader {
     pub fn start(&mut self, ask_prize_signals: Vec<LeaderAskPrizeSignal>) {
         thread::sleep(Duration::from_secs(1));
 
-        self.let_miners_mine();
+        self.let_miners_mine(ask_prize_signals.len());
         self.ask_miners_prize(ask_prize_signals);
     }
 
-    fn let_miners_mine(&mut self) {
+    fn let_miners_mine(&mut self, miners: usize) {
         self.logger.log(format!("Round Started"));
         self.leader_signal.signal_start();
 
         thread::sleep(Duration::from_secs(2));
 
         self.leader_signal.signal_end();
+
+        // Wait for miners to receive the signal
+        for _ in 0..miners {
+            let _ = self.prize_receiver.receive();
+        }
         self.logger.log(format!("Round Ended"));
     }
 
