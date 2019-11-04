@@ -27,11 +27,12 @@ fn main() {
         ask_prize_signals.push(ask_prize_signal.clone());
 
         let t = thread::spawn(move|| {
-            let miner = Miner {
+            let mut miner = Miner {
                 leader_signal: leader_signal,
                 leader_ask_prize_signal: ask_prize_signal,
                 prize_sender: prize_sender,
-                number: i
+                number: i,
+                data: Default::default()
             };
             miner.start();
         });
