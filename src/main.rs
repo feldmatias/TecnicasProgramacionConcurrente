@@ -1,5 +1,7 @@
 use std::thread;
 
+pub mod logger;
+
 pub mod miner;
 use self::miner::Miner;
 
@@ -8,8 +10,11 @@ use self::leader::Leader;
 use crate::leader::leader_signal::LeaderSignal;
 use crate::leader::leader_ask_prize_signal::LeaderAskPrizeSignal;
 use crate::leader::leader_prize_channel::create_leader_prize_channel;
+use crate::logger::Logger;
 
 fn main() {
+    let logger = Logger::create();
+
     let leader_signal = LeaderSignal::create();
     let (leader_prize_receiver, miner_prize_sender) = create_leader_prize_channel();
 
@@ -40,9 +45,10 @@ fn main() {
         threads.push(t);
     }
 
-    let leader = Leader {
+    let mut leader = Leader {
         leader_signal: leader_signal.clone(),
-        prize_receiver: leader_prize_receiver
+        prize_receiver: leader_prize_receiver,
+        logger: logger
     };
     leader.start(ask_prize_signals);
 
