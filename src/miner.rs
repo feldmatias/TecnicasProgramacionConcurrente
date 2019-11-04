@@ -1,27 +1,32 @@
-use std::thread;
-use std::time::Duration;
 
 use crate::leader::leader_signal::LeaderSignal;
 
 pub struct Miner {
-    start_signal: LeaderSignal,
+    leader_signal: LeaderSignal,
     number: i32
 }
 
 impl Miner {
-    pub fn create(signal: LeaderSignal, i : i32) -> Miner {
+    pub fn create(signal: LeaderSignal, number : i32) -> Miner {
         let miner = Miner {
-            start_signal: signal,
-            number: i
+            leader_signal: signal,
+            number: number
         };
 
         return miner;
     }
 
     pub fn start(&self) {
-        self.start_signal.wait();
+        self.mine();
+    }
 
-        thread::sleep(Duration::from_millis(100));
+    fn mine(&self) {
+        self.leader_signal.wait();
+
+        while self.leader_signal.should_continue() {
+
+        }
+
         println!("miner {} started and did work", self.number);
     }
 }

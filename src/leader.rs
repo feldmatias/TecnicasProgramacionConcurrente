@@ -5,14 +5,14 @@ pub mod leader_signal;
 use self::leader_signal::LeaderSignal;
 
 pub struct Leader {
-    start_signal: LeaderSignal
+    leader_signal: LeaderSignal
 }
 
 impl Leader {
 
     pub fn create(signal: LeaderSignal) -> Leader {
         let leader = Leader {
-            start_signal: signal
+            leader_signal: signal
         };
 
         return leader;
@@ -20,7 +20,15 @@ impl Leader {
 
     pub fn start(&self) {
         thread::sleep(Duration::from_secs(1));
-        println!("Leader notify miners");
-        self.start_signal.signal();
+
+        self.start_mining()
+    }
+
+    fn start_mining(&self) {
+        self.leader_signal.signal_start();
+
+        thread::sleep(Duration::from_secs(2));
+
+        self.leader_signal.signal_end()
     }
 }

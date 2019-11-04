@@ -22,18 +22,32 @@ impl LeaderSignal {
     pub fn wait(&self) {
         let (ref mutex, ref condv) = *self.signal;
 
-        let mut started = mutex.lock().unwrap();
+        let mut start = mutex.lock().unwrap();
 
-        while !*started {
-            started = condv.wait(started).unwrap();
+        while !*start {
+            start = condv.wait(start).unwrap();
         }
     }
 
-    pub fn signal(&self) {
+    pub fn signal_start(&self) {
         let (ref mutex, ref condv) = *self.signal;
 
         let mut started = mutex.lock().unwrap();
         *started = true;
         condv.notify_all();
+    }
+
+    pub fn signal_end(&self) {
+        let (ref mutex, _) = *self.signal;
+
+        let mut mining = mutex.lock().unwrap();
+        *mining = false;
+    }
+
+    pub fn should_continue(&self) -> bool {
+        let (ref mutex, _) = *self.signal;
+
+        let mining = mutex.lock().unwrap();
+        return *mining
     }
 }
