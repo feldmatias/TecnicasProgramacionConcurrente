@@ -1,4 +1,3 @@
-use std::sync::{Arc, Mutex, Condvar};
 use std::thread;
 use std::time::Duration;
 
@@ -10,9 +9,9 @@ pub struct Miner {
 }
 
 impl Miner {
-    pub fn create(signal: &Arc<(Mutex<bool>, Condvar)>, i : i32) -> Miner {
+    pub fn create(signal: LeaderSignal, i : i32) -> Miner {
         let miner = Miner {
-            start_signal: LeaderSignal::create(signal),
+            start_signal: signal,
             number: i
         };
 

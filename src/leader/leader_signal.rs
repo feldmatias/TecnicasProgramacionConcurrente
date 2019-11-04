@@ -5,9 +5,16 @@ pub struct LeaderSignal {
 }
 
 impl LeaderSignal {
-    pub fn create(signal: &Arc<(Mutex<bool>, Condvar)>) -> LeaderSignal {
+    pub fn create() -> LeaderSignal {
         let signal = LeaderSignal {
-            signal: signal.clone()
+            signal: Arc::new((Mutex::new(false), Condvar::new()))
+        };
+        return signal;
+    }
+
+    pub fn clone(&self) -> LeaderSignal {
+        let signal = LeaderSignal {
+            signal: self.signal.clone()
         };
         return signal;
     }

@@ -1,4 +1,3 @@
-use std::sync::{Arc, Condvar, Mutex};
 use std::thread;
 
 pub mod miner;
@@ -6,9 +5,10 @@ use self::miner::Miner;
 
 pub mod leader;
 use self::leader::Leader;
+use crate::leader::leader_signal::LeaderSignal;
 
 fn main() {
-    let condvar = Arc::new((Mutex::new(false), Condvar::new()));
+    let leader_signal = LeaderSignal::create();
 
     const MINERS : i32 = 10;
 
@@ -16,17 +16,17 @@ fn main() {
 
     for i in 0..MINERS {
 
-        let signal = condvar.clone();
+        let signal = leader_signal.clone();
 
         let t = thread::spawn(move|| {
-            let miner = Miner::create(&signal, i);
+            let miner = Miner::create(signal, i);
             miner.start();
         });
 
         threads.push(t);
     }
 
-    let leader = Leader::create(&condvar.clone());
+    let leader = Leader::create(leader_signal.clone());
     leader.start();
 
     println!("Main: waiting to join");

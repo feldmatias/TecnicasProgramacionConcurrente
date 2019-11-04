@@ -1,5 +1,4 @@
 use std::thread;
-use std::sync::{Arc, Mutex, Condvar};
 use std::time::Duration;
 
 pub mod leader_signal;
@@ -11,9 +10,9 @@ pub struct Leader {
 
 impl Leader {
 
-    pub fn create(signal: &Arc<(Mutex<bool>, Condvar)>) -> Leader {
+    pub fn create(signal: LeaderSignal) -> Leader {
         let leader = Leader {
-            start_signal: LeaderSignal::create(signal)
+            start_signal: signal
         };
 
         return leader;
