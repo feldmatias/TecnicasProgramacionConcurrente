@@ -7,8 +7,9 @@ use self::leader_signal::LeaderSignal;
 pub mod leader_channel;
 use crate::leader::leader_channel::{ChannelReceiver, ChannelSender};
 use crate::logger::Logger;
+use crate::leader::miner_prize::{MinerPrize, MINER_EQUAL_PRIZES};
 
-const MINER_EQUAL_PRIZES : i32 = -1;
+pub mod miner_prize;
 
 pub struct Leader {
     pub leader_signal: LeaderSignal,
@@ -23,7 +24,8 @@ impl Leader {
 
         self.let_miners_mine();
         let prizes = self.ask_miners_prize();
-        self.get_miner_loser(prizes);
+        let loser = self.get_miner_loser(&prizes);
+        let winners = self.get_miner_winners(&prizes);
     }
 
     fn let_miners_mine(&mut self) {
@@ -36,7 +38,7 @@ impl Leader {
 
         // Wait for all miners to receive the end signal
         for _ in 0..self.miner_channels.len() {
-            let _ = self.receiver.receive_signal();
+            self.receiver.receive_signal();
         }
         self.logger.log(format!("Round Ended"));
     }
@@ -58,15 +60,12 @@ impl Leader {
         return prizes;
     }
 
-    fn get_miner_loser(&mut self, prizes: Vec<MinerPrize>) -> MinerPrize {
-        let mut min = MinerPrize {
-            miner_number: MINER_EQUAL_PRIZES,
-            miner_prize: std::i32::MAX
-        };
+    fn get_miner_loser(&mut self, prizes: &Vec<MinerPrize>) -> MinerPrize {
+        let mut min = MinerPrize::default();
 
         for prize in prizes {
             if prize.miner_prize < min.miner_prize {
-                min = prize;
+                min = *prize;
             } else if prize.miner_prize == min.miner_prize {
                 min.miner_number = MINER_EQUAL_PRIZES;
             }
@@ -81,9 +80,23 @@ impl Leader {
 
         return min;
     }
-}
 
-struct MinerPrize {
-    miner_number : i32,
-    miner_prize : i32
+    fn get_miner_winners(&mut self, prizes: &Vec<MinerPrize>) -> Vec<MinerPrize> {
+        let mut winners = vec![];
+        let mut max = -1;
+
+        for prize in prizes {
+            if prize.miner_prize > max {
+                max = prize.miner_prize;
+                winners.clear();
+                winners.push(*prize);
+            } else if prize.miner_prize == max {
+                winners.push(*prize);
+            }
+        }
+
+        self.logger.log(format!("There are {} winners", winners.len()));
+
+        return winners;
+    }
 }
