@@ -8,6 +8,8 @@ pub mod leader_channel;
 use crate::leader::leader_channel::{ChannelReceiver, ChannelSender};
 use crate::logger::Logger;
 
+const MINER_EQUAL_PRIZES : i32 = -1;
+
 pub struct Leader {
     pub leader_signal: LeaderSignal,
     pub receiver: ChannelReceiver,
@@ -20,7 +22,8 @@ impl Leader {
         thread::sleep(Duration::from_secs(1)); // TODO: change this and add while loop
 
         self.let_miners_mine();
-        self.ask_miners_prize();
+        let prizes = self.ask_miners_prize();
+        self.get_miner_loser(prizes);
     }
 
     fn let_miners_mine(&mut self) {
@@ -31,18 +34,56 @@ impl Leader {
 
         self.leader_signal.signal_end();
 
-        // Wait for miners to receive the signal
+        // Wait for all miners to receive the end signal
         for _ in 0..self.miner_channels.len() {
             let _ = self.receiver.receive_signal();
         }
         self.logger.log(format!("Round Ended"));
     }
 
-    fn ask_miners_prize(&mut self) {
+    fn ask_miners_prize(&mut self) -> Vec<MinerPrize> {
+        let mut prizes = vec![];
+
         for (i, channel) in self.miner_channels.iter().enumerate() {
             channel.send_signal();
             let prize = self.receiver.receive();
             self.logger.log(format!("Leader: received {} from miner {}", prize, i));
+
+            prizes.push(MinerPrize {
+                miner_number: i as i32,
+                miner_prize: prize
+            })
         }
+
+        return prizes;
     }
+
+    fn get_miner_loser(&mut self, prizes: Vec<MinerPrize>) -> MinerPrize {
+        let mut min = MinerPrize {
+            miner_number: MINER_EQUAL_PRIZES,
+            miner_prize: std::i32::MAX
+        };
+
+        for prize in prizes {
+            if prize.miner_prize < min.miner_prize {
+                min = prize;
+            } else if prize.miner_prize == min.miner_prize {
+                min.miner_number = MINER_EQUAL_PRIZES;
+            }
+        }
+
+        if min.miner_number == MINER_EQUAL_PRIZES {
+            self.logger.log(format!("Tie"));
+            self.logger.log(format!("2 or more miners have the same prize: {}", min.miner_prize));
+        } else {
+            self.logger.log(format!("Miner {} lost with {} mines", min.miner_number, min.miner_prize));
+        }
+
+        return min;
+    }
+}
+
+struct MinerPrize {
+    miner_number : i32,
+    miner_prize : i32
 }

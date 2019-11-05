@@ -37,7 +37,6 @@ impl Miner {
         }
 
         self.sender.send_signal();
-        println!("miner {} started and did work", self.number);
     }
 
     fn share_prize(&self) {
