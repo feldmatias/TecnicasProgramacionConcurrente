@@ -36,12 +36,12 @@ impl Miner {
             self.data.current_mines += 1;
         }
 
-        self.sender.send(-1);
+        self.sender.send_signal();
         println!("miner {} started and did work", self.number);
     }
 
     fn share_prize(&self) {
-        self.receiver.receive();
+        self.receiver.receive_signal();
         self.sender.send(self.data.current_mines);
     }
 }

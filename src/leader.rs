@@ -33,14 +33,14 @@ impl Leader {
 
         // Wait for miners to receive the signal
         for _ in 0..self.miner_channels.len() {
-            let _ = self.receiver.receive();
+            let _ = self.receiver.receive_signal();
         }
         self.logger.log(format!("Round Ended"));
     }
 
     fn ask_miners_prize(&mut self) {
         for (i, channel) in self.miner_channels.iter().enumerate() {
-            channel.send(-1);
+            channel.send_signal();
             let prize = self.receiver.receive();
             self.logger.log(format!("Leader: received {} from miner {}", prize, i));
         }

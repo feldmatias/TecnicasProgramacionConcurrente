@@ -1,6 +1,8 @@
 use std::sync::mpsc::{Sender, Receiver};
 use std::sync::mpsc;
 
+const CHANNEL_SIGNAL : i32 = -1;
+
 pub struct ChannelReceiver {
     receiver: Receiver<i32>,
 }
@@ -8,6 +10,10 @@ pub struct ChannelReceiver {
 impl ChannelReceiver {
     pub fn receive(&self) -> i32 {
         return self.receiver.recv().unwrap();
+    }
+
+    pub fn receive_signal(&self) {
+        self.receive();
     }
 }
 
@@ -17,7 +23,11 @@ pub struct ChannelSender {
 
 impl ChannelSender {
     pub fn send(&self, data: i32) {
-        return self.sender.send(data).unwrap();
+        self.sender.send(data).unwrap();
+    }
+
+    pub fn send_signal(&self) {
+        self.send(CHANNEL_SIGNAL);
     }
 }
 
