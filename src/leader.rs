@@ -8,6 +8,7 @@ pub mod leader_channel;
 use crate::leader::leader_channel::{ChannelReceiver, ChannelSender};
 use crate::logger::Logger;
 use crate::leader::miner_prize::{MinerPrize, MINER_EQUAL_PRIZES};
+use crate::miner::{MINER_LOST, MINER_END_ROUND};
 
 pub mod miner_prize;
 
@@ -25,7 +26,13 @@ impl Leader {
         self.let_miners_mine();
         let prizes = self.ask_miners_prize();
         let loser = self.get_miner_loser(&prizes);
-        let winners = self.get_miner_winners(&prizes);
+
+        if loser.miner_number != MINER_EQUAL_PRIZES {
+            let winners = self.get_miner_winners(&prizes);
+            self.send_prizes(loser, winners);
+        }
+
+        self.end_round();
     }
 
     fn let_miners_mine(&mut self) {
@@ -98,5 +105,25 @@ impl Leader {
         self.logger.log(format!("There are {} winners", winners.len()));
 
         return winners;
+    }
+
+    fn send_prizes(&mut self, loser : MinerPrize, winners : Vec<MinerPrize>) {
+        let prize = loser.miner_prize / winners.len() as i32;
+        for winner in winners {
+            let channel : &ChannelSender = &self.miner_channels[winner.miner_number as usize];
+            channel.send(prize);
+            self.logger.log(format!("Loser sent {} mines to miner {}", prize, winner.miner_number));
+        }
+
+        let channel : &ChannelSender = &self.miner_channels[loser.miner_number as usize];
+        channel.send(MINER_LOST);
+        self.miner_channels.remove(loser.miner_number as usize);
+        self.logger.log(format!("Miner {} retires", loser.miner_number));
+    }
+
+    fn end_round(&mut self) {
+        for channel in &self.miner_channels {
+            channel.send(MINER_END_ROUND);
+        }
     }
 }
