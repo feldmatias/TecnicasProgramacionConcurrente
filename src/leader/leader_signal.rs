@@ -12,13 +12,6 @@ impl LeaderSignal {
         return signal;
     }
 
-    pub fn clone(&self) -> LeaderSignal {
-        let signal = LeaderSignal {
-            signal: self.signal.clone()
-        };
-        return signal;
-    }
-
     pub fn wait(&self) {
         let (ref mutex, ref condv) = *self.signal;
 
@@ -49,5 +42,14 @@ impl LeaderSignal {
 
         let mining = mutex.lock().unwrap();
         return *mining
+    }
+}
+
+impl Clone for LeaderSignal {
+    fn clone(&self) -> LeaderSignal {
+        let signal = LeaderSignal {
+            signal: self.signal.clone()
+        };
+        return signal;
     }
 }

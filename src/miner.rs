@@ -1,10 +1,10 @@
 
 use crate::leader::leader_signal::LeaderSignal;
-use crate::leader::leader_ask_prize_signal::LeaderAskPrizeSignal;
-use crate::leader::leader_prize_channel::LeaderPrizeSender;
+use crate::leader::leader_channel::{ChannelSender, ChannelReceiver};
 
 pub struct MinerData {
     current_mines : i32
+    // Todo add other data: total mines, total earned mines
 }
 
 impl Default for MinerData {
@@ -17,8 +17,8 @@ impl Default for MinerData {
 
 pub struct Miner {
     pub leader_signal: LeaderSignal,
-    pub leader_ask_prize_signal: LeaderAskPrizeSignal,
-    pub prize_sender: LeaderPrizeSender,
+    pub receiver: ChannelReceiver,
+    pub sender: ChannelSender,
     pub number: i32,
     pub data: MinerData
 }
@@ -36,12 +36,12 @@ impl Miner {
             self.data.current_mines += 1;
         }
 
-        self.prize_sender.send(-1);
+        self.sender.send(-1);
         println!("miner {} started and did work", self.number);
     }
 
     fn share_prize(&self) {
-        self.leader_ask_prize_signal.wait();
-        self.prize_sender.send(self.data.current_mines);
+        self.receiver.receive();
+        self.sender.send(self.data.current_mines);
     }
 }

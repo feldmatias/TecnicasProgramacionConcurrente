@@ -4,28 +4,26 @@ use std::time::Duration;
 pub mod leader_signal;
 use self::leader_signal::LeaderSignal;
 
-pub mod leader_ask_prize_signal;
-use self::leader_ask_prize_signal::LeaderAskPrizeSignal;
-use crate::leader::leader_prize_channel::LeaderPrizeReceiver;
+pub mod leader_channel;
+use crate::leader::leader_channel::{ChannelReceiver, ChannelSender};
 use crate::logger::Logger;
-
-pub mod leader_prize_channel;
 
 pub struct Leader {
     pub leader_signal: LeaderSignal,
-    pub prize_receiver: LeaderPrizeReceiver,
-    pub logger: Logger
+    pub receiver: ChannelReceiver,
+    pub logger: Logger,
+    pub miner_channels: Vec<ChannelSender>
 }
 
 impl Leader {
-    pub fn start(&mut self, ask_prize_signals: Vec<LeaderAskPrizeSignal>) {
-        thread::sleep(Duration::from_secs(1));
+    pub fn start(&mut self) {
+        thread::sleep(Duration::from_secs(1)); // TODO: change this and add while loop
 
-        self.let_miners_mine(ask_prize_signals.len());
-        self.ask_miners_prize(ask_prize_signals);
+        self.let_miners_mine();
+        self.ask_miners_prize();
     }
 
-    fn let_miners_mine(&mut self, miners: usize) {
+    fn let_miners_mine(&mut self) {
         self.logger.log(format!("Round Started"));
         self.leader_signal.signal_start();
 
@@ -34,17 +32,17 @@ impl Leader {
         self.leader_signal.signal_end();
 
         // Wait for miners to receive the signal
-        for _ in 0..miners {
-            let _ = self.prize_receiver.receive();
+        for _ in 0..self.miner_channels.len() {
+            let _ = self.receiver.receive();
         }
         self.logger.log(format!("Round Ended"));
     }
 
-    fn ask_miners_prize(&mut self, ask_prize_signals: Vec<LeaderAskPrizeSignal>) {
-        for (i, signal) in ask_prize_signals.iter().enumerate() {
-            signal.ask_prize();
-            let prize = self.prize_receiver.receive();
-            self.logger.log(format!("leader received {} from miner {}", prize, i));
+    fn ask_miners_prize(&mut self) {
+        for (i, channel) in self.miner_channels.iter().enumerate() {
+            channel.send(-1);
+            let prize = self.receiver.receive();
+            self.logger.log(format!("Leader: received {} from miner {}", prize, i));
         }
     }
 }

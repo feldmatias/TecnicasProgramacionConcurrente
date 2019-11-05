@@ -20,16 +20,18 @@ impl Logger {
         }
     }
 
-    pub fn clone(&self) -> Logger {
-        return Logger {
-            mutex: self.mutex.clone(),
-            file: self.file.try_clone().unwrap()
-        }
-    }
-
     pub fn log(&mut self, line: String) {
         let _ = self.mutex.lock().unwrap();
         println!("{}", line);
         self.file.write_all(format!("{}\n", line).as_ref()).unwrap();
+    }
+}
+
+impl Clone for Logger {
+    fn clone(&self) -> Logger {
+        return Logger {
+            mutex: self.mutex.clone(),
+            file: self.file.try_clone().unwrap()
+        }
     }
 }
