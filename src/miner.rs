@@ -1,12 +1,9 @@
-
-use crate::leader::leader_signal::LeaderSignal;
-use crate::leader::leader_channel::{ChannelSender, ChannelReceiver};
-
-pub const MINER_LOST : i32 = -999;
-pub const MINER_END_ROUND : i32 = -1000;
+use crate::logger::Logger;
+use crate::synchronization::SyncData;
+use crate::synchronization::channel::message::{Message, TIE, WINNER, LOSER};
 
 pub struct MinerData {
-    current_mines : i32
+    current_mines : usize
     // Todo add other data: total mines, total earned mines
 }
 
@@ -19,14 +16,23 @@ impl Default for MinerData {
 }
 
 pub struct Miner {
-    pub leader_signal: LeaderSignal,
-    pub receiver: ChannelReceiver,
-    pub sender: ChannelSender,
-    pub number: i32,
+    pub logger: Logger,
+    pub sync: SyncData,
+    pub number: usize,
     pub data: MinerData
 }
 
 impl Miner {
+
+    pub fn create(sync: SyncData, number: usize, logger: Logger) -> Miner {
+        return Miner {
+            logger: logger,
+            sync: sync,
+            number: number,
+            data: MinerData::default()
+        };
+    }
+
     pub fn start(&mut self) {
         self.mine();
         self.share_prize();
@@ -34,33 +40,58 @@ impl Miner {
     }
 
     fn mine(&mut self) {
-        self.leader_signal.wait();
+        self.sync.leader_signal.wait();
 
-        while self.leader_signal.should_continue() {
+        while self.sync.leader_signal.should_continue() {
             self.data.current_mines += 1;
         }
 
-        self.sender.send_signal();
+        self.sync.barrier.wait(self.sync.len());
     }
 
-    fn share_prize(&self) {
-        self.receiver.receive_signal();
-        self.sender.send(self.data.current_mines);
-    }
-
-    fn end_round(&self) -> bool {
-        loop {
-            let data = self.receiver.receive();
-
-            if data == MINER_LOST {
-                return false;
+    fn share_prize(&mut self) {
+        for i in 1..self.sync.len() {
+            if i == self.number {
+                self.logger.log(format!("Miner {}: Shouting prize {}", self.number, self.data.current_mines));
+                self.sync.senders.send_to_all(Message::create(self.number, self.data.current_mines as i32));
+            } else {
+                let msg = self.sync.receiver.receive();
+                self.logger.log(format!("Miner {}: Heard prize {} from miner {}", self.number, msg.data, msg.miner));
             }
 
-            if data == MINER_END_ROUND {
+            self.sync.barrier.wait(self.sync.len());
+        }
+    }
+
+    fn end_round(&mut self) -> bool {
+        let msg = self.sync.receiver.receive();
+
+        if msg.data == TIE {
+            return true;
+        }
+
+        if msg.data == WINNER {
+            let prize = self.sync.receiver.receive();
+            self.logger.log(format!("Miner {}: Received prize {} from miner {}", self.number, prize.data, prize.miner));
+            self.sync.remove(prize.miner);
+            return true;
+        }
+
+        if msg.data == LOSER {
+            self.sync.remove(msg.miner);
+            if msg.miner != self.number {
                 return true;
             }
 
-            // TODO add earnt mines to miner
+            self.logger.log(format!("Miner {}: I lost and will retire.", self.number));
+
+            let winner = self.sync.receiver.receive();
+            self.logger.log(format!("Miner {}: Sending prize {} to winner {}.", self.number, self.data.current_mines , winner.miner));
+            self.sync.senders.send_to(winner.miner, Message::create(self.number, self.data.current_mines as i32));
+
+            return false;
         }
+
+        return false;
     }
 }

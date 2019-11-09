@@ -2,128 +2,112 @@ use std::thread;
 use std::time::Duration;
 
 pub mod leader_signal;
-use self::leader_signal::LeaderSignal;
 
-pub mod leader_channel;
-use crate::leader::leader_channel::{ChannelReceiver, ChannelSender};
 use crate::logger::Logger;
 use crate::leader::miner_prize::{MinerPrize, MINER_EQUAL_PRIZES};
-use crate::miner::{MINER_LOST, MINER_END_ROUND};
+use crate::synchronization::SyncData;
+use crate::synchronization::channel::message::{Message, TIE, LOSER, WINNER};
 
 pub mod miner_prize;
 
+pub const LEADER_NUMBER : usize = 0;
+
 pub struct Leader {
-    pub leader_signal: LeaderSignal,
-    pub receiver: ChannelReceiver,
     pub logger: Logger,
-    pub miner_channels: Vec<ChannelSender>
+    pub sync: SyncData,
 }
 
 impl Leader {
+
+    pub fn create(sync: SyncData, logger: Logger) -> Leader {
+        return Leader {
+            sync: sync,
+            logger: logger
+        };
+    }
+
     pub fn start(&mut self) {
         thread::sleep(Duration::from_secs(1)); // TODO: change this and add while loop
 
         self.let_miners_mine();
-        let prizes = self.ask_miners_prize();
+        let prizes = self.hear_miners_prize();
         let loser = self.get_miner_loser(&prizes);
 
         if loser.miner_number != MINER_EQUAL_PRIZES {
             let winners = self.get_miner_winners(&prizes);
-            self.send_prizes(loser, winners);
+            self.send_result(loser, winners);
+            self.sync.remove(loser.miner_number as usize);
+        } else {
+            self.sync.senders.send_to_all(Message::create(LEADER_NUMBER, TIE));
         }
 
-        self.end_round();
+        self.logger.log(format!("Round Ended"));
     }
 
     fn let_miners_mine(&mut self) {
         self.logger.log(format!("Round Started"));
-        self.leader_signal.signal_start();
+        self.sync.leader_signal.signal_start();
 
         thread::sleep(Duration::from_secs(2));
 
-        self.leader_signal.signal_end();
+        self.logger.log(format!("Leader: Sending signal to end round"));
+        self.sync.leader_signal.signal_end();
 
         // Wait for all miners to receive the end signal
-        for _ in 0..self.miner_channels.len() {
-            self.receiver.receive_signal();
-        }
-        self.logger.log(format!("Round Ended"));
+        self.sync.barrier.wait(self.sync.len());
     }
 
-    fn ask_miners_prize(&mut self) -> Vec<MinerPrize> {
+    fn hear_miners_prize(&mut self) -> Vec<MinerPrize> {
         let mut prizes = vec![];
 
-        for (i, channel) in self.miner_channels.iter().enumerate() {
-            channel.send_signal();
-            let prize = self.receiver.receive();
-            self.logger.log(format!("Leader: received {} from miner {}", prize, i));
+        for _ in 1..self.sync.len() {
+            let prize = self.sync.receiver.receive();
+            self.logger.log(format!("Leader: Heard prize {} from miner {}", prize.data, prize.miner));
 
             prizes.push(MinerPrize {
-                miner_number: i as i32,
-                miner_prize: prize
-            })
+                miner_number: prize.miner as i32,
+                miner_prize: prize.data
+            });
+
+            self.sync.barrier.wait(self.sync.len());
         }
 
         return prizes;
     }
 
     fn get_miner_loser(&mut self, prizes: &Vec<MinerPrize>) -> MinerPrize {
-        let mut min = MinerPrize::default();
-
-        for prize in prizes {
-            if prize.miner_prize < min.miner_prize {
-                min = *prize;
-            } else if prize.miner_prize == min.miner_prize {
-                min.miner_number = MINER_EQUAL_PRIZES;
-            }
-        }
+        let mut min = MinerPrize::get_loser(prizes);
 
         if min.miner_number == MINER_EQUAL_PRIZES {
-            self.logger.log(format!("Tie"));
-            self.logger.log(format!("2 or more miners have the same prize: {}", min.miner_prize));
+            self.logger.log(format!("Leader: Tie"));
+            self.logger.log(format!("Leader: 2 or more miners have the lowest prize {}", min.miner_prize));
         } else {
-            self.logger.log(format!("Miner {} lost with {} mines", min.miner_number, min.miner_prize));
+            self.logger.log(format!("Leader: Miner {} lost with {} mines", min.miner_number, min.miner_prize));
         }
 
         return min;
     }
 
-    fn get_miner_winners(&mut self, prizes: &Vec<MinerPrize>) -> Vec<MinerPrize> {
-        let mut winners = vec![];
-        let mut max = -1;
+    fn get_miner_winners(&mut self, prizes: &Vec<MinerPrize>) -> Vec<i32> {
+        let mut winners = MinerPrize::get_winners(prizes);
 
-        for prize in prizes {
-            if prize.miner_prize > max {
-                max = prize.miner_prize;
-                winners.clear();
-                winners.push(*prize);
-            } else if prize.miner_prize == max {
-                winners.push(*prize);
-            }
-        }
-
-        self.logger.log(format!("There are {} winners", winners.len()));
+        self.logger.log(format!("Leader: There are {} winners", winners.len()));
 
         return winners;
     }
 
-    fn send_prizes(&mut self, loser : MinerPrize, winners : Vec<MinerPrize>) {
+    fn send_result(&mut self, loser : MinerPrize, winners : Vec<i32>) {
         let prize = loser.miner_prize / winners.len() as i32;
-        for winner in winners {
-            let channel : &ChannelSender = &self.miner_channels[winner.miner_number as usize];
-            channel.send(prize);
-            self.logger.log(format!("Loser sent {} mines to miner {}", prize, winner.miner_number));
-        }
 
-        let channel : &ChannelSender = &self.miner_channels[loser.miner_number as usize];
-        channel.send(MINER_LOST);
-        self.miner_channels.remove(loser.miner_number as usize);
-        self.logger.log(format!("Miner {} retires", loser.miner_number));
-    }
-
-    fn end_round(&mut self) {
-        for channel in &self.miner_channels {
-            channel.send(MINER_END_ROUND);
+        for i in 1..11 { //TODO do not hardcode 11
+            if winners.contains(&i) {
+                self.sync.senders.send_to(i as usize, Message::create(LEADER_NUMBER, WINNER));
+            } else {
+                self.sync.senders.send_to(i as usize, Message::create(loser.miner_number as usize, LOSER));
+                if i == loser.miner_number {
+                    self.sync.senders.send_to(i as usize, Message::create(winners[0] as usize, winners[0])); //TODO send to all winners
+                }
+            }
         }
     }
 }
