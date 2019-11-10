@@ -45,7 +45,7 @@ impl Leader {
     fn let_miners_mine(&mut self) {
         self.sync.leader_signal.signal_start();
 
-        TimeSimulator::simulate_time_between(1000, 5000);
+        TimeSimulator::simulate_time_between(3000, 5000);
 
         self.logger.log(format!("Leader: Sending signal to end round"));
         self.sync.leader_signal.signal_end();
