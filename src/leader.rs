@@ -14,36 +14,32 @@ pub const LEADER_NUMBER : usize = 0;
 pub struct Leader {
     pub logger: Logger,
     pub sync: SyncData,
-    pub miners: usize
+    current_round: usize
 }
 
 impl Leader {
 
     pub fn create(sync: SyncData, logger: Logger) -> Leader {
         return Leader {
-            miners: (&sync).len(),
             sync: sync,
-            logger: logger
+            logger: logger,
+            current_round: 1
         };
     }
 
     pub fn start(&mut self) {
-        self.logger.log(format!("Round Started"));
+        while self.sync.should_continue() {
+            self.logger.log(format!("Round {} Started", self.current_round));
 
-        self.let_miners_mine();
-        let prizes = self.hear_miners_prize();
-        let loser = self.get_miner_loser(&prizes);
+            self.let_miners_mine();
+            let prizes = self.hear_miners_prize();
+            let loser = self.get_miner_loser(&prizes);
+            self.analyze_results(prizes, loser);
 
-        if loser.miner_number != MINER_EQUAL_PRIZES {
-            let winners = self.get_miner_winners(&prizes);
-            self.send_result(loser, winners);
-            self.sync.remove(loser.miner_number as usize);
-        } else {
-            self.sync.senders.send_to_all(Message::create(LEADER_NUMBER, TIE));
+            self.logger.log(format!("Round {} Ended", self.current_round));
+            self.logger.log(String::from("--------------------------------------------------"));
+            self.current_round += 1;
         }
-
-        self.sync.barrier.wait(self.sync.len());
-        self.logger.log(format!("Round Ended"));
     }
 
     fn let_miners_mine(&mut self) {
@@ -89,6 +85,18 @@ impl Leader {
         return loser;
     }
 
+    fn analyze_results(&mut self, prizes: Vec<MinerPrize>, loser: MinerPrize) {
+        if loser.miner_number != MINER_EQUAL_PRIZES {
+            let winners = self.get_miner_winners(&prizes);
+            self.send_result(loser, winners);
+            self.sync.remove(loser.miner_number as usize);
+        } else {
+            self.sync.senders.send_to_all(Message::create(LEADER_NUMBER, TIE));
+        }
+
+        self.sync.barrier.wait(self.sync.len());
+    }
+
     fn get_miner_winners(&mut self, prizes: &Vec<MinerPrize>) -> Vec<i32> {
         let winners = MinerPrize::get_winners(prizes);
 
@@ -98,7 +106,11 @@ impl Leader {
     }
 
     fn send_result(&mut self, loser : MinerPrize, winners : Vec<i32>) {
-        for i in 1..self.miners {
+        for i in 1..self.sync.initial_count {
+            if self.sync.is_loser(i) {
+                continue;
+            }
+
             if winners.contains(&(i as i32)) {
                 self.sync.senders.send_to(i as usize, Message::create(LEADER_NUMBER, WINNER));
             } else {

@@ -37,7 +37,8 @@ impl SyncInfo {
             leader_signal: self.leader_signal.clone(),
             barrier: self.barrier.clone(),
             receiver: self.receivers.remove(0),
-            senders: self.senders.clone()
+            senders: self.senders.clone(),
+            initial_count: self.senders.len()
         };
 
         sync.senders.number = i;
@@ -49,7 +50,8 @@ pub struct SyncData {
     pub leader_signal: LeaderSignal,
     pub barrier: Barrier,
     pub receiver: ChannelReceiver,
-    pub senders: ChannelSendersList
+    pub senders: ChannelSendersList,
+    pub initial_count: usize
 }
 
 impl SyncData {
@@ -59,5 +61,13 @@ impl SyncData {
 
     pub fn remove(&mut self, i: usize) {
         self.senders.remove(i);
+    }
+
+    pub fn should_continue(&self) -> bool {
+        return self.len() > 2; // Leader and more than 1 miner
+    }
+
+    pub fn is_loser(&self, i: usize) -> bool {
+        return self.senders.losers.contains(&i);
     }
 }

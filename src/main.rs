@@ -15,7 +15,7 @@ pub mod synchronization;
 
 
 fn main() {
-    const MINERS : usize = 10;
+    const MINERS : usize = 5;
 
     let logger = Logger::create();
     let mut sync = SyncInfo::initialize(MINERS + 1);
