@@ -15,12 +15,14 @@ pub const LEADER_NUMBER : usize = 0;
 pub struct Leader {
     pub logger: Logger,
     pub sync: SyncData,
+    pub miners: usize
 }
 
 impl Leader {
 
     pub fn create(sync: SyncData, logger: Logger) -> Leader {
         return Leader {
+            miners: (&sync).len(),
             sync: sync,
             logger: logger
         };
@@ -98,12 +100,12 @@ impl Leader {
     }
 
     fn send_result(&mut self, loser : MinerPrize, winners : Vec<i32>) {
-        for i in 1..11 { //TODO do not hardcode 11
-            if winners.contains(&i) {
+        for i in 1..self.miners {
+            if winners.contains(&(i as i32)) {
                 self.sync.senders.send_to(i as usize, Message::create(LEADER_NUMBER, WINNER));
             } else {
                 self.sync.senders.send_to(i as usize, Message::create(loser.miner_number as usize, LOSER));
-                if i == loser.miner_number {
+                if i as i32 == loser.miner_number {
                     self.send_winners(i as usize, &winners);
                 }
             }
