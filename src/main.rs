@@ -16,9 +16,10 @@ pub mod synchronization;
 
 fn main() {
     const MINERS : usize = 5;
+    const ROUNDS : usize = 5;
 
     let logger = Logger::create();
-    let mut sync = SyncInfo::initialize(MINERS + 1);
+    let mut sync = SyncInfo::initialize(MINERS + 1, ROUNDS);
 
     let mut threads = vec![];
 

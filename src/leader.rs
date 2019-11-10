@@ -39,6 +39,7 @@ impl Leader {
             self.logger.log(format!("Round {} Ended", self.current_round));
             self.logger.log(String::from("--------------------------------------------------"));
             self.current_round += 1;
+            self.sync.end_round();
         }
     }
 

@@ -29,6 +29,7 @@ impl Miner {
             self.mine();
             self.share_prize();
             let should_continue = self.end_round();
+            self.sync.end_round();
             if !should_continue {
                 break;
             }

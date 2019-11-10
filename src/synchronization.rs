@@ -9,18 +9,20 @@ pub mod channel;
 pub struct SyncInfo {
     leader_signal: LeaderSignal,
     barrier: Barrier,
-    pub(crate) receivers: Vec<ChannelReceiver>,
+    receivers: Vec<ChannelReceiver>,
     senders: ChannelSendersList,
+    rounds: usize
 }
 
 impl SyncInfo {
 
-    pub fn initialize(n: usize) -> SyncInfo {
+    pub fn initialize(n: usize, rounds: usize) -> SyncInfo {
         let mut sync = SyncInfo {
             leader_signal: LeaderSignal::create(),
             barrier: Barrier::create(),
             receivers: vec![],
-            senders: ChannelSendersList::default()
+            senders: ChannelSendersList::default(),
+            rounds: rounds
         };
 
         for _ in 0..n {
@@ -38,7 +40,8 @@ impl SyncInfo {
             barrier: self.barrier.clone(),
             receiver: self.receivers.remove(0),
             senders: self.senders.clone(),
-            initial_count: self.senders.len()
+            initial_count: self.senders.len(),
+            rounds: self.rounds
         };
 
         sync.senders.number = i;
@@ -51,7 +54,8 @@ pub struct SyncData {
     pub barrier: Barrier,
     pub receiver: ChannelReceiver,
     pub senders: ChannelSendersList,
-    pub initial_count: usize
+    pub initial_count: usize,
+    pub rounds: usize
 }
 
 impl SyncData {
@@ -64,10 +68,14 @@ impl SyncData {
     }
 
     pub fn should_continue(&self) -> bool {
-        return self.len() > 2; // Leader and more than 1 miner
+        return self.rounds > 0 && self.len() > 2; // Leader and more than 1 miner
     }
 
     pub fn is_loser(&self, i: usize) -> bool {
         return self.senders.losers.contains(&i);
+    }
+
+    pub fn end_round(&mut self) {
+        self.rounds -= 1;
     }
 }
