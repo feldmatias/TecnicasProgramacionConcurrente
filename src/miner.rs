@@ -67,6 +67,7 @@ impl Miner {
         let msg = self.sync.receiver.receive();
 
         if msg.data == TIE {
+            self.sync.barrier.wait(self.sync.len());
             return true;
         }
 
@@ -74,12 +75,14 @@ impl Miner {
             let prize = self.sync.receiver.receive();
             self.logger.log(format!("Miner {}: Received prize {} from miner {}", self.number, prize.data, prize.miner));
             self.sync.remove(prize.miner);
+            self.sync.barrier.wait(self.sync.len());
             return true;
         }
 
         if msg.data == LOSER {
             self.sync.remove(msg.miner);
             if msg.miner != self.number {
+                self.sync.barrier.wait(self.sync.len());
                 return true;
             }
 

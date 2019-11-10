@@ -41,6 +41,7 @@ impl Leader {
             self.sync.senders.send_to_all(Message::create(LEADER_NUMBER, TIE));
         }
 
+        self.sync.barrier.wait(self.sync.len());
         self.logger.log(format!("Round Ended"));
     }
 
