@@ -77,20 +77,20 @@ impl Leader {
     }
 
     fn get_miner_loser(&mut self, prizes: &Vec<MinerPrize>) -> MinerPrize {
-        let mut min = MinerPrize::get_loser(prizes);
+        let loser = MinerPrize::get_loser(prizes);
 
-        if min.miner_number == MINER_EQUAL_PRIZES {
+        if loser.miner_number == MINER_EQUAL_PRIZES {
             self.logger.log(format!("Leader: Tie"));
-            self.logger.log(format!("Leader: 2 or more miners have the lowest prize {}", min.miner_prize));
+            self.logger.log(format!("Leader: 2 or more miners have the lowest prize {}", loser.miner_prize));
         } else {
-            self.logger.log(format!("Leader: Miner {} lost with {} mines", min.miner_number, min.miner_prize));
+            self.logger.log(format!("Leader: Miner {} lost with {} mines", loser.miner_number, loser.miner_prize));
         }
 
-        return min;
+        return loser;
     }
 
     fn get_miner_winners(&mut self, prizes: &Vec<MinerPrize>) -> Vec<i32> {
-        let mut winners = MinerPrize::get_winners(prizes);
+        let winners = MinerPrize::get_winners(prizes);
 
         self.logger.log(format!("Leader: There are {} winners", winners.len()));
 
@@ -98,17 +98,22 @@ impl Leader {
     }
 
     fn send_result(&mut self, loser : MinerPrize, winners : Vec<i32>) {
-        let prize = loser.miner_prize / winners.len() as i32;
-
         for i in 1..11 { //TODO do not hardcode 11
             if winners.contains(&i) {
                 self.sync.senders.send_to(i as usize, Message::create(LEADER_NUMBER, WINNER));
             } else {
                 self.sync.senders.send_to(i as usize, Message::create(loser.miner_number as usize, LOSER));
                 if i == loser.miner_number {
-                    self.sync.senders.send_to(i as usize, Message::create(winners[0] as usize, winners[0])); //TODO send to all winners
+                    self.send_winners(i as usize, &winners);
                 }
             }
+        }
+    }
+
+    fn send_winners(&self, loser: usize, winners : &Vec<i32>) {
+        self.sync.senders.send_to(loser, Message::create(LEADER_NUMBER, winners.len() as i32));
+        for winner in winners {
+            self.sync.senders.send_to(loser, Message::create(LEADER_NUMBER, *winner));
         }
     }
 }

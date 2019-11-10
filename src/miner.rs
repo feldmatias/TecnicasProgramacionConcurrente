@@ -87,14 +87,24 @@ impl Miner {
             }
 
             self.logger.log(format!("Miner {}: I lost and will retire.", self.number));
-
-            let winner = self.sync.receiver.receive();
-            self.logger.log(format!("Miner {}: Sending prize {} to winner {}.", self.number, self.data.current_mines , winner.miner));
-            self.sync.senders.send_to(winner.miner, Message::create(self.number, self.data.current_mines as i32));
+            self.loser();
 
             return false;
         }
 
         return false;
+    }
+
+    fn loser(&mut self) {
+        let winners_count = self.sync.receiver.receive().data;
+        self.logger.log(format!("Miner {}: Sending total prize {} to {} winners.", self.number, self.data.current_mines , winners_count));
+
+        let prize = self.data.current_mines / winners_count as usize;
+
+        for _ in 0..winners_count {
+            let winner = self.sync.receiver.receive().data as usize;
+            self.logger.log(format!("Miner {}: Sending prize {} to winner {}.", self.number, prize , winner));
+            self.sync.senders.send_to(winner, Message::create(self.number, prize as i32));
+        }
     }
 }
