@@ -1,14 +1,13 @@
-use std::thread;
-use std::time::Duration;
-
 pub mod leader_signal;
 
 use crate::logger::Logger;
 use crate::leader::miner_prize::{MinerPrize, MINER_EQUAL_PRIZES};
 use crate::synchronization::SyncData;
 use crate::synchronization::channel::message::{Message, TIE, LOSER, WINNER};
+use crate::leader::time_simulator::TimeSimulator;
 
 pub mod miner_prize;
+pub mod time_simulator;
 
 pub const LEADER_NUMBER : usize = 0;
 
@@ -29,7 +28,7 @@ impl Leader {
     }
 
     pub fn start(&mut self) {
-        thread::sleep(Duration::from_secs(1)); // TODO: change this and add while loop
+        self.logger.log(format!("Round Started"));
 
         self.let_miners_mine();
         let prizes = self.hear_miners_prize();
@@ -48,10 +47,9 @@ impl Leader {
     }
 
     fn let_miners_mine(&mut self) {
-        self.logger.log(format!("Round Started"));
         self.sync.leader_signal.signal_start();
 
-        thread::sleep(Duration::from_secs(2));
+        TimeSimulator::simulate_time_between(1000, 5000);
 
         self.logger.log(format!("Leader: Sending signal to end round"));
         self.sync.leader_signal.signal_end();

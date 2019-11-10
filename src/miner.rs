@@ -1,6 +1,7 @@
 use crate::logger::Logger;
 use crate::synchronization::SyncData;
 use crate::synchronization::channel::message::{Message, TIE, WINNER, LOSER};
+use crate::leader::time_simulator::TimeSimulator;
 
 pub struct MinerData {
     current_mines : usize
@@ -43,6 +44,7 @@ impl Miner {
         self.sync.leader_signal.wait();
 
         while self.sync.leader_signal.should_continue() {
+            TimeSimulator::simulate_time_between(10, 200);
             self.data.current_mines += 1;
         }
 
@@ -97,7 +99,7 @@ impl Miner {
 
     fn loser(&mut self) {
         let winners_count = self.sync.receiver.receive().data;
-        self.logger.log(format!("Miner {}: Sending total prize {} to {} winners.", self.number, self.data.current_mines , winners_count));
+        self.logger.log(format!("Miner {}: Sending total prize of {} to {} winners.", self.number, self.data.current_mines , winners_count));
 
         let prize = self.data.current_mines / winners_count as usize;
 
