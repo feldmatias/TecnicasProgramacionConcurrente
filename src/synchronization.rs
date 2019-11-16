@@ -67,8 +67,8 @@ impl SyncData {
         self.senders.remove(i);
     }
 
-    pub fn should_continue(&self) -> bool {
-        return self.rounds > 0 && self.len() > 2; // Leader and more than 1 miner
+    pub fn should_continue(&self, i: usize) -> bool {
+        return !self.is_loser(i) && self.rounds > 0 && self.len() > 2; // Leader and more than 1 miner
     }
 
     pub fn is_loser(&self, i: usize) -> bool {

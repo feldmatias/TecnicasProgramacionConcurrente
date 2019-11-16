@@ -25,14 +25,11 @@ impl Miner {
     }
 
     pub fn start(&mut self) {
-        while self.sync.should_continue() {
+        while self.sync.should_continue(self.number) {
             self.mine();
             self.share_prize();
-            let should_continue = self.end_round();
+            self.end_round();
             self.sync.end_round();
-            if !should_continue {
-                break;
-            }
         }
     }
 
@@ -65,13 +62,13 @@ impl Miner {
         }
     }
 
-    fn end_round(&mut self) -> bool {
+    fn end_round(&mut self) {
         let msg = self.sync.receiver.receive();
 
         if msg.data == TIE {
             self.data.set_total();
             self.sync.barrier.wait(self.sync.len());
-            return true;
+            return;
         }
 
         if msg.data == WINNER {
@@ -81,7 +78,7 @@ impl Miner {
             self.data.add_earned(prize.data as usize);
             self.sync.remove(prize.miner);
             self.sync.barrier.wait(self.sync.len());
-            return true;
+            return;
         }
 
         if msg.data == LOSER {
@@ -89,16 +86,16 @@ impl Miner {
             if msg.miner != self.number {
                 self.data.set_total();
                 self.sync.barrier.wait(self.sync.len());
-                return true;
+                return;
             }
 
             self.logger.log(format!("Miner {}: I lost and will retire.", self.number));
             self.loser();
 
-            return false;
+            return;
         }
 
-        return false;
+        return;
     }
 
     fn loser(&mut self) {

@@ -28,7 +28,7 @@ impl Leader {
     }
 
     pub fn start(&mut self) {
-        while self.sync.should_continue() {
+        while self.sync.should_continue(LEADER_NUMBER) {
             self.logger.log(format!("Round {} Started", self.current_round));
 
             self.let_miners_mine();
