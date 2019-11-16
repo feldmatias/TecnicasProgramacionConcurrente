@@ -6,6 +6,9 @@ use crate::synchronization::channel::channel_senders_list::ChannelSendersList;
 pub mod barrier;
 pub mod channel;
 
+/**
+ * Class that initializes all sync resources.
+ */
 pub struct SyncInfo {
     leader_signal: LeaderSignal,
     barrier: Barrier,
@@ -16,6 +19,9 @@ pub struct SyncInfo {
 
 impl SyncInfo {
 
+    /**
+     * Initialize sync resources.
+     */
     pub fn initialize(n: usize, rounds: usize) -> SyncInfo {
         let mut sync = SyncInfo {
             leader_signal: LeaderSignal::create(),
@@ -34,6 +40,9 @@ impl SyncInfo {
         return sync;
     }
 
+    /**
+     * Get sync resources for person i.
+     */
     pub fn data_for(&mut self, i: usize) -> SyncData {
         let mut sync = SyncData {
             leader_signal: self.leader_signal.clone(),
@@ -50,6 +59,9 @@ impl SyncInfo {
     }
 }
 
+/**
+ * Class that contains all sync resources.
+ */
 pub struct SyncData {
     pub leader_signal: LeaderSignal,
     pub barrier: Barrier,
@@ -61,22 +73,38 @@ pub struct SyncData {
 }
 
 impl SyncData {
+
+    /**
+     * How many persons are still in the game.
+     */
     pub fn len(&self) -> usize {
         return self.senders.len();
     }
 
+    /**
+     * Remove a person from a game.
+     */
     pub fn remove(&mut self, i: usize) {
         self.senders.remove(i);
     }
 
+    /**
+     * If the game has another round or not.
+     */
     pub fn should_continue(&self, i: usize) -> bool {
         return !self.is_loser(i) && self.rounds_left > 0 && self.len() > 2; // Leader and more than 1 miner
     }
 
+    /**
+     * If current miner is a loser or not.
+     */
     pub fn is_loser(&self, i: usize) -> bool {
         return self.senders.losers.contains(&i);
     }
 
+    /**
+     * End a round.
+     */
     pub fn end_round(&mut self) {
         self.rounds_left -= 1;
         self.current_round += 1;

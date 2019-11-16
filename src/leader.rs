@@ -1,7 +1,7 @@
 pub mod leader_signal;
 
 use crate::logger::Logger;
-use crate::leader::miner_prize::{MinerPrize, MINER_EQUAL_PRIZES};
+use crate::leader::miner_prize::{MinerPrize, NO_MINER};
 use crate::synchronization::SyncData;
 use crate::synchronization::channel::message::{Message, TIE, LOSER, WINNER, FINAL_RESULT};
 use crate::leader::time_simulator::TimeSimulator;
@@ -11,6 +11,9 @@ pub mod time_simulator;
 
 pub const LEADER_NUMBER : usize = 0;
 
+/**
+ * Class that represents the leader.
+ */
 pub struct Leader {
     pub logger: Logger,
     pub sync: SyncData
@@ -18,6 +21,9 @@ pub struct Leader {
 
 impl Leader {
 
+    /**
+     * Create the leader.
+     */
     pub fn create(sync: SyncData, logger: Logger) -> Leader {
         return Leader {
             sync: sync,
@@ -25,6 +31,9 @@ impl Leader {
         };
     }
 
+    /**
+     * Let the leader start working.
+     */
     pub fn start(&mut self) {
         while self.sync.should_continue(LEADER_NUMBER) {
             self.logger.log(format!("Round {} Started", self.sync.current_round));
@@ -42,6 +51,9 @@ impl Leader {
         self.end_game();
     }
 
+    /**
+     * Start a new round. Signal miners to start and stop mining.
+     */
     fn let_miners_mine(&mut self) {
         self.sync.leader_signal.signal_start();
 
@@ -54,6 +66,9 @@ impl Leader {
         self.sync.barrier.wait(self.sync.len());
     }
 
+    /**
+     * Hear all miners' prizes.
+     */
     fn hear_miners_prize(&mut self) -> Vec<MinerPrize> {
         let mut prizes = vec![];
 
@@ -72,10 +87,13 @@ impl Leader {
         return prizes;
     }
 
+    /**
+     * Calculate which miner lost the round.
+     */
     fn get_miner_loser(&mut self, prizes: &Vec<MinerPrize>) -> MinerPrize {
         let loser = MinerPrize::get_loser(prizes);
 
-        if loser.miner_number == MINER_EQUAL_PRIZES {
+        if loser.miner_number == NO_MINER {
             self.logger.log(format!("Leader: Tie"));
             self.logger.log(format!("Leader: 2 or more miners have the lowest prize {}", loser.miner_prize));
         } else {
@@ -85,8 +103,11 @@ impl Leader {
         return loser;
     }
 
+    /**
+     * Analyze if there are winners or it is a tie.
+     */
     fn analyze_results(&mut self, prizes: Vec<MinerPrize>, loser: MinerPrize) {
-        if loser.miner_number != MINER_EQUAL_PRIZES {
+        if loser.miner_number != NO_MINER {
             let winners = self.get_miner_winners(&prizes);
             self.send_result(loser, winners);
             self.sync.remove(loser.miner_number as usize);
@@ -97,6 +118,9 @@ impl Leader {
         self.sync.barrier.wait(self.sync.len());
     }
 
+    /**
+     * Calculate the miners who won the round.
+     */
     fn get_miner_winners(&mut self, prizes: &Vec<MinerPrize>) -> Vec<i32> {
         let winners = MinerPrize::get_winners(prizes);
 
@@ -105,6 +129,9 @@ impl Leader {
         return winners;
     }
 
+    /**
+     * Send round result to each miner.
+     */
     fn send_result(&mut self, loser : MinerPrize, winners : Vec<i32>) {
         for i in 1..self.sync.initial_count {
             if self.sync.is_loser(i) {
@@ -122,6 +149,9 @@ impl Leader {
         }
     }
 
+    /**
+     * Send which miners won to the loser.
+     */
     fn send_winners_to_loser(&self, loser: usize, winners : &Vec<i32>) {
         self.sync.senders.send_to(loser, Message::create(LEADER_NUMBER, winners.len() as i32));
         for winner in winners {
@@ -129,6 +159,9 @@ impl Leader {
         }
     }
 
+    /**
+     * Receive game results from each miner.
+     */
     fn end_game(&mut self) {
         self.logger.log(format!("Game Ended"));
         for i in 1..self.sync.initial_count {

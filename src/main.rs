@@ -13,7 +13,9 @@ use crate::leader::LEADER_NUMBER;
 
 pub mod synchronization;
 
-
+/**
+ * Main function. Thread and sync resources initialization.
+ */
 fn main() {
     const MINERS : usize = 5;
     const ROUNDS : usize = 20;

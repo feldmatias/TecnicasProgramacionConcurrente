@@ -7,6 +7,9 @@ use crate::leader::LEADER_NUMBER;
 
 pub mod miner_data;
 
+/**
+ * Class that represents a miner.
+ */
 pub struct Miner {
     pub logger: Logger,
     pub sync: SyncData,
@@ -16,6 +19,9 @@ pub struct Miner {
 
 impl Miner {
 
+    /**
+     * Create a miner.
+     */
     pub fn create(sync: SyncData, number: usize, logger: Logger) -> Miner {
         return Miner {
             logger: logger,
@@ -25,6 +31,9 @@ impl Miner {
         };
     }
 
+    /**
+     * Let the miner start working.
+     */
     pub fn start(&mut self) {
         while self.sync.should_continue(self.number) {
             self.mine();
@@ -35,6 +44,9 @@ impl Miner {
         self.end_game();
     }
 
+    /**
+     * Start mining until stop signal received.
+     */
     fn mine(&mut self) {
         self.sync.leader_signal.wait();
 
@@ -46,6 +58,9 @@ impl Miner {
         self.sync.barrier.wait(self.sync.len());
     }
 
+    /**
+     * Share round prizes with all the other miners.
+     */
     fn share_prize(&mut self) {
         for i in 1..self.sync.initial_count {
             if self.sync.is_loser(i) {
@@ -64,6 +79,9 @@ impl Miner {
         }
     }
 
+    /**
+     * Finish the current round. Receive round results from leader.
+     */
     fn end_round(&mut self) {
         let msg = self.sync.receiver.receive();
 
@@ -100,21 +118,27 @@ impl Miner {
         return;
     }
 
+    /**
+     * Miner lost the round. Send prize to winners.
+     */
     fn loser(&mut self) {
         let winners_count = self.sync.receiver.receive().data;
-        self.logger.log(format!("Miner {}: Sending total prize of {} to {} winners.", self.number, self.data.current_mines , winners_count));
+        self.logger.log(format!("Miner {}: I will send a total prize of {} to {} winners", self.number, self.data.current_mines , winners_count));
 
         let prize = self.data.current_mines / winners_count as usize;
 
         for _ in 0..winners_count {
             let winner = self.sync.receiver.receive().data as usize;
-            self.logger.log(format!("Miner {}: Sending prize {} to winner {}.", self.number, prize , winner));
+            self.logger.log(format!("Miner {}: Sending prize {} to winner {}", self.number, prize , winner));
             self.sync.senders.send_to(winner, Message::create(self.number, prize as i32));
         }
 
         self.data.set_total();
     }
 
+    /**
+     * Send game results to leader.
+     */
     fn end_game(&self) {
         loop {
             let signal = self.sync.receiver.receive();

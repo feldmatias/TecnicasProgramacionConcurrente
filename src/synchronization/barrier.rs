@@ -1,11 +1,15 @@
 use std::sync::{Arc, Mutex, Condvar};
 
+/**
+ * Class that simulates a barrier.
+ */
 pub struct Barrier {
     barrier: Arc<(Mutex<usize>, Condvar)>,
     last_value: usize
 }
 
 impl Barrier {
+
     /**
      * Create a new barrier.
      */

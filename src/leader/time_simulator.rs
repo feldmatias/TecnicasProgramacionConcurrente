@@ -2,6 +2,9 @@ use std::thread;
 use std::time::Duration;
 use rand::Rng;
 
+/**
+ * Class to simulate time.
+ */
 pub struct TimeSimulator {}
 
 impl TimeSimulator {

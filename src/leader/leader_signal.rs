@@ -1,10 +1,17 @@
 use std::sync::{Arc, Mutex, Condvar};
 
+/**
+ * Class that allows the leader top send start and stop signals to miners.
+ */
 pub struct LeaderSignal {
     signal: Arc<(Mutex<bool>, Condvar)>,
 }
 
 impl LeaderSignal {
+
+    /**
+     * Create the signal.
+     */
     pub fn create() -> LeaderSignal {
         let signal = LeaderSignal {
             signal: Arc::new((Mutex::new(false), Condvar::new()))
@@ -12,6 +19,9 @@ impl LeaderSignal {
         return signal;
     }
 
+    /**
+     * Wait for the start signal.
+     */
     pub fn wait(&self) {
         let (ref mutex, ref condv) = *self.signal;
 
@@ -22,6 +32,9 @@ impl LeaderSignal {
         }
     }
 
+    /**
+     * Send a signal to start.
+     */
     pub fn signal_start(&self) {
         let (ref mutex, ref condv) = *self.signal;
 
@@ -30,6 +43,9 @@ impl LeaderSignal {
         condv.notify_all();
     }
 
+    /**
+     * Send the signal to end.
+     */
     pub fn signal_end(&self) {
         let (ref mutex, _) = *self.signal;
 
@@ -37,6 +53,9 @@ impl LeaderSignal {
         *mining = false;
     }
 
+    /**
+     * If end signal is not received yet.
+     */
     pub fn should_continue(&self) -> bool {
         let (ref mutex, _) = *self.signal;
 
@@ -46,6 +65,10 @@ impl LeaderSignal {
 }
 
 impl Clone for LeaderSignal {
+
+    /**
+     * Clone the signal.
+     */
     fn clone(&self) -> LeaderSignal {
         let signal = LeaderSignal {
             signal: self.signal.clone()
