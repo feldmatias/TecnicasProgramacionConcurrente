@@ -1,8 +1,9 @@
 use crate::logger::Logger;
 use crate::synchronization::SyncData;
-use crate::synchronization::channel::message::{Message, TIE, WINNER, LOSER};
+use crate::synchronization::channel::message::{Message, TIE, WINNER, LOSER, FINAL_RESULT};
 use crate::leader::time_simulator::TimeSimulator;
 use crate::miner::miner_data::MinerData;
+use crate::leader::LEADER_NUMBER;
 
 pub mod miner_data;
 
@@ -31,6 +32,7 @@ impl Miner {
             self.end_round();
             self.sync.end_round();
         }
+        self.end_game();
     }
 
     fn mine(&mut self) {
@@ -111,5 +113,19 @@ impl Miner {
         }
 
         self.data.set_total();
+    }
+
+    fn end_game(&self) {
+        loop {
+            let signal = self.sync.receiver.receive();
+            if signal.data == FINAL_RESULT {
+                break;
+            }
+        }
+
+        let round_lost : i32 = if self.sync.is_loser(self.number) {self.sync.current_round as i32 - 1} else { -1 };
+        self.sync.senders.send_to(LEADER_NUMBER, Message::create(self.number, round_lost));
+        self.sync.senders.send_to(LEADER_NUMBER, Message::create(self.number, self.data.total_mined as i32));
+        self.sync.senders.send_to(LEADER_NUMBER, Message::create(self.number, self.data.total_earned as i32));
     }
 }

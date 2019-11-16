@@ -18,10 +18,6 @@ impl ChannelSendersList {
     }
 
     pub fn send_to(&self, receiver: usize, msg : Message) {
-        if self.losers.contains(&receiver) {
-            return;
-        }
-
         self.senders[receiver].send(msg);
     }
 

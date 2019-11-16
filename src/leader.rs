@@ -3,7 +3,7 @@ pub mod leader_signal;
 use crate::logger::Logger;
 use crate::leader::miner_prize::{MinerPrize, MINER_EQUAL_PRIZES};
 use crate::synchronization::SyncData;
-use crate::synchronization::channel::message::{Message, TIE, LOSER, WINNER};
+use crate::synchronization::channel::message::{Message, TIE, LOSER, WINNER, FINAL_RESULT};
 use crate::leader::time_simulator::TimeSimulator;
 
 pub mod miner_prize;
@@ -38,6 +38,8 @@ impl Leader {
             self.logger.log(String::from("--------------------------------------------------"));
             self.sync.end_round();
         }
+
+        self.end_game();
     }
 
     fn let_miners_mine(&mut self) {
@@ -125,5 +127,19 @@ impl Leader {
         for winner in winners {
             self.sync.senders.send_to(loser, Message::create(LEADER_NUMBER, *winner));
         }
+    }
+
+    fn end_game(&mut self) {
+        self.logger.log(format!("Game Ended"));
+        for i in 1..self.sync.initial_count {
+            self.sync.senders.send_to(i as usize, Message::create(LEADER_NUMBER, FINAL_RESULT));
+            let round_lost = self.sync.receiver.receive().data;
+            let total_mined = self.sync.receiver.receive().data;
+            let total_earned = self.sync.receiver.receive().data;
+
+            let final_result = if round_lost > 0 {format!("Loser in round {}", round_lost)} else {format!("Winner")};
+            self.logger.log(format!("Miner {} results: {} mined and {} earned. {}", i, total_mined, total_earned, final_result));
+        }
+
     }
 }
