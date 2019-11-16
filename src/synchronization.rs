@@ -41,7 +41,8 @@ impl SyncInfo {
             receiver: self.receivers.remove(0),
             senders: self.senders.clone(),
             initial_count: self.senders.len(),
-            rounds: self.rounds
+            rounds_left: self.rounds,
+            current_round: 1
         };
 
         sync.senders.number = i;
@@ -55,7 +56,8 @@ pub struct SyncData {
     pub receiver: ChannelReceiver,
     pub senders: ChannelSendersList,
     pub initial_count: usize,
-    pub rounds: usize
+    pub rounds_left: usize,
+    pub current_round: usize
 }
 
 impl SyncData {
@@ -68,7 +70,7 @@ impl SyncData {
     }
 
     pub fn should_continue(&self, i: usize) -> bool {
-        return !self.is_loser(i) && self.rounds > 0 && self.len() > 2; // Leader and more than 1 miner
+        return !self.is_loser(i) && self.rounds_left > 0 && self.len() > 2; // Leader and more than 1 miner
     }
 
     pub fn is_loser(&self, i: usize) -> bool {
@@ -76,6 +78,7 @@ impl SyncData {
     }
 
     pub fn end_round(&mut self) {
-        self.rounds -= 1;
+        self.rounds_left -= 1;
+        self.current_round += 1;
     }
 }

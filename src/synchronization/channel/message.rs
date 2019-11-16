@@ -2,6 +2,7 @@
 pub const WINNER : i32 = -10;
 pub const LOSER : i32 = -20;
 pub const TIE : i32 = -30;
+pub const FINAL_RESULT : i32 = -40;
 
 pub struct Message {
     pub miner: usize,

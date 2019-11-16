@@ -13,8 +13,7 @@ pub const LEADER_NUMBER : usize = 0;
 
 pub struct Leader {
     pub logger: Logger,
-    pub sync: SyncData,
-    current_round: usize
+    pub sync: SyncData
 }
 
 impl Leader {
@@ -22,23 +21,21 @@ impl Leader {
     pub fn create(sync: SyncData, logger: Logger) -> Leader {
         return Leader {
             sync: sync,
-            logger: logger,
-            current_round: 1
+            logger: logger
         };
     }
 
     pub fn start(&mut self) {
         while self.sync.should_continue(LEADER_NUMBER) {
-            self.logger.log(format!("Round {} Started", self.current_round));
+            self.logger.log(format!("Round {} Started", self.sync.current_round));
 
             self.let_miners_mine();
             let prizes = self.hear_miners_prize();
             let loser = self.get_miner_loser(&prizes);
             self.analyze_results(prizes, loser);
 
-            self.logger.log(format!("Round {} Ended", self.current_round));
+            self.logger.log(format!("Round {} Ended", self.sync.current_round));
             self.logger.log(String::from("--------------------------------------------------"));
-            self.current_round += 1;
             self.sync.end_round();
         }
     }
@@ -117,13 +114,13 @@ impl Leader {
             } else {
                 self.sync.senders.send_to(i as usize, Message::create(loser.miner_number as usize, LOSER));
                 if i as i32 == loser.miner_number {
-                    self.send_winners(i as usize, &winners);
+                    self.send_winners_to_loser(i as usize, &winners);
                 }
             }
         }
     }
 
-    fn send_winners(&self, loser: usize, winners : &Vec<i32>) {
+    fn send_winners_to_loser(&self, loser: usize, winners : &Vec<i32>) {
         self.sync.senders.send_to(loser, Message::create(LEADER_NUMBER, winners.len() as i32));
         for winner in winners {
             self.sync.senders.send_to(loser, Message::create(LEADER_NUMBER, *winner));
