@@ -2,6 +2,7 @@ use crate::leader::leader_signal::LeaderSignal;
 use crate::synchronization::barrier::Barrier;
 use crate::synchronization::channel::{ChannelReceiver, create_channel};
 use crate::synchronization::channel::channel_senders_list::ChannelSendersList;
+use crate::config::Config;
 
 pub mod barrier;
 pub mod channel;
@@ -22,16 +23,16 @@ impl SyncInfo {
     /**
      * Initialize sync resources.
      */
-    pub fn initialize(n: usize, rounds: usize) -> SyncInfo {
+    pub fn initialize(config: &Config) -> SyncInfo {
         let mut sync = SyncInfo {
             leader_signal: LeaderSignal::create(),
             barrier: Barrier::create(),
             receivers: vec![],
             senders: ChannelSendersList::default(),
-            rounds: rounds
+            rounds: config.rounds
         };
 
-        for _ in 0..n {
+        for _ in 0..config.miners + 1 {
             let (rx, tx) = create_channel();
             sync.senders.add(tx);
             sync.receivers.push(rx);

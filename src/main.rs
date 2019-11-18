@@ -10,18 +10,19 @@ pub mod leader;
 use self::leader::Leader;
 use crate::synchronization::SyncInfo;
 use crate::leader::LEADER_NUMBER;
+use crate::config::Config;
 
 pub mod synchronization;
+pub mod config;
 
 /**
  * Main function. Thread and sync resources initialization.
  */
 fn main() {
-    const MINERS : usize = 5;
-    const ROUNDS : usize = 20;
+    let config = Config::get();
 
     let logger = Logger::create();
-    let mut sync = SyncInfo::initialize(MINERS + 1, ROUNDS);
+    let mut sync = SyncInfo::initialize(&config);
 
     let mut threads = vec![];
 
@@ -29,7 +30,7 @@ fn main() {
     let mut leader = Leader::create(sync.data_for(LEADER_NUMBER), logger.clone());
 
 
-    for i in 1..MINERS + 1 {
+    for i in 1..config.miners + 1 {
         // Initialize miners
         let sync = (&mut sync).data_for(i);
         let logger_clone = logger.clone();

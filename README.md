@@ -8,4 +8,4 @@
  - cargo build
 
 ## Run
- - cargo run
+ - cargo run -- --rounds 5 --miners 12
