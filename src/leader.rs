@@ -132,18 +132,18 @@ impl Leader {
      * Send round result to each miner.
      */
     fn send_result(&mut self, loser: MinerPrize, winners: Vec<i32>) {
+        for winner in &winners {
+            self.sync.senders.send_to(*winner as usize, Message::create(LEADER_NUMBER, WINNER));
+        }
+
         for i in 1..self.sync.initial_count {
-            if self.sync.is_loser(i) {
+            if self.sync.is_loser(i) || *&winners.contains(&(i as i32)) {
                 continue;
             }
 
-            if winners.contains(&(i as i32)) {
-                self.sync.senders.send_to(i as usize, Message::create(LEADER_NUMBER, WINNER));
-            } else {
-                self.sync.senders.send_to(i as usize, Message::create(loser.miner_number as usize, LOSER));
-                if i as i32 == loser.miner_number {
-                    self.send_winners_to_loser(i as usize, &winners);
-                }
+            self.sync.senders.send_to(i as usize, Message::create(loser.miner_number as usize, LOSER));
+            if i as i32 == loser.miner_number {
+                self.send_winners_to_loser(i as usize, &winners);
             }
         }
     }
