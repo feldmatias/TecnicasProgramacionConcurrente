@@ -1,33 +1,32 @@
-pub mod leader_signal;
-
-use crate::logger::Logger;
 use crate::leader::miner_prize::{MinerPrize, NO_MINER};
-use crate::synchronization::SyncData;
-use crate::synchronization::channel::message::{Message, TIE, LOSER, WINNER, FINAL_RESULT};
 use crate::leader::time_simulator::TimeSimulator;
+use crate::logger::Logger;
+use crate::synchronization::channel::message::{FINAL_RESULT, LOSER, Message, TIE, WINNER};
+use crate::synchronization::SyncData;
+
+pub mod leader_signal;
 
 pub mod miner_prize;
 pub mod time_simulator;
 
-pub const LEADER_NUMBER : usize = 0;
+pub const LEADER_NUMBER: usize = 0;
 
 /**
  * Class that represents the leader.
  */
 pub struct Leader {
     pub logger: Logger,
-    pub sync: SyncData
+    pub sync: SyncData,
 }
 
 impl Leader {
-
     /**
      * Create the leader.
      */
     pub fn create(sync: SyncData, logger: Logger) -> Leader {
         return Leader {
             sync: sync,
-            logger: logger
+            logger: logger,
         };
     }
 
@@ -78,7 +77,7 @@ impl Leader {
 
             prizes.push(MinerPrize {
                 miner_number: prize.miner as i32,
-                miner_prize: prize.data
+                miner_prize: prize.data,
             });
 
             self.sync.barrier.wait(self.sync.len());
@@ -132,7 +131,7 @@ impl Leader {
     /**
      * Send round result to each miner.
      */
-    fn send_result(&mut self, loser : MinerPrize, winners : Vec<i32>) {
+    fn send_result(&mut self, loser: MinerPrize, winners: Vec<i32>) {
         for i in 1..self.sync.initial_count {
             if self.sync.is_loser(i) {
                 continue;
@@ -152,7 +151,7 @@ impl Leader {
     /**
      * Send which miners won to the loser.
      */
-    fn send_winners_to_loser(&self, loser: usize, winners : &Vec<i32>) {
+    fn send_winners_to_loser(&self, loser: usize, winners: &Vec<i32>) {
         self.sync.senders.send_to(loser, Message::create(LEADER_NUMBER, winners.len() as i32));
         for winner in winners {
             self.sync.senders.send_to(loser, Message::create(LEADER_NUMBER, *winner));
@@ -170,9 +169,8 @@ impl Leader {
             let total_mined = self.sync.receiver.receive().data;
             let total_earned = self.sync.receiver.receive().data;
 
-            let final_result = if round_lost > 0 {format!("Loser in round {}", round_lost)} else {format!("Winner")};
+            let final_result = if round_lost > 0 { format!("Loser in round {}", round_lost) } else { format!("Winner") };
             self.logger.log(format!("Miner {} results: {} mined and {} earned. {}", i, total_mined, total_earned, final_result));
         }
-
     }
 }

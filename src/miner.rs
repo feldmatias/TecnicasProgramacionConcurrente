@@ -1,9 +1,9 @@
-use crate::logger::Logger;
-use crate::synchronization::SyncData;
-use crate::synchronization::channel::message::{Message, TIE, WINNER, LOSER, FINAL_RESULT};
-use crate::leader::time_simulator::TimeSimulator;
-use crate::miner::miner_data::MinerData;
 use crate::leader::LEADER_NUMBER;
+use crate::leader::time_simulator::TimeSimulator;
+use crate::logger::Logger;
+use crate::miner::miner_data::MinerData;
+use crate::synchronization::channel::message::{FINAL_RESULT, LOSER, Message, TIE, WINNER};
+use crate::synchronization::SyncData;
 
 pub mod miner_data;
 
@@ -14,11 +14,10 @@ pub struct Miner {
     pub logger: Logger,
     pub sync: SyncData,
     pub number: usize,
-    pub data: MinerData
+    pub data: MinerData,
 }
 
 impl Miner {
-
     /**
      * Create a miner.
      */
@@ -27,7 +26,7 @@ impl Miner {
             logger: logger,
             sync: sync,
             number: number,
-            data: MinerData::default()
+            data: MinerData::default(),
         };
     }
 
@@ -123,13 +122,13 @@ impl Miner {
      */
     fn loser(&mut self) {
         let winners_count = self.sync.receiver.receive().data;
-        self.logger.log(format!("Miner {}: I will send a total prize of {} to {} winners", self.number, self.data.current_mines , winners_count));
+        self.logger.log(format!("Miner {}: I will send a total prize of {} to {} winners", self.number, self.data.current_mines, winners_count));
 
         let prize = self.data.current_mines / winners_count as usize;
 
         for _ in 0..winners_count {
             let winner = self.sync.receiver.receive().data as usize;
-            self.logger.log(format!("Miner {}: Sending prize {} to winner {}", self.number, prize , winner));
+            self.logger.log(format!("Miner {}: Sending prize {} to winner {}", self.number, prize, winner));
             self.sync.senders.send_to(winner, Message::create(self.number, prize as i32));
         }
 
@@ -147,7 +146,7 @@ impl Miner {
             }
         }
 
-        let round_lost : i32 = if self.sync.is_loser(self.number) {self.sync.current_round as i32 - 1} else { -1 };
+        let round_lost: i32 = if self.sync.is_loser(self.number) { self.sync.current_round as i32 - 1 } else { -1 };
         self.sync.senders.send_to(LEADER_NUMBER, Message::create(self.number, round_lost));
         self.sync.senders.send_to(LEADER_NUMBER, Message::create(self.number, self.data.total_mined as i32));
         self.sync.senders.send_to(LEADER_NUMBER, Message::create(self.number, self.data.total_earned as i32));

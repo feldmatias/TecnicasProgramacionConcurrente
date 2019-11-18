@@ -1,19 +1,18 @@
-use std::sync::{Arc, Mutex};
 use std::fs::File;
 use std::io::Write;
+use std::sync::{Arc, Mutex};
 
-const LOG_FILE : &str = "log.txt";
+const LOG_FILE: &str = "log.txt";
 
 /**
  * Class to log debug data.
  */
 pub struct Logger {
     mutex: Arc<Mutex<i32>>,
-    file: File
+    file: File,
 }
 
 impl Logger {
-
     /**
      * Create the logger.
      */
@@ -23,8 +22,8 @@ impl Logger {
 
         return Logger {
             mutex,
-            file
-        }
+            file,
+        };
     }
 
     /**
@@ -38,14 +37,13 @@ impl Logger {
 }
 
 impl Clone for Logger {
-
     /**
      * Clone the logger.
      */
     fn clone(&self) -> Logger {
         return Logger {
             mutex: self.mutex.clone(),
-            file: self.file.try_clone().unwrap()
-        }
+            file: self.file.try_clone().unwrap(),
+        };
     }
 }

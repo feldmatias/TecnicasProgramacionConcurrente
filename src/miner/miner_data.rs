@@ -1,11 +1,10 @@
-
 /**
  * Class that contains Miner results data.
  */
 pub struct MinerData {
-    pub current_mines : usize,
+    pub current_mines: usize,
     pub total_mined: usize,
-    pub total_earned: usize
+    pub total_earned: usize,
 }
 
 impl Default for MinerData {
@@ -16,13 +15,12 @@ impl Default for MinerData {
         return MinerData {
             current_mines: 0,
             total_mined: 0,
-            total_earned: 0
-        }
+            total_earned: 0,
+        };
     }
 }
 
 impl MinerData {
-
     /**
      * Add current mines to total.
      */

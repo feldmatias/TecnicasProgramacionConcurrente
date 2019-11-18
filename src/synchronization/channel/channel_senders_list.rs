@@ -7,15 +7,14 @@ use crate::synchronization::channel::message::Message;
 pub struct ChannelSendersList {
     pub senders: Vec<ChannelSender>,
     pub number: usize,
-    pub losers: Vec<usize>
+    pub losers: Vec<usize>,
 }
 
 impl ChannelSendersList {
-
     /**
      * Send a message through all channels.
      */
-    pub fn send_to_all(&self, msg : Message) {
+    pub fn send_to_all(&self, msg: Message) {
         for (i, sender) in self.senders.iter().enumerate() {
             if i != self.number && !self.losers.contains(&i) {
                 sender.send(msg)
@@ -26,7 +25,7 @@ impl ChannelSendersList {
     /**
      * Send a message through a specific channel.
      */
-    pub fn send_to(&self, receiver: usize, msg : Message) {
+    pub fn send_to(&self, receiver: usize, msg: Message) {
         self.senders[receiver].send(msg);
     }
 
@@ -60,7 +59,7 @@ impl Clone for ChannelSendersList {
         let mut list = ChannelSendersList {
             senders: vec![],
             number: self.number,
-            losers: self.losers.clone()
+            losers: self.losers.clone(),
         };
 
         for sender in &self.senders {
@@ -72,7 +71,6 @@ impl Clone for ChannelSendersList {
 }
 
 impl Default for ChannelSendersList {
-
     /**
      * Create an empty channels list.
      */
@@ -80,7 +78,7 @@ impl Default for ChannelSendersList {
         return ChannelSendersList {
             senders: vec![],
             number: 0,
-            losers: vec![]
-        }
+            losers: vec![],
+        };
     }
 }

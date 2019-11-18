@@ -1,5 +1,6 @@
-use std::sync::mpsc::{Sender, Receiver};
+use std::sync::mpsc::{Receiver, Sender};
 use std::sync::mpsc;
+
 use crate::synchronization::channel::message::Message;
 
 pub mod message;
@@ -13,7 +14,6 @@ pub struct ChannelReceiver {
 }
 
 impl ChannelReceiver {
-
     /**
      * Receive new message.
      */
@@ -30,7 +30,6 @@ pub struct ChannelSender {
 }
 
 impl ChannelSender {
-
     /**
      * Send a new message.
      */

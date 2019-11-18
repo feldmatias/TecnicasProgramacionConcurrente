@@ -1,18 +1,17 @@
 use clap::{App, Arg};
 
-const DEFAULT_MINERS : &str = "10";
-const DEFAULT_ROUNDS : &str = "10";
+const DEFAULT_MINERS: &str = "10";
+const DEFAULT_ROUNDS: &str = "10";
 
 /**
  * Class that holds config values.
  */
 pub struct Config {
     pub miners: usize,
-    pub rounds: usize
+    pub rounds: usize,
 }
 
 impl Config {
-
     /**
      * Get config from command line arguments.
      */
@@ -37,8 +36,8 @@ impl Config {
 
         return Config {
             miners: matches.value_of("miners").unwrap().parse().unwrap(),
-            rounds: matches.value_of("rounds").unwrap().parse().unwrap()
-        }
+            rounds: matches.value_of("rounds").unwrap().parse().unwrap(),
+        };
     }
 }
 

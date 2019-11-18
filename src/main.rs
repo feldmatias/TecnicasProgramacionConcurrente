@@ -1,16 +1,18 @@
 use std::thread;
 
-pub mod logger;
+use crate::config::Config;
+use crate::leader::LEADER_NUMBER;
 use crate::logger::Logger;
+use crate::synchronization::SyncInfo;
 
-pub mod miner;
+use self::leader::Leader;
 use self::miner::Miner;
 
+pub mod logger;
+
+pub mod miner;
+
 pub mod leader;
-use self::leader::Leader;
-use crate::synchronization::SyncInfo;
-use crate::leader::LEADER_NUMBER;
-use crate::config::Config;
 
 pub mod synchronization;
 pub mod config;
@@ -35,7 +37,7 @@ fn main() {
         let sync = (&mut sync).data_for(i);
         let logger_clone = logger.clone();
 
-        let t = thread::spawn( move||{
+        let t = thread::spawn(move || {
             let mut miner = Miner::create(sync, i as usize, logger_clone);
             miner.start();
         });
@@ -49,5 +51,4 @@ fn main() {
     for thread in threads {
         thread.join().unwrap();
     }
-
 }

@@ -1,5 +1,6 @@
 use std::thread;
 use std::time::Duration;
+
 use rand::Rng;
 
 /**
@@ -8,7 +9,6 @@ use rand::Rng;
 pub struct TimeSimulator {}
 
 impl TimeSimulator {
-
     /**
      * Simulate time wait between from and to milliseconds
      */

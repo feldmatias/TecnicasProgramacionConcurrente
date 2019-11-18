@@ -1,8 +1,8 @@
+use crate::config::Config;
 use crate::leader::leader_signal::LeaderSignal;
 use crate::synchronization::barrier::Barrier;
 use crate::synchronization::channel::{ChannelReceiver, create_channel};
 use crate::synchronization::channel::channel_senders_list::ChannelSendersList;
-use crate::config::Config;
 
 pub mod barrier;
 pub mod channel;
@@ -15,11 +15,10 @@ pub struct SyncInfo {
     barrier: Barrier,
     receivers: Vec<ChannelReceiver>,
     senders: ChannelSendersList,
-    rounds: usize
+    rounds: usize,
 }
 
 impl SyncInfo {
-
     /**
      * Initialize sync resources.
      */
@@ -29,7 +28,7 @@ impl SyncInfo {
             barrier: Barrier::create(),
             receivers: vec![],
             senders: ChannelSendersList::default(),
-            rounds: config.rounds
+            rounds: config.rounds,
         };
 
         for _ in 0..config.miners + 1 {
@@ -52,7 +51,7 @@ impl SyncInfo {
             senders: self.senders.clone(),
             initial_count: self.senders.len(),
             rounds_left: self.rounds,
-            current_round: 1
+            current_round: 1,
         };
 
         sync.senders.number = i;
@@ -70,11 +69,10 @@ pub struct SyncData {
     pub senders: ChannelSendersList,
     pub initial_count: usize,
     pub rounds_left: usize,
-    pub current_round: usize
+    pub current_round: usize,
 }
 
 impl SyncData {
-
     /**
      * How many persons are still in the game.
      */

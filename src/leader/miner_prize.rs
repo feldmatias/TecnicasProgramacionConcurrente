@@ -4,12 +4,11 @@ pub const NO_MINER: i32 = -1;
  * Class to store miners prize.
  */
 pub struct MinerPrize {
-    pub miner_number : i32,
-    pub miner_prize : i32
+    pub miner_number: i32,
+    pub miner_prize: i32,
 }
 
 impl MinerPrize {
-
     /**
      * Calculate the loser based on prizes list.
      */
@@ -52,27 +51,25 @@ impl MinerPrize {
 impl Copy for MinerPrize {}
 
 impl Clone for MinerPrize {
-
     /**
      * Clone the prize.
      */
     fn clone(&self) -> Self {
         return MinerPrize {
             miner_number: self.miner_number,
-            miner_prize: self.miner_prize
-        }
+            miner_prize: self.miner_prize,
+        };
     }
 }
 
 impl Default for MinerPrize {
-
     /**
      * Create an empty prize.
      */
     fn default() -> Self {
         return MinerPrize {
             miner_number: NO_MINER,
-            miner_prize: std::i32::MAX
+            miner_prize: std::i32::MAX,
         };
     }
 }

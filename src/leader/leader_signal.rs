@@ -1,4 +1,4 @@
-use std::sync::{Arc, Mutex, Condvar};
+use std::sync::{Arc, Condvar, Mutex};
 
 /**
  * Class that allows the leader top send start and stop signals to miners.
@@ -8,7 +8,6 @@ pub struct LeaderSignal {
 }
 
 impl LeaderSignal {
-
     /**
      * Create the signal.
      */
@@ -60,12 +59,11 @@ impl LeaderSignal {
         let (ref mutex, _) = *self.signal;
 
         let mining = mutex.lock().unwrap();
-        return *mining
+        return *mining;
     }
 }
 
 impl Clone for LeaderSignal {
-
     /**
      * Clone the signal.
      */
