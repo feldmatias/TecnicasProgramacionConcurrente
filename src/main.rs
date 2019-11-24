@@ -3,11 +3,11 @@ use std::thread;
 use crate::config::Config;
 use crate::leader::LEADER_NUMBER;
 use crate::logger::Logger;
+use crate::mines_map::MinesMap;
 use crate::synchronization::SyncInfo;
 
 use self::leader::Leader;
 use self::miner::Miner;
-use crate::mines_map::MinesMap;
 
 pub mod logger;
 

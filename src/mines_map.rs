@@ -1,8 +1,8 @@
-use std::sync::{Arc, Mutex};
 use std::fs::File;
-use std::io::{BufReader, BufRead};
+use std::io::{BufRead, BufReader};
+use std::sync::{Arc, Mutex};
 
-const MINES_MAP_CONFIG : &str = "mines_map.txt";
+const MINES_MAP_CONFIG: &str = "mines_map.txt";
 
 pub struct MinesMap {
     pub map: Arc<Vec<usize>>,
@@ -10,7 +10,6 @@ pub struct MinesMap {
 }
 
 impl MinesMap {
-
     /**
      * Create the map.
      */
@@ -26,8 +25,8 @@ impl MinesMap {
 
         return MinesMap {
             map: Arc::new(map),
-            current: Arc::new(Mutex::new(0))
-        }
+            current: Arc::new(Mutex::new(0)),
+        };
     }
 
     /**
@@ -70,6 +69,6 @@ impl Clone for MinesMap {
         return MinesMap {
             map: Arc::clone(&self.map),
             current: Arc::clone(&self.current),
-        }
+        };
     }
 }

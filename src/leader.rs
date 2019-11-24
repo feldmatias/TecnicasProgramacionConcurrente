@@ -1,9 +1,9 @@
 use crate::leader::miner_prize::{MinerPrize, NO_MINER};
 use crate::leader::time_simulator::TimeSimulator;
 use crate::logger::Logger;
+use crate::mines_map::MinesMap;
 use crate::synchronization::channel::message::{FINAL_RESULT, LOSER, Message, TIE, WINNER};
 use crate::synchronization::SyncData;
-use crate::mines_map::MinesMap;
 
 pub mod leader_signal;
 
