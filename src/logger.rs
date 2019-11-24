@@ -8,8 +8,7 @@ const LOG_FILE: &str = "log.txt";
  * Class to log debug data.
  */
 pub struct Logger {
-    mutex: Arc<Mutex<i32>>,
-    file: File,
+    mutex: Arc<Mutex<File>>,
 }
 
 impl Logger {
@@ -18,11 +17,10 @@ impl Logger {
      */
     pub fn create() -> Logger {
         let file = File::create(LOG_FILE).unwrap();
-        let mutex = Arc::new(Mutex::new(0));
+        let mutex = Arc::new(Mutex::new(file));
 
         return Logger {
             mutex,
-            file,
         };
     }
 
@@ -30,9 +28,9 @@ impl Logger {
      * Write a line in the log.
      */
     pub fn log(&mut self, line: String) {
-        let _ = self.mutex.lock().unwrap();
+        let mut file = self.mutex.lock().unwrap();
         println!("{}", line);
-        self.file.write_all(format!("{}\n", line).as_ref()).unwrap();
+        file.write_all(format!("{}\n", line).as_ref()).unwrap();
     }
 }
 
@@ -43,7 +41,6 @@ impl Clone for Logger {
     fn clone(&self) -> Logger {
         return Logger {
             mutex: self.mutex.clone(),
-            file: self.file.try_clone().unwrap(),
         };
     }
 }
