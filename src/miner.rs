@@ -54,7 +54,11 @@ impl Miner {
 
         while self.sync.leader_signal.should_continue() {
             TimeSimulator::simulate_time_between(10, 200);
-            self.data.current_mines += 1;
+            let mine = self.mines_map.get_mine();
+            if mine == 0 {
+                break;
+            }
+            self.data.current_mines += mine;
         }
 
         self.sync.barrier.wait(self.sync.len());

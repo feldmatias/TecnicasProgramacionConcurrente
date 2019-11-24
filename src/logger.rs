@@ -40,7 +40,7 @@ impl Clone for Logger {
      */
     fn clone(&self) -> Logger {
         return Logger {
-            mutex: self.mutex.clone(),
+            mutex: Arc::clone(&self.mutex),
         };
     }
 }

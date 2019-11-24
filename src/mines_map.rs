@@ -29,6 +29,37 @@ impl MinesMap {
             current: Arc::new(Mutex::new(0))
         }
     }
+
+    /**
+    * Start a new round.
+    */
+    pub fn start_round(&self, round_number: usize) -> usize {
+        let mut current = self.current.lock().unwrap();
+        let map = round_number % self.map.len();
+        *current = self.map[map];
+        return *current;
+    }
+
+    /**
+    * Get a mine if available.
+    */
+    pub fn get_mine(&self) -> usize {
+        let mut current = self.current.lock().unwrap();
+        if *current == 0 {
+            return 0;
+        }
+
+        *current -= 1;
+        return 1;
+    }
+
+    /**
+    * Get current amount of mines.
+    */
+    pub fn get_current(&self) -> usize {
+        let current = self.current.lock().unwrap();
+        return *current;
+    }
 }
 
 impl Clone for MinesMap {
@@ -37,8 +68,8 @@ impl Clone for MinesMap {
      */
     fn clone(&self) -> Self {
         return MinesMap {
-            map: self.map.clone(),
-            current: self.current.clone(),
+            map: Arc::clone(&self.map),
+            current: Arc::clone(&self.current),
         }
     }
 }

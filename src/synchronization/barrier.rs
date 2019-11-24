@@ -48,7 +48,7 @@ impl Clone for Barrier {
      */
     fn clone(&self) -> Barrier {
         let barrier = Barrier {
-            barrier: self.barrier.clone(),
+            barrier: Arc::clone(&self.barrier),
             last_value: self.last_value,
         };
         return barrier;

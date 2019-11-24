@@ -39,6 +39,8 @@ impl Leader {
     pub fn start(&mut self) {
         while self.sync.should_continue(LEADER_NUMBER) {
             self.logger.log(format!("Round {} Started", self.sync.current_round));
+            let mines_available = self.mines_map.start_round(self.sync.current_round - 1);
+            self.logger.log(format!("{} mines available", mines_available));
 
             self.let_miners_mine();
             let prizes = self.hear_miners_prize();
@@ -46,6 +48,7 @@ impl Leader {
             self.analyze_results(prizes, loser);
 
             self.logger.log(format!("Round {} Ended", self.sync.current_round));
+            self.logger.log(format!("{} mines left", self.mines_map.get_current()));
             self.logger.log(String::from("--------------------------------------------------"));
             self.sync.end_round();
         }

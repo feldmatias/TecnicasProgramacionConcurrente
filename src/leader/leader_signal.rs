@@ -69,7 +69,7 @@ impl Clone for LeaderSignal {
      */
     fn clone(&self) -> LeaderSignal {
         let signal = LeaderSignal {
-            signal: self.signal.clone()
+            signal: Arc::clone(&self.signal)
         };
         return signal;
     }
