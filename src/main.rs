@@ -7,6 +7,7 @@ use crate::synchronization::SyncInfo;
 
 use self::leader::Leader;
 use self::miner::Miner;
+use crate::mines_map::MinesMap;
 
 pub mod logger;
 
@@ -16,6 +17,7 @@ pub mod leader;
 
 pub mod synchronization;
 pub mod config;
+pub mod mines_map;
 
 /**
  * Main function. Thread and sync resources initialization.
@@ -25,20 +27,22 @@ fn main() {
 
     let logger = Logger::create();
     let mut sync = SyncInfo::initialize(&config);
+    let mines_map = MinesMap::create();
 
     let mut threads = vec![];
 
 
-    let mut leader = Leader::create(sync.data_for(LEADER_NUMBER), logger.clone());
+    let mut leader = Leader::create(sync.data_for(LEADER_NUMBER), mines_map.clone(), logger.clone());
 
 
     for i in 1..config.miners + 1 {
         // Initialize miners
         let sync = (&mut sync).data_for(i);
-        let logger_clone = logger.clone();
+        let logger = logger.clone();
+        let mines_map = mines_map.clone();
 
         let t = thread::spawn(move || {
-            let mut miner = Miner::create(sync, i as usize, logger_clone);
+            let mut miner = Miner::create(sync, i as usize, mines_map, logger);
             miner.start();
         });
 

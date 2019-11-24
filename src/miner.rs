@@ -4,6 +4,7 @@ use crate::logger::Logger;
 use crate::miner::miner_data::MinerData;
 use crate::synchronization::channel::message::{FINAL_RESULT, LOSER, Message, TIE, WINNER};
 use crate::synchronization::SyncData;
+use crate::mines_map::MinesMap;
 
 pub mod miner_data;
 
@@ -14,6 +15,7 @@ pub struct Miner {
     pub logger: Logger,
     pub sync: SyncData,
     pub number: usize,
+    pub mines_map: MinesMap,
     pub data: MinerData,
 }
 
@@ -21,11 +23,12 @@ impl Miner {
     /**
      * Create a miner.
      */
-    pub fn create(sync: SyncData, number: usize, logger: Logger) -> Miner {
+    pub fn create(sync: SyncData, number: usize, mines_map: MinesMap, logger: Logger) -> Miner {
         return Miner {
             logger: logger,
             sync: sync,
             number: number,
+            mines_map: mines_map,
             data: MinerData::default(),
         };
     }

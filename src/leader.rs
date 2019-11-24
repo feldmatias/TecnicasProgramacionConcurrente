@@ -3,6 +3,7 @@ use crate::leader::time_simulator::TimeSimulator;
 use crate::logger::Logger;
 use crate::synchronization::channel::message::{FINAL_RESULT, LOSER, Message, TIE, WINNER};
 use crate::synchronization::SyncData;
+use crate::mines_map::MinesMap;
 
 pub mod leader_signal;
 
@@ -16,6 +17,7 @@ pub const LEADER_NUMBER: usize = 0;
  */
 pub struct Leader {
     pub logger: Logger,
+    pub mines_map: MinesMap,
     pub sync: SyncData,
 }
 
@@ -23,10 +25,11 @@ impl Leader {
     /**
      * Create the leader.
      */
-    pub fn create(sync: SyncData, logger: Logger) -> Leader {
+    pub fn create(sync: SyncData, mines_map: MinesMap, logger: Logger) -> Leader {
         return Leader {
             sync: sync,
             logger: logger,
+            mines_map: mines_map,
         };
     }
 
