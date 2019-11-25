@@ -13,4 +13,6 @@
  
 ## Executable
 cargo build && cp ./target/debug/concu-mining ./concu-mining
+
+
 ./concu-mining --miners 20 --rounds 10
